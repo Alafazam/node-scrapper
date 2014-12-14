@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-node-scrapper
-=============
->>>>>>> 5b6cc7526a37f3e0a915002ffc6700637d132d2f
 Current Goal
 ------
 It has served its purpose, I am no longer working on it !
