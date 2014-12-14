@@ -1,0 +1,15 @@
+We strongly recommend to read following post on suffix trees as a pre-requisite for this post.Pattern Searching | Set 8 (Suffix Tree Introduction)A suffix array is a sorted array of all suffixes of a given string. The definition is similar to Suffix Tree which is compressed trie of all suffixes of the given text. Any suffix tree based algorithm can be replaced with an algorithm that uses a suffix array enhanced with additional information and solves the same problem in the same time complexity (Source Wiki).
+A suffix array can be constructed from Suffix tree by doing a DFS traversal of the suffix tree.  In fact Suffix array and suffix tree both can be constructed from each other in linear time.
+Advantages of suffix arrays over suffix trees include improved space requirements, simpler linear time construction algorithms (e.g., compared to Ukkonen’s algorithm) and improved cache locality (Source: Wiki)Example:Naive method to build Suffix Array
+A simple method to construct suffix array is to make an array of all suffixes and then sort the array.  Following is implementation of simple method.Output:The time complexity of above method to build suffix array is O(n2Logn) if we consider a O(nLogn) algorithm used for sorting.  The sorting step itself takes O(n2Logn) time as every comparison is a comparison of two strings and the comparison takes O(n) time.
+There are many efficient algorithms to build suffix array. We will soon be covering them as separate posts.Search a pattern using the built Suffix Array
+To search a pattern in a text, we preprocess the text and build a suffix array of the text.  Since we have a sorted array of all suffixes, Binary Search can be used to search. Following is the search function. Note that the function doesn’t report all occurrences of pattern, it only report one of them. Output:
+Pattern found at index 2
+The time complexity of the above search function is O(mLogn).  There are more efficient algorithms to search pattern once the suffix array is built. In fact there is a O(m) suffix array based algorithm to search a pattern.  We will soon be discussing efficient algorithm for search.Applications of Suffix Array
+Suffix array is an extremely useful data structure, it can be used for a wide range of problems.  Following are some famous problems where Suffix array can be used.
+1) Pattern Searching
+2) Finding the longest repeated substring
+3) Finding the longest common substring
+4) Finding the longest palindrome in a stringSee this for more problems where Suffix arrays can be used.This post is a simple introduction. There is a lot to cover in Suffix arrays. We have discussed a O(nLogn) algorithm for Suffix Array construction here. We will soon be discussing more efficient suffix array algorithms.References:
+http://www.stanford.edu/class/cs97si/suffix-array.pdf
+http://en.wikipedia.org/wiki/Suffix_arrayPlease write comments if you find anything incorrect, or you want to share more information about the topic discussed aboveTags: Advance Data Structures, Advanced Data Structures, Pattern Searching

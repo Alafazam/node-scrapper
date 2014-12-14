@@ -1,0 +1,2 @@
+What is the time complexity of following function fun()? Assume that log(x) returns log value in base 2. Time Complexity of the above function can be written as  which is Order of growth of  and  is same for large values of , i.e.,  .  So time complexity of fun() is .The expression   can be easily derived from following Stirling’s approximation (or Stirling’s formula).     Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.Sources:
+http://en.wikipedia.org/wiki/Stirling%27s_approximation

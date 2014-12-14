@@ -1,0 +1,18 @@
+
+					We have discussed the problem to detect if two given line segments intersect or not. In this post, we extend the problem.  Here we are given n line segments and we need to find out if any two line segments intersect or not.
+Naive Algorithm A naive solution to solve this problem is to check every pair of lines and check if the pair intersects or not. We can check two line segments in O(1) time. Therefore, this approach takes O(n2).
+Sweep Line Algorithm: We can solve this problem in O(nLogn) time using Sweep Line Algorithm. The algorithm first sorts the end points along the x axis from left to right, then it passes a vertical line through all points from left to right and checks for intersections. Following are detailed steps.
+1) Let there be n given lines. There must be 2n end points to represent the n lines. Sort all points according to x coordinates. While sorting maintain a flag to indicate whether this point is left point of its line or right point.
+2) Start from the leftmost point. Do following for every point
+…..a) If the current point is a left point of its line segment, check for intersection of its line segment with the segments just above and below it. And add its line to active line segments (line segments for which left end point is seen, but right end point is not seen yet).  Note that we consider only those neighbors which are still active.
+….b) If the current point is a right point, remove its line segment from active list and check whether its two active neighbors (points just above and below) intersect with each other.
+The step 2 is like passing a vertical line from all points starting from the leftmost point to the rightmost point. That is why this algorithm is called Sweep Line Algorithm. The Sweep Line technique is useful in many other geometric algorithms like calculating the 2D Voronoi diagram 
+What data structures should be used for efficient implementation?
+In step 2, we need to store all active line segments. We need to do following operations efficiently:
+a) Insert a new line segment
+b) Delete a line segment
+c) Find predecessor and successor according to y coordinate values
+The obvious choice for above operations is Self-Balancing Binary Search Tree like AVL Tree, Red Black Tree. With a Self-Balancing BST, we can do all of the above operations in O(Logn) time.
+Also, in step 1, instead of sorting, we can use min heap data structure. Building a min heap takes O(n) time and every extract min operation takes O(Logn) time (See this).
+PseudoCode:
+The following pseudocode doesn’t use heap. It on 15 Explanation: 

@@ -1,0 +1,248 @@
+
+					Given an unsorted array arr[0..n-1] of size n, find the minimum length subarray arr[s..e] such that sorting this subarray makes the whole array sorted.
+
+Examples:
+1) If the input array is [10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60], your program should be able to find that the subarray lies between the indexes 3 and 8.
+2) If the input array is [0, 1, 15, 25, 6, 7, 30, 40, 50], your program should be able to find that the subarray lies between the indexes 2 and 5.
+Solution:
+1) Find the candidate unsorted subarray 
+a) Scan from left to right and find the first element which is greater than the next element.  Let s be the index of such an element. In the above example 1, s is 3 (index of 30).
+b) Scan from right to left and find the first element (first in right to left order) which is smaller than the next element (next in right to left order).  Let e be the index of such an element. In the above example 1, e is 7 (index of 31).
+2) Check whether sorting the candidate unsorted subarray makes the complete array sorted or not. If not, then include more elements in the subarray.
+a) Find the minimum and maximum values in arr[s..e]. Let minimum and maximum values be min and max. min and max for [30, 25, 40, 32, 31] are 25 and 40 respectively.
+b) Find the first element (if there is any) in arr[0..s-1] which is greater than min,  change s to index of this element. There is no such element in above example 1.
+c) Find the last element (if there is any) in arr[e+1..n-1] which is smaller than max, change e to index of this element. In the above example 1, e is changed to 8 (index of 35)
+3) Print s and e.
+
+Implementation:
+
+
+#include<stdio.h>
+ 
+void printUnsorted(int arr[], int n)
+{
+  int s = 0, e = n-1, i, max, min;   
+ 
+  // step 1(a) of above algo
+  for (s = 0; s < n-1; s++)
+  {
+    if (arr[s] > arr[s+1])
+      break;
+  }
+  if (s == n-1)
+  {
+    printf("The complete array is sorted");
+    return;
+  }
+ 
+  // step 1(b) of above algo
+  for(e = n - 1; e > 0; e--)
+  {
+    if(arr[e] < arr[e-1])
+      break;
+  }
+ 
+  // step 2(a) of above algo
+  max = arr[s]; min = arr[s];
+  for(i = s + 1; i <= e; i++)
+  {
+    if(arr[i] > max)
+      max = arr[i];
+    if(arr[i] < min)
+      min = arr[i];
+  }
+ 
+  // step 2(b) of above algo
+  for( i = 0; i < s; i++)
+  {
+    if(arr[i] > min)
+    {  
+      s = i;
+      break;
+    }      
+  } 
+ 
+  // step 2(c) of above algo
+  for( i = n -1; i >= e+1; i--)
+  {
+    if(arr[i] < max)
+    {
+      e = i;
+      break;
+    } 
+  }  
+     
+  // step 3 of above algo
+  printf(" The unsorted subarray which makes the given array "
+         " sorted lies between the indees %d and %d", s, e);
+  return;
+}
+ 
+int main()
+{
+  int arr[] = {10, 12, 20, 30, 25, 40, 32, 31, 35, 50, 60};
+  int arr_size = sizeof(arr)/sizeof(arr[0]);
+  printUnsorted(arr, arr_size);
+  getchar();
+  return 0;
+}
+
+Time Complexity: O(n)
+Please write comments if you find the above code/algorithm incorrect, or find better ways to solve the same problem.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)K’th Smallest/Largest Element in Unsorted Array | Set 1Time complexity of insertion sort when there are O(n) inversions?How to check if two given sets are disjoint?Minimum Number of Platforms Required for a Railway/Bus StationFind the closest pair from two sorted arraysPrint all elements in sorted order from row and column wise sorted matrixLength of the largest subarray with contiguous elements | Set 1
+ 
+
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName="0" allowTransparency="true" style="border:none; overflow:hidden; width:90px; height:20px"></iframe>
+<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.geeksforgeeks.org/minimum-length-unsorted-subarray-sorting-which-makes-the-complete-array-sorted/" data-text="Find the Minimum length Unsorted Subarray, sorting which makes the complete array sorted" data-count="horizontal" data-via="jakerutter">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js">
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

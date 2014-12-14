@@ -1,0 +1,63 @@
+
+					Modulus operator is costly.
+The modulus operator (%) in various languages is costly operation. Ultimately every operator/operation must result in processor instructions. Some processors won’t have modulus instruction at hardware level, in such case the compilers will insert stubs (predefined functions) to perform modulus. It impacts performance.
+There is simple technique to extract remainder when a number is divided by another number (divisor) that is power of 2? A number that is an exact power of 2 will have only one bit set in it’s binary representation. Consider the following powers of 2 and their binary representations
+2 – 10
+4 – 100
+8 – 1000
+16  – 10000
+Note those zeros in red color, they contribute to remainder in division operation. We can get mask for those zeros by decrementing the divisor by 1.
+Generalizing the above pattern, a number that can be written in 2n form will have only one bit set followed by n zeros on the right side of 1. When a number (N) divided by (2n), the bit positions corresponding to the above mentioned zeros will contribute to the remainder of division operation. An example can make it clear,
+
+N = 87 (1010111 – binary form)
+
+N%2 = N & (2-1) = 1010111 & 1 = 1 = 1
+N%4 = N & (4-1) = 1010111 & 11 = 11 = 3
+
+N%8 = N & (8-1) = 1010111 & 111 = 111 = 7
+
+N%16 = N & (16-1) = 1010111 & 1111 = 111 = 7
+N%32 = N & (32-1) = 1010111 & 11111 = 10111 = 23
+
+Modulus operation over exact powers of 2 is simple and faster bitwise ANDing. This is the reason, programmers usually make buffer length as powers of 2.
+Note that the technique will work only for divisors that are powers of 2.
+An Example:
+Implementation of circular queue (ring buffer) using an array. Omitting one position in the circular buffer implementation can make it easy to distinguish between full and empty conditions. When the buffer reaches SIZE-1, it needs to wrap back to initial position. The wrap back operation can be simple AND operation if the buffer size is power of 2. If we use any other size, we would need to use modulus operation.
+Note:
+Per experts comments, premature optimization is an evil. The optimization techniques provided are to fine tune your code after finalizing design strategy, algorithm, data structures and implementation. We recommend to avoid them at the start of code development. Code readability is key for maintenance.
+Thanks to Venki for writing the above article. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

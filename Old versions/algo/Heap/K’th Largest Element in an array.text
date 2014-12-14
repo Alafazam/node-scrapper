@@ -1,0 +1,59 @@
+
+                     Inorder  traversal of a Binary tree is either be done using recursion or with the use of a auxiliary stack.  The idea of threaded binary trees is to make inorder traversal faster and do it without stack and without recursion. A binary tree is made threaded by making all right child pointers that would normally be NULL point to the inorder successor of the node (if it exists).  
+There are two types of threaded binary trees.
+Single Threaded:  Where a NULL right pointers is made to point to the inorder successor (if successor exists)
+Double Threaded:  Where both left and right NULL pointers are made to point to inorder predecessor and inorder successor respectively.  The predecessor threads are useful for reverse inorder traversal and postorder traversal.
+The threads are also useful for fast accessing ancestors of a node.
+Following diagram shows an example Single Threaded Binary Tree. The dotted lines represent threads.
+
+C representation of a Threaded Node
+Following is C representation of a single threaded node.
+
+struct Node 
+{
+    int data;
+    Node *left, *right;
+    bool rightThread;  
+}
+
+Since right pointer is used for two purposes, the boolean variable rightThread is used to indicate whether right pointer points to right child or inorder successor. Similarly, we can add leftThread for a double threaded binary tree. 
+Inorder Taversal using Threads
+Following is C code for inorder traversal in a threaded binary tree.
+
+// Utility function to find leftmost node in atree rooted with n
+struct Node* leftMost(struct Node *n)
+{
+    if (n == NULL)
+       return NULL;
+
+    while (n->left != NULL)
+        n = n->left;
+
+    return n;
+}
+
+// C code to do inorder traversal in a threadded binary tree
+void inOrder(struct Node *root)
+{
+    struct Node *cur = leftmost(root);
+    while (cur != NULL)
+    {
+        printf("%d ", cur->data);
+
+        // If this node is a thread node, then go to
+        // inorder successor
+        if (cur->rightThread)
+            cur = cur->right;
+        else // Else go to the leftmost child in right subtree
+            cur = leftmost(cur->right);
+    }
+}
+Following diagram demonstrates inorder order traversal using threads.
+
+We will soon be discussing insertion and deletion in threaded binary trees.
+Sources:
+http://en.wikipedia.org/wiki/Threaded_binary_tree
+www.cs.berkeley.edu/~kamil/teaching/su02/080802.ppt
+                    Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+                      
+                     

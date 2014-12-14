@@ -1,0 +1,90 @@
+
+					Input: A array arr[] of two elements having value 0 and 1
+Output:  Make both elements 0. 
+Specifications: Following are the specifications to follow.
+1) It is guaranteed that one element is 0 but we do not know its position.
+2) We can’t say about another element it can be 0 or 1.
+3) We can only complement array elements, no other operation like and, or, multi, division, …. etc.
+4) We can’t use if, else and loop constructs.
+5) Obviously, we can’t directly assign 0 to array elements.
+There are several ways we can do it as we are sure that always one Zero is there.  Thanks to devendraiiit  for suggesting following 3 methods.
+Method 1
+
+void changeToZero(int a[2])
+{
+   a[ a[1] ] = a[ !a[1] ];
+}
+
+int main()
+{
+   int a[] = {1, 0};
+   changeToZero(a);
+
+   printf(" arr[0] = %d \n", a[0]);
+   printf(" arr[1] = %d ", a[1]);
+   getchar();
+   return 0;
+}
+
+Method 2
+
+void changeToZero(int a[2])
+{
+    a[ !a[0] ] = a[ !a[1] ]
+}
+
+Method 3
+This method doesn’t even need complement.
+
+void changeToZero(int a[2])
+{
+    a[ a[1] ] = a[ a[0] ]
+}
+
+Method 4
+Thanks to purvi for suggesting this method.
+
+void changeToZero(int a[2])
+{
+  a[0] = a[a[0]];
+  a[1] = a[0];
+}
+
+There may be many more methods.
+Source: http://geeksforgeeks.org/forum/topic/google-challenge
+Please write comments if you find the above codes incorrect, or find other ways to solve the same problem.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

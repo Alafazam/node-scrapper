@@ -1,0 +1,160 @@
+
+					Given a partially filled 9×9 2D array ‘grid[9][9]’, the goal is to assign digits (from 1 to 9) to the empty cells so that every row, column, and subgrid of size 3×3 contains exactly one instance of the digits from 1 to 9.  
+
+Naive Algorithm
+The Naive Algorithm is to generate all possible configurations of numbers from 1 to 9 to fill the empty cells. Try every configuration one by one until the correct configuration is found.
+Backtracking Algorithm
+Like all other Backtracking problems, we can solve Sudoku by one by one assigning numbers to empty cells. Before assigning a number, we check whether it is safe to assign. We basically check that the same number is not present in current row, current column and current 3X3 subgrid. After checking for safety, we assign the number, and recursively check whether this assignment leads to a solution or not.  If the assignment doesn’t lead to a solution, then we try next number for current empty cell. And if none of number (1 to 9) lead to solution, we return false.
+
+  Find row, col of an unassigned cell
+  If there is none, return true
+  For digits from 1 to 9
+    a) If there is no conflict for digit at row,col
+        assign digit to row,col and recursively try fill in rest of grid
+    b) If recursion successful, return true
+    c) Else, remove digit and try another
+  If all digits have been tried and nothing worked, return false
+
+Following is C++ implementation for Sudoku problem. It prints the completely filled grid as output.
+
+// A Backtracking program  in C++ to solve Sudoku problem
+#include <stdio.h>
+
+// UNASSIGNED is used for empty cells in sudoku grid
+#define UNASSIGNED 0
+
+// N is used for size of Sudoku grid. Size will be NxN
+#define N 9
+
+// This function finds an entry in grid that is still unassigned
+bool FindUnassignedLocation(int grid[N][N], int &row, int &col);
+
+// Checks whether it will be legal to assign num to the given row,col
+bool isSafe(int grid[N][N], int row, int col, int num);
+
+/* Takes a partially filled-in grid and attempts to assign values to
+  all unassigned locations in such a way to meet the requirements
+  for Sudoku solution (non-duplication across rows, columns, and boxes) */
+bool SolveSudoku(int grid[N][N])
+{
+    int row, col;
+
+    // If there is no unassigned location, we are done
+    if (!FindUnassignedLocation(grid, row, col))
+       return true; // success!
+
+    // consider digits 1 to 9
+    for (int num = 1; num <= 9; num++)
+    {
+        // if looks promising
+        if (isSafe(grid, row, col, num))
+        {
+            // make tentative assignment
+            grid[row][col] = num;
+
+            // return, if success, yay!
+            if (SolveSudoku(grid))
+                return true;
+
+            // failure, unmake & try again
+            grid[row][col] = UNASSIGNED;
+        }
+    }
+    return false; // this triggers backtracking
+}
+
+/* Searches the grid to find an entry that is still unassigned. If
+   found, the reference parameters row, col will be set the location
+   that is unassigned, and true is returned. If no unassigned entries
+   remain, false is returned. */
+bool FindUnassignedLocation(int grid[N][N], int &row, int &col)
+{
+    for (row = 0; row < N; row++)
+        for (col = 0; col < N; col++)
+            if (grid[row][col] == UNASSIGNED)
+                return true;
+    return false;
+}
+
+/* Returns a boolean which indicates whether any assigned entry
+   in the specified row matches the given number. */
+bool UsedInRow(int grid[N][N], int row, int num)
+{
+    for (int col = 0; col < N; col++)
+        if (grid[row][col] == num)
+            return true;
+    return false;
+}
+
+/* Returns a boolean which indicates whether any assigned entry
+   in the specified column matches the given number. */
+bool UsedInCol(int grid[N][N], int col, int num)
+{
+    for (int row = 0; row < N; row++)
+        if (grid[row][col] == num)
+            return true;
+    return false;
+}
+
+/* Returns a boolean which indicates whether any assigned entry
+   within the specified 3x3 box matches the given number. */
+bool UsedInBox(int grid[N][N], int boxStartRow, int boxStartCol, int num)
+' value='0'/> 
+    You have completed     
+    questions     
+    question     
+    Your score is     
+    Correct     
+    Wrong     
+    Partial-Credit     
+    You have not finished your quiz. If you leave this page, your progress will be lost.     
+    Correct Answer     
+    You Selected     
+    Not Attempted     
+    Final Score on Quiz     
+    Attempted Questions Correct     
+    Attempted Questions Wrong     
+    Questions Not Attempted     
+    Total Questions on Quiz     
+    Question Details     
+    Results     
+    Date     
+    Score     
+    Hint    
+    Time allowed
+minutes
+seconds
+Time used
+Answer Choice(s) Selected
+Question Text
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    All doneNeed more practice!Keep trying!Not bad!Good work!Perfect!    
+    
+    
+    
+
+  

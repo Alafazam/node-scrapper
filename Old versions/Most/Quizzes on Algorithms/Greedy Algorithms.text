@@ -1,0 +1,201 @@
+
+					We have discussed Backtracking and Knight’s tour problem in Set 1.  Let us discuss Rat in a Maze as another example problem that can be solved using Backtracking.
+A Maze is given as N*N binary matrix of blocks where source block is the upper left most block i.e., maze[0][0] and destination block is lower rightmost block i.e., maze[N-1][N-1].  A rat starts from source and has to reach destination. The rat can move only in two directions: forward and down.
+In the maze matrix, 0 means the block is dead end and 1 means the block can be used in the path from source to destination. Note that this is a simple version of the typical Maze problem. For example, a more complex version can be that the rat can move in 4 directions and a more complex version can be with limited number of moves.
+Following is an example maze.
+ Gray blocks are dead ends (value = 0). 
+
+Following is binary matrix representation of the above maze.
+
+                {1, 0, 0, 0}
+                {1, 1, 0, 1}
+                {0, 1, 0, 0}
+                {1, 1, 1, 1}
+
+Following is maze with highlighted solution path.
+
+Following is the solution matrix (output of program) for the above input matrx.
+
+                {1, 0, 0, 0}
+                {1, 1, 0, 0}
+                {0, 1, 0, 0}
+                {0, 1, 1, 1}
+ All enteries in solution path are marked as 1.
+
+Naive Algorithm
+The Naive Algorithm is to generate all paths from source to destination and one by one check if the generated path satisfies the constraints.
+while there are untried paths
+{
+   generate the next path
+   if this path has all blocks as 1
+   {
+      print this path;
+   }
+}
+Backtrackng Algorithm
+If destination is reached
+    print the solution matrix
+Else
+   a) Mark current cell in solution matrix as 1. 
+   b) Move forward in horizontal direction and recursively check if this 
+       move leads to a solution. 
+   c) If the move chosen in the above step doesn't lead to a solution
+       then move down and check if  this move leads to a solution. 
+   d) If none of the above solutions work then unmark this cell as 0 
+       (BACKTRACK) and return false.
+
+Implementation of Backtracking solution
+
+#include<stdio.h>
+
+// Maze size
+#define N 4 
+
+bool solveMazeUtil(int maze[N][N], int x, int y, int sol[N][N]);
+
+/* A utility function to print solution matticles/sorting/" >Searching and Sorting (10)
+
+
+
+	Programs (35)
+
+	Quizzes (1,865)
+
+	Aptitude (1)
+
+	Computer Science Quizzes (1,863)
+	
+	Algorithms (147)
+
+	C (207)
+
+	C++ (129)
+
+	Computer Organization and Architecture (1)
+
+	Data Structures (132)
+
+	DBMS (2)
+
+	GATE (1,166)
+
+	Java (51)
+
+	Operating Systems (28)
+
+	
+
+	Web technologies (1)
+
+
+
+		
+
+			
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+		
+Recent Discussions
+			
+		
+			
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+		
+	
+			   
+		
+
+		
+		
+		    
+			  Valid XHTML Strict 1.0
+		    
+		    
+		    
+			  Powered by WordPress  & MooTools | MiniMoo 1.3.4
+			  
+		   						                            
+		   
+		   
+        
+		        
+        // <![CDATA[
+        var disqus_shortname = 'geeksquiz';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('data-dsqidentifier'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); 
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        
+        
+
+<p>Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.</p>
+		
+&nbsp;
+&nbsp;
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: Backtracking 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

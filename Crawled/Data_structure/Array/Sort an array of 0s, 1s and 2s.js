@@ -1,0 +1,3 @@
+Question: Write an efficient C program to find smallest and second smallest element in an array.Difficulty Level: Rookie Algorithm:Implementation:Output:
+The smallest element is 1 and second Smallest element is 10
+The same approach can be used to find the largest and second largest elements in an array.Time Complexity: O(n)Please write comments if you find any bug in the above program/algorithm or other ways to solve the same problem.Tags: array

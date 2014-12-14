@@ -1,0 +1,71 @@
+
+					You are given a function rand(a, b) which generates equiprobable random numbers between [a, b] inclusive. Generate 3 numbers x, y, z with probability P(x), P(y), P(z) such that P(x) + P(y) + P(z) = 1 using the given rand(a,b) function.
+The idea is to utilize the equiprobable feature of the rand(a,b) provided. Let the given probabilities be in percentage form, for example P(x)=40%, P(y)=25%, P(z)=35%..
+Following are the detailed steps.
+1) Generate a random number between 1 and 100. Since they are equiprobable, the probability of each number appearing is 1/100.
+2) Following are some important points to note about generated random number ‘r’.
+a) ‘r’ is smaller than or equal to P(x) with probability P(x)/100.
+b) ‘r’ is greater than P(x) and smaller than or equal P(x) + P(y) with P(y)/100.
+c) ‘r’ is greater than P(x) + P(y) and smaller than or equal 100 (or P(x) + P(y) + P(z)) with probability P(z)/100.
+
+// This function generates 'x' with probability px/100, 'y' with 
+// probability py/100  and 'z' with probability pz/100:
+// Assumption: px + py + pz = 100 where px, py and pz lie 
+// between 0 to 100 
+int random(int x, int y, int z, int px, int py, int pz)
+{       
+        // Generate a number from 1 to 100
+        int r = rand(1, 100);
+     
+        // r is smaller than px with probability px/100
+        if (r <= px)
+            return x;
+
+         // r is greater than px and smaller than or equal to px+py 
+         // with probability py/100 
+        if (r <= (px+py))
+            return y;
+
+         // r is greater than px+py and smaller than or equal to 100 
+         // with probability pz/100 
+        else
+            return z;
+}
+
+This function will solve the purpose of generating 3 numbers with given three probabilities.
+This article is contributed by Harsh Agarwal. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

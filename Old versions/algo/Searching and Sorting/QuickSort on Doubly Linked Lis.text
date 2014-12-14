@@ -1,0 +1,209 @@
+
+					Following is a typical recursive implementation of QuickSort for arrays. The implementation uses last element as pivot. 
+
+/* A typical recursive implementation of Quicksort for array*/
+
+/* This function takes last element as pivot, places the pivot element at its
+   correct position in sorted array, and places all smaller (smaller than 
+   pivot) to left of pivot and all greater elements to right of pivot */
+int partition (int arr[], int l, int h)
+{
+    int x = arr[h];
+    int i = (l - 1);
+
+    for (int j = l; j <= h- 1; j++)
+    {
+        if (arr[j] <= x)
+        {
+            i++;
+            swap (&arr[i], &arr[j]);
+        }
+    }
+    swap (&arr[i + 1], &arr[h]);
+    return (i + 1);
+}
+
+/* A[] --> Array to be sorted, l  --> Starting index, h  --> Ending index */
+void quickSort(int A[], int l, int h)
+{
+    if (l < h)
+    {        
+        int p = partition(A, l, h); /* Partitioning index */
+        quickSort(A, l, p - 1);  
+        quickSort(A, p + 1, h);
+    }
+}
+
+Can we use same algorithm for Linked List?
+Following is C++ implementation for doubly linked list.   The idea is simple, we first find out pointer to last node.  Once we have pointer to last node, we can recursively sort the linked list using pointers to first and last nodes of linked list, similar to the above recursive function where we pass indexes of first and last array elements.  The partition function for linked list is also similar to partition for arrays.  Instead of returning index of the pivot element, it returns pointer to the pivot element.  In the following implementation, quickSort() is just a wrapper function, the main recursive function is _quickSort() which is similar to quickSort() for array implementation.
+
+
+// A C++ program to sort a linked list using Quicksort
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+
+/* a node of the doubly linked list */
+struct node
+{
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+
+/* A utility function to swap two elements */
+void swap ( int* a, int* b )
+{   int t = *a;      *a = *b;       *b = t;   }
+
+// A utility function to find last node of linked list
+struct node *lastNode(node *root)
+{
+    while (root && root->next)
+        root = root->next;
+    return root;
+}
+
+/* Considers last element as pivot, places the pivot element at its
+   correct position in sorted array, and places all smaller (smaller than
+   pivot) to left of pivot and all greater elements to right of pivot */
+node* partition(node *l, node *h)
+{
+    // set pivot as h element
+    int x  = h->data;
+
+    // similar to i = l-1 for array implementation
+    node *i = l->prev;
+
+    // Similar to "for (int j = l; j <= h- 1; j++)"
+    for (node *j = l; j != h; j = j->next)
+    {
+        if (j->data <= x)
+        {
+            // Similar to i++ for array
+            i = (i == NULL)? l : i->next;
+
+            swap(&(i->data), &(j->data));
+        }
+    }
+    i = (i == NULL)? l : i->next; // Similar to i++
+    swap(&(i->data), &(h->data));
+    return i;
+}
+
+/* A recursive implementation of quicksort for linked list */
+void _quickSort(struct node* l, struct node *h)
+{
+    if (h != NULL && l != h && l != h->next)
+    {
+        struct node *p = partition(l, h);
+        _quickSort(l, p->prev);
+        _quickSort(p->next, h);
+    }
+}
+
+// The main function to sort a linked list. It mainly calls _quickSort()
+void quickSort(struct node *head)
+{
+    // Find last node
+    struct node *h = lastNode(head);
+
+    // Call the recursive QuickSort
+    _quickSort(head, h);
+}
+
+// A utility function to print contents of arr
+void printList(struct node *head)
+{
+    while (head)
+    {
+        cout << head->data << "  ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+/* Function to insert a node at the beginging of the Doubly Linked List */
+void push(struct node** head_ref, int new_data)
+{
+    struct node* new_node = new node;     /* allocate node */
+    new_node->data  = new_data;
+
+    /* since we are adding at the begining, prev is always NULL */
+    new_node->prev = NULL;
+
+    /* link the old list off the new node */
+    new_node->next = (*head_ref);
+
+    /* change prev of head node to new node */
+    if ((*head_ref) !=  NULL)  (*head_ref)->prev = new_node ;
+
+    /* move the head to point to the new node */
+    (*head_ref)    = new_node;
+}
+
+/* Driver program to test above function */
+int main()
+{
+    struct node *a = NULL;
+    push(&a, 5);
+    push(&a, 20);
+    push(&a, 4);
+    push(&a, 3);
+    push(&a, 30);
+
+    cout << "Linked List before sorting \n";
+    printList(a);
+
+    quickSort(a);
+
+    cout << "Linked List after sorting \n";
+    printList(a);
+
+    return 0;
+}
+
+Output :
+Linked List before sorting
+30  3  4  20  5
+Linked List after sorting
+3  4  5  20  30
+Time Complexity:  Time complexity of the above implementation is same as time complexity of QuickSort() for arrays.  It takes O(n^2) time in worst case and O(nLogn) in average and best cases.  The worst case occurs when the linked list is already sorted.
+Exercise:
+The above implementation is for doubly linked list. Modify it for singly linked list.  Note that we don’t have prev pointer in singly linked list.
+Quicksort can be implemented for Linked List only when we can pick a fixed point as pivot (like last element in above implementation). Random QuickSort cannot be efficiently implemented for Linked Lists.
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Given a linked list, reverse alternate nodes and append at the endPairwise swap elements of a given linked list by changing linksSelf Organizing List | Set 1 (Introduction)Merge a linked list into another linked list at alternate positionsQuickSort on Singly Linked ListDelete N nodes after M nodes of a linked listDesign a stack with operations on middle elementSwap Kth node from beginning with Kth node from end in a Linked List
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

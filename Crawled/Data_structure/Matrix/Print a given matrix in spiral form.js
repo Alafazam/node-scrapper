@@ -1,0 +1,8 @@
+Given k sorted arrays of size n each, merge them and print the sorted output.Example:A simple solution is to create an output array of size n*k and one by one copy all arrays to it.  Finally, sort the output array using any O(nLogn) sorting algorithm.  This approach takes O(nkLognk) time. We can merge arrays in O(nk*Logk) time using Min Heap. Following is detailed algorithm.1. Create an output array of size n*k.
+2. Create a min heap of size k and insert 1st element in all the arrays into a the heap
+3. Repeat following steps n*k times.
+        a) Get minimum element from heap (minimum is always at root) and store it in output array.
+        b) Replace heap root with next element from the array from which the element is extracted.  If the array doesn’t have any more elements, then replace root with infinite.  After replacing the root, heapify the tree.Following is C++ implementation of the above algorithm.Output:
+Merged array is
+1 2 6 9 12 20 23 34 34 90 1000 2000
+Time Complexity:  The main step is 3rd step, the loop runs n*k times. In every iteration of loop, we call heapify which takes O(Logk) time.  Therefore, the time complexity is O(nk Logk).There are other interesting methods to merge k sorted arrays in O(nkLogk), we will sonn be discussing them as separate posts.Thanks to vignesh for suggesting this problem and initial solution. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above

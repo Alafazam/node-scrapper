@@ -1,0 +1,18 @@
+Let us consider the following problem to understand Segment Trees.We have an array arr[0 . . . n-1]. We should be able to
+1 Find the sum of elements from index l to r where 0 
+2 Change value of a specified element of the array arr[i] = x where 0 A simple solution is to run a loop from l to r and calculate sum of elements in given range.  To update a value, simply do arr[i] = x.  The first operation takes O(n) time and second operation takes O(1) time.  Another solution is to create another array and store sum from start to i at the ith index in this array. Sum of a given range can now be calculated in O(1) time, but update operation takes O(n) time now.  This works well if the number of query operations are large and very few updates.What if the number of query and updates are equal? Can we perform both the operations in O(log n) time once given the array? We can use a Segment Tree to do both operations in O(Logn) time.Representation of Segment trees
+1. Leaf Nodes are the elements of the input array.
+2. Each internal node represents some merging of the leaf nodes.  The merging may be different for different problems. For this problem, merging is sum of leaves under a node.An array representation of tree is used to represent Segment Trees. For each node at index i, the left child is at index 2*i+1, right child at 2*i+2 and the parent is at .Construction of Segment Tree from given array
+We start with a segment arr[0 . . . n-1]. and every time we divide the current segment into two halves(if it has not yet become a segment of length 1), and then call the same procedure on both halves, and for each such segment we store the sum in corresponding node.
+All levels of the constructed segment tree will be completely filled except the last level. Also, the tree will be a Full Binary Tree because we always divide segments in two halves at every level. Since the constructed tree is always full binary tree with n leaves, there will be n-1 internal nodes. So total number of nodes will be 2*n – 1.
+Height of the segment tree will be .  Since the tree is represented using array and relation between parent and child indexes must be maintained, size of memory allocated for segment tree will be .Query for Sum of given range
+Once the tree is constructed, how to get the sum using the constructed segment tree.  Following is algorithm to get the sum of elements.Update a value
+Like tree construction and query operations, update can also be done recursively.  We are given an index which needs to updated.  Let diff be the value to be added.   We start from root of the segment tree, and add diff to all nodes which have given index in their range.   If a node doesn’t have given index in its range, we don’t make any changes to that node.Implementation:
+Following is implementation of segment tree.  The program implements construction of segment tree for any given array. It also implements query and update operations.Output:
+ 
+Sum of values in given range = 15
+Updated sum of values in given range = 22
+Time Complexity:
+Time Complexity for tree construction is O(n).  There are total 2n-1 nodes, and value of every node is calculated only once in tree construction.Time complexity to query is O(Logn).  To query a sum, we process at most four nodes at every level and number of levels is O(Logn).  The time complexity of update is also O(Logn). To update a leaf value, we process one node at every level and number of levels is O(Logn).
+Segment Tree | Set 2 (Range Minimum Query)References:
+http://www.cse.iitk.ac.in/users/aca/lop12/slides/06.pdfPlease write comments if you find anything incorrect, or you want to share more information about the topic discussed above.Tags: Advance Data Structures, Advanced Data Structures, SegmentTree

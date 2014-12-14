@@ -1,0 +1,501 @@
+
+					Given a text txt[0..n-1] and a pattern pat[0..m-1], write a function search(char pat[], char txt[]) that prints all occurrences of pat[] and its permutations (or anagrams) in txt[]. You may assume that n > m. 
+Expected time complexity is O(n)
+Examples:
+
+1) Input:  txt[] = "BACDGABCDA"  pat[] = "ABCD"
+   Output:   Found at Index 0
+             Found at Index 5
+             Found at Index 6
+2) Input: txt[] =  "AAABABAA" pat[] = "AABA"
+   Output:   Found at Index 0
+             Found at Index 1
+             Found at Index 4
+This problem is slightly different from standard pattern searching problem, here we need to search for anagrams as well.  Therefore, we cannot directly apply standard pattern searching algorithms like KMP, Rabin Karp, Boyer Moore, etc.
+A simple idea is to modify Rabin Karp Algorithm.  For example we can keep the hash value as sum of ASCII values of all characters under modulo of a big prime number.  For every character of text, we can add the current character to hash value and subtract the first character of previous window.  This solution looks good, but like standard Rabin Karp, the worst case time complexity of this solution is O(mn). The worst case occurs when all hash values match and we one by one match all characters.
+We can achieve O(n) time complexity under the assumption that alphabet size is fixed which is typically true as we have maximum 256 possible characters in ASCII. The idea is to use  two count arrays: 
+1) The first count array store frequencies of characters in pattern.
+2) The second count array stores frequencies of characters in current window of text.
+The important thing to note is, time complexity to compare two count arrays is O(1) as the number of elements in them are fixed (independent of pattern and text sizes).  Following are steps of this algorithm.
+1) Store counts of frequencies of pattern in first count array countP[]. Also store counts of frequencies of characters in first window of text in array countTW[].
+2) Now run a loop from i = M to N-1.  Do following in loop.
+…..a) If the two count arrays are identical, we found an occurrence.
+…..b) Increment count of current character of text in countTW[]
+…..c) Decrement count of first character in previous window in countWT[]
+3) The last window is not checked by above loop, so explicitly check it.
+Following is C++ implementation of above algorithm.
+
+// C++ program to search all anagrams of a pattern in a text
+#include<iostream>
+#include<cstring>
+#define MAX 256
+using namespace std;
+
+// This function returns true if contents of arr1[] and arr2[]
+// are same, otherwise false.
+bool compare(char arr1[], char arr2[])
+{
+   cript')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+
+
+       	
+                      
+    		    
+         		
+                               Home
+                                Latest Questions
+                               Articles
+				C/C++ Programs
+Contribute
+
+
+	Books
+		 	              
+		 	  	   
+			
+				
+				Subscribe				
+			     
+				
+			      
+		 
+			
+		
+		
+
+	
+
+	
+
+			
+
+					
+		
+							
+			
+		
+		
+		
+		
+
+ 
+  
+        
+      
+   
+   
+  
+    
+  Bit Algorithms
+  
+      
+  
+  Please wait while the activity loads. If this activity does not load, try refreshing your browser. Also, this page requires javascript. Please visit using a browser with javascript enabled.  
+  If loading fails, click here to try again  
+  
+    
+  
+
+  
+  
+          Question 1What is the return value of following function for arr[] = {9, 12, 2, 11, 2, 2, 10, 9, 12, 10, 9, 11, 2} and n is size of this array.
+
+
+int fun(int arr[], int n)
+{
+    int x = arr[0];
+    for (int i = 1; i < n; i++)
+        x = x ^ arr[i];
+    return x;
+}
+A0B9C12D2Discuss itQuestion 1 Explanation:  Note that 9 is the only element with odd occurrences, all other elements have even occurrences.
+
+If the input array has all elements with even occurrences except one, then the function returns the only element with odd occurrences.  Note that XORing an element with itself results 0 and XOR of 0 with a number x is equal to x.
+
+Try following complete program.
+
+# include <iostream>
+using namespace std;
+
+int fun(int arr[], int n)
+{
+    int x = arr[0];
+    for (int i = 1; i < n; i++)
+        x = x ^ arr[i];
+    return x;
+}
+
+int main()
+{
+  int arr[] = {9, 12, 2, 11, 10, 9, 12, 10, 9, 11, 2};
+  int n = sizeof(arr)/sizeof(arr[0]);
+  cout << fun(arr, n) << endl;
+  return 0;
+}
+Question 2What does the following C expression do?
+
+x = (x<>1);AMultiplies an integer with 7B
+
+
+
+
+
+						  
+			 					
+			
+								
+				
+						
+        
+					
+ Writing code in comment? Please use ideone.com and share the link here.
+				
+
+    
+
+
+var disqus_url = 'http://www.geeksforgeeks.org/anagram-substring-search-search-permutations/';
+var disqus_identifier = '130280 http://www.geeksforgeeks.org/?p=130280';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'geeksforgeeks';
+var disqus_title = "Anagram Substring Search (Or Search for all permutations)";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All currently supported events:
+    onReady: fires when everything is ready,
+    onNewComment: fires when a new comment is posted,
+    onIdentify: fires when user is authenticated
+    */
+    
+    
+    this.language = '';
+    
+    if (disqus_config_custom) {
+        disqus_config_custom.call(this);
+    }
+};
+
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+
+
+			
+	
+					
+			
+			
+
+		 	
+
+
+	
+ 
+
+
+				
+  (function() {
+    var cx = '009682134359037907028:tj6eafkv_be';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+
+
+
+
+  .gsc-control-cse {
+    font-family: "Trebuchet MS", sans-serif;
+    border-color: #E1F3DA;
+    background-color: #E1F3DA;
+  }
+  input.gsc-input {
+    border-color: #94CC7A;
+  }
+  input.gsc-search-button {
+    border-color: #94CC7A;
+    background-color: #AADA92;
+  }
+  .gsc-tabHeader.gsc-tabhInactive {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gsc-tabHeader.gsc-tabhActive {
+    border-color: #A9DA92;
+    background-color: #A9DA92;
+  }
+  .gsc-tabsArea {
+    border-color: #A9DA92;
+  }
+  .gsc-webResult.gsc-result {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gsc-webResult.gsc-result:hover {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gs-webResult.gs-result a.gs-title:link,
+  .gs-webResult.gs-result a.gs-title:link b {
+    color: #009900;
+  }
+  .gs-webResult.gs-result a.gs-title:visited,
+  .gs-webResult.gs-result a.gs-title:visited b {
+    color: #009900;
+  }
+  .gs-webResult.gs-result a.gs-title:hover,
+  .gs-webResult.gs-result a.gs-title:hover b {
+    color: #003300;
+  }
+  .gs-webResult.gs-result a.gs-title:active,
+  .gs-webResult.gs-result a.gs-title:active b {
+    color: #009900;
+  }
+  .gsc-cursor-page {
+    color: #009900;
+  }
+  a.gsc-trailing-more-results:link {
+    color: #009900;
+  }
+  .gs-webResult.gs-result .gs-snippet {
+    color: #454545;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl {
+    color: #33cc00;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl-short {
+    color: #33cc00;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl-short {
+    display: none;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl-long {
+    display: block;
+  }
+  .gsc-cursor-box {
+    border-color: #A9DA92;
+  }
+  .gsc-results .gsc-cursor-page {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gsc-results .gsc-cursor-page.gsc-cursor-current-page {
+    border-color: #A9DA92;
+    background-color: #A9DA92;
+  }
+  .gs-promotion.gs-result {
+    border-color: #94CC7A;
+    background-color: #CBE8B4;
+  }
+  .gs-promotion.gs-result a.gs-title:link {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result a.gs-title:visited {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result a.gs-title:hover {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result a.gs-title:active {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result .gs-snippet {
+    color: #454545;
+  }
+  .gs-promotion.gs-result .gs-visibleUrl,
+  .gs-promotion.gs-result .gs-visibleUrl-short {
+    color: #815FA7;
+  }
+    
+		
+			
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138031159685820";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+
+		
+			
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+		
+			Interview Experiences
+Advanced Data Structures
+Dynamic Programming
+Greedy Algorithms
+Backtracking
+Pattern Searching
+Divide & Conquer
+Mathematical Algorithms
+Recursion
+Geometric Algorithms
+
+		
+			
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+		
+Popular Posts
+			
+  All permutations of a given string 
+ Memory Layout of C Programs 
+ Understanding “extern” keyword in C 
+Median of two sorted arrays 
+ Tree traversal without recursion and without stack! 
+ Structure Member Alignment, Padding and Data Packing 
+ Intersection point of two Linked Lists 
+ Lowest Common Ancestor in a BST. 
+ Check if a binary tree is BST or not 
+ Sorted Linked List to Balanced BST
+
+		
+			Follow @GeeksforGeeks
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");         
+
+
+
+Subscribe
+
+
+		
+Recent Comments
+			
+		
+			
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+		
+
+					  
+		
+
+		
+		
+		    
+                        @geeksforgeeks, Some rights reserved          Contact Us!
+
+		    
+		    
+		    
+			  Powered by WordPress  & MooTools, customized by geeksforgeeks team 
+			  
+		   						                            
+		   
+		   
+        
+		        
+        // <![CDATA[
+        var disqus_shortname = 'geeksforgeeks';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); 
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        
+        
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d2o58evtke57tz.cloudfront.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d2o58evtke57tz.cloudfront.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+				  
+		 
+         
+
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12148232-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+
+	

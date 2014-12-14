@@ -1,0 +1,44 @@
+
+					An array of size n is given. The array contains digits from 0 to 9. Generate the largest number using the digits in the array such that the number is divisible by 2, 3 and 5.
+For example, if the arrays is {1, 8, 7, 6, 0}, output must be: 8760.  And if the arrays is {7, 7, 7, 6}, output must be: “no number can be formed”.
+Source: Amazon Interview | Set 7
+This problem is a variation of “Find the largest multiple of 3“.
+Since the number has to be divisible by 2 and 5, it has to have last digit as 0. So if the given array doesn’t contain any zero, then no solution exists.
+Once a 0 is available, extract 0 from the given array. Only thing left is, the number should be is divisible by 3 and the largest of all. Which has been discussed here. 
+
+Thanks to shashank  for suggesting this solution. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

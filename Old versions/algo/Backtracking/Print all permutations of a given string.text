@@ -1,0 +1,95 @@
+
+					A permutation, also called an “arrangement number” or “order,” is a rearrangement of the elements of an ordered list S into a one-to-one correspondence with S itself. A string of length n has n! permutation.
+Source: Mathword(http://mathworld.wolfram.com/Permutation.html)
+Below are the permutations of string ABC.
+ABC, ACB, BAC, BCA, CAB, CBA
+Here is a solution using backtracking.
+
+
+# include <stdio.h>
+
+/* Function to swap values at two pointers */
+void swap (char *x, char *y)
+{
+    char temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+}
+ 
+/* Function to print permutations of string
+   This function takes three parameters:
+   1. String
+   2. Starting index of the string
+   3. Ending index of the string. */
+void permute(char *a, int i, int n) 
+{
+   int j; 
+   if (i == n)
+     printf("%s\n", a);
+   else
+   {
+        for (j = i; j <= n; j++)
+       {
+          swap((a+i), (a+j));
+          permute(a, i+1, n);
+          swap((a+i), (a+j)); //backtrack
+       }
+   }
+} 
+
+/* Driver program to test above functions */
+int main()
+{
+   char a[] = "ABC";  
+   permute(a, 0, 2);
+   getchar();
+   return 0;
+}
+
+Output:
+ABC
+ACB
+BAC
+BCA
+CBA
+CAB
+
+Algorithm Paradigm: Backtracking
+Time Complexity:  O(n*n!)
+Please write comments if you find the above codes/algorithms incorrect, or find other ways to solve the same problem.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Suffix Tree Application 5 – Longest Common SubstringGeneralized Suffix Tree 1Suffix Tree Application 4 – Build Linear Time Suffix ArraySuffix Tree Application 3 – Longest Repeated SubstringSuffix Tree Application 2 – Searching All PatternsSuffix Tree Application 1 – Substring CheckUkkonen’s Suffix Tree Construction – Part 6Ukkonen’s Suffix Tree Construction – Part 5
+Tags: Backtracking, MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

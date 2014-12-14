@@ -1,0 +1,119 @@
+
+					Write a function Add() that returns sum of two integers. The function should not use any of the arithmetic operators (+, ++, –, -, .. etc).
+Sum of two bits can be obtained by performing XOR (^) of the two bits. Carry bit can be obtained by performing AND (&) of two bits.
+Above is simple Half Adder logic that can be used to add 2 single bits.  We can extend this logic for integers. If x and y don’t have set bits at same position(s), then bitwise XOR (^) of x and y gives the sum of x and y. To incorporate common set bits also, bitwise AND (&) is used. Bitwise AND of x and y gives all carry bits. We calculate (x & y) << 1 and add it to x ^ y to get the required result.   
+
+#include<stdio.h>
+
+int Add(int x, int y)
+{
+    // Iterate till there is no carry  
+    while (y != 0)
+    {
+        // carry now contains common set bits of x and y
+        int carry = x & y;  
+
+        // Sum of bits of x and y where at least one of the bits is not set
+        x = x ^ y; 
+
+        // Carry is shifted by one so that adding it to x gives the required sum
+        y = carry << 1;
+    }
+    return x;
+}
+
+int main()
+{
+    printf("%d", Add(15, 32));
+    return 0;
+}
+
+Following is recursive implementation for the same approach.
+
+int Add(int x, int y)
+{
+    if (y == 0)
+        return x;
+    else
+        return Add( x ^ y, (x & y) << 1);
+}
+
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('sr-sum array">Construct an array from its pair-sum array</a></li><li><a href="http://geeksquiz.com/infosyss-asked-interview-questions-2/" title="Infosys&#8217;s most asked interview questions">Infosys&#8217;s most asked interview questions</a></li><li><a href="http://geeksquiz.com/compiler-vs-interpreter-2/" title="Compiler vs Interpreter">Compiler vs Interpreter</a></li><li><a href="http://geeksquiz.com/c-program-find-second-frequent-character/" title="C program to find second most frequent character">C program to find second most frequent character</a></li><li><a href="http://geeksquiz.com/microsofts-asked-interview-questions/" title="Microsoft&#8217;s most asked interview questions">Microsoft&#8217;s most asked interview questions</a></li><li><a href="http://geeksquiz.com/amazons-asked-interview-questions/" title="Amazon&#8217;s most asked interview questions">Amazon&#8217;s most asked interview questions</a></li><li><a href="http://geeksquiz.com/accentures-most-asked-technical-interview-questions/" title="Accenture&#8217;s most asked Interview Questions">Accenture&#8217;s most asked Interview Questions</a></li></ul><br></br>
+<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fgeeksquiz.com%2Fdraw-circle-without-floating-point-arithmetic%2F&layout=button_count&show_faces=false&width=90&action=like&colorscheme=light"
+scrolling="no" frameborder="0" allowTransparency="true"
+style="border:none; overflow:hidden; width:90px;
+height:20px"></iframe>
+<a href="http://twitter.com/share" class="twitter-share-button"
+data-url="http://geeksquiz.com/draw-circle-without-floating-point-arithmetic/" data-text="Draw a circle without floating point arithmetic"
+data-count="horizontal" data-via="jakerutter">Tweet</a><script
+type="text/javascript"
+src="http://platform.twitter.com/widgets.js">
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type =
+'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(po, s);
+  })();
+
+
+ 
+ 
+ 
+
+ 
+                 
+
+
+
+
+    
+
+
+var disqus_url = 'http://geeksquiz.com/draw-circle-without-floating-point-arithmetic/';
+var disqus_identifier = '12937 http://geeksquiz.com/?p=12937';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'geeksquiz';
+var disqus_title = "Draw a circle without floating point arithmetic";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All cucript')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

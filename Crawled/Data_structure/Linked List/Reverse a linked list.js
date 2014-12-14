@@ -1,0 +1,2 @@
+Algorithm: Iterate through the linked list and delete all the nodes one by one. Main point here is not to access next of the current pointer if current pointer is deleted.Implementation:Time Complexity: O(n)
+Space Complexity: O(1)Tags: Delete a Linked List, Linked Lists

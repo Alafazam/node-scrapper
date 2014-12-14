@@ -1,0 +1,2 @@
+Given an array that stores a complete Binary Search Tree, write a function that efficiently prints the given array in ascending order. For example, given an array [4, 2, 5, 1, 3], the function should print 1, 2, 3, 4, 5Solution:
+Inorder traversal of BST prints it in ascending order.  The only trick is to modify recursion termination condition in standard Inorder Tree Traversal.Implementation:Time Complexity: O(n)Please write comments if you find the above solution incorrect, or find better ways to solve the same problem. 

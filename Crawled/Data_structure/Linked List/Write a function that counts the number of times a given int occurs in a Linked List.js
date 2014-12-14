@@ -1,0 +1,5 @@
+Given a Linked List and a number n, write a function that returns the value at the nth node from end of the Linked List.Method 1 (Use length of linked list)
+1) Calculate the length of Linked List.  Let the length be len.
+2) Print the (len – n + 1)th node from the begining of the Linked List.Following is a recursive C code for the same method.  Thanks to Anuj Bansal for providing following code.Time Complexity: O(n) where n is the length of linked list.
+Method 2 (Use two pointers) 
+Maintain two pointers – reference pointer and main pointer.  Initialize both reference and main pointers to head.  First move reference pointer to n nodes from head.  Now move both pointers one by one until reference pointer reaches end. Now main pointer will point to nth node from the end. Return main pointer.Implementation:Time Complexity: O(n) where n is the length of linked list.Please write comments if you find the above codes/algorithms incorrect, or find other ways to solve the same problem.Tags: Linked Lists

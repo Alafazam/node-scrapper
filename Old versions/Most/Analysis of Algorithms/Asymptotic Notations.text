@@ -1,0 +1,23 @@
+
+					We have discussed Asymptotic Analysis, and Worst, Average and Best Cases of Algorithms. The main idea of asymptotic analysis is to have a measure of efficiency of algorithms that doesn’t depend on machine specific constants, and doesn’t require algorithms to be implemented and time taken by programs to be compared. Asymptotic notations are mathematical tools to represent time complexity of algorithms for asymptotic analysis. The following 3 asymptotic notations are mostly used to represent time complexity of algorithms.
+1)  Notation: The theta notation bounds a functions from above and below, so it defines exact asymptotic behavior.
+A simple way to get Theta notation of an expression is to drop low order terms and ignore leading constants.  For example, consider the following expression.
+3n3 + 6n2 + 6000 = (n3)
+Dropping lower order terms is always fine because there will always be a n0 after which (n3) beats (n2) irrespective of the constants involved.
+For a given function g(n), we denote (g(n)) is following set of functions.
+
+
+Output:
+5 6 11 12 13
+Time Complexity: O(n*n) 
+Auxiliary Space: O(1)
+Boundary Cases:  Insertion sort takes maximum time to sort if elements are sorted in reverse order. And it takes minimum time (Order of n) when elements are already sorted.
+Algorithmic Paradigm: Incremental Approach
+Sorting In Place: Yes
+Stable: Yes
+Online: Yes
+Uses:  Insertion sort is uses when number of elements is small.  It can also be useful when input array is almost sorted, only few elements are misplaced in complete big array.
+Quizzes: Sorting Questions
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+                      
+                     

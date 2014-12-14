@@ -1,0 +1,18 @@
+
+					Following are common definition of Binomial Coefficients.
+1) A binomial coefficient C(n, k) can be defined as the coefficient of X^k in the expansion of (1 + X)^n.  
+2) A binomial coefficient C(n, k) also gives the number of ways, disregarding order, that k objects can be chosen from among n objects; more formally, the ner 2nd pass, distances are
+c 3, f 0.  
+f is minimum, so shortest distance to f is 0
+
+After 3rd pass, distances are
+c 3, g 3.  
+Both are same, let us take g. so shortest distance to g is 3.
+
+After 4th pass, distances are
+c 3, h 5  
+c is minimum, so shortest distance to c is 3
+
+After 5th pass, distances are
+h  -2
+h is minimum, so shortest distance to h is -2

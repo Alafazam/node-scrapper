@@ -1,0 +1,55 @@
+
+					Suggested by Dheeraj
+
+Question: You are given two numbers A and B. Write a program to count number of bits needed to be flipped to convert A to B. 
+Solution:
+
+  1. Calculate XOR of A and B.      
+        a_xor_b = A ^ B
+  2. Count the set bits in the above calculated XOR result.
+        countSetBits(a_xor_b)
+
+XOR of two number will have set bits only at those places where A differs from B.
+Example:
+
+   A  = 1001001
+   B  = 0010101
+   a_xor_b = 1011100
+   No of bits need to flipped = set bit count in a_xor_b i.e. 4
+
+To get the set bit count please see another post on this portal http://geeksforgeeks.org/?p=1176
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Bit Magic 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

@@ -1,0 +1,5 @@
+Write a C program to find the smallest of three integers, without using any of the comparison operators. Let 3 input numbers be x, y and z.Method 1 (Repeated Subtraction)
+Take a counter variable c and initialize it with 0.  In a loop, repeatedly subtract x, y and z by 1 and increment c.  The number which becomes 0 first is the smallest.  After the loop terminates, c will hold the minimum of 3.This methid doesn’t work for negative numbers.  Method 2 works for negative nnumbers also.
+Method 2 (Use Bit Operations)
+Use method 2 of  this post to find minimum of two numbers (We can’t use Method 1 as Method 1 uses comparison operator).  Once we have functionality to find minimum of 2 numbers, we can use this to find minimum of 3 numbers.Method 3 (Use Division operator)
+We can also use division operator to find minimum of two numbers.  If value of (a/b) is zero, then b is greater than a, else a is greater. Thanks to gopinath and Vignesh for suggesting this method.Please write comments if you find the above codes/algorithms incorrect, or find other ways to solve the same problem.

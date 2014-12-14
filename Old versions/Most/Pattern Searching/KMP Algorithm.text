@@ -1,0 +1,222 @@
+
+                     Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.
+Example:
+First Pass:
+( 5 1 4 2 8 ) –> ( 1 5 4 2 8 ), Here, algorithm compares the first two elements, and swaps since 5 > 1.
+( 1 5 4 2 8 ) –>  ( 1 4 5 2 8 ), Swap since 5 > 4
+( 1 4 5 2 8 ) –>  ( 1 4 2 5 8 ), Swap since 5 > 2
+( 1 4 2 5 8 ) –> ( 1 4 2 5 8 ), Now, since these elements are already in order (8 > 5), algorithm does not swap them.
+Second Pass:
+( 1 4 2 5 8 ) –> ( 1 4 2 5 8 )
+( 1 4 2 5 8 ) –> ( 1 2 4 5 8 ), Swap since 4 > 2
+( 1 2 4 5 8 ) –> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) –>  ( 1 2 4 5 8 )
+Now, the array is already sorted, but our algorithm does not know if it is completed. The algorithm needs one whole pass without any swap to know it is sorted.
+Third Pass:
+( 1 2 4 5 8 ) –> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) –> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) –> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) –> ( 1 2 4 5 8 )
+Following is C implementation of Bubble Sort.
+
+// C program for implementation of Bubble sort
+#include <stdio.h>
+
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+// A function to implement bubble sort
+void bubbleSort(int arr[], int n)
+{
+   int i, j;
+   for (i = 0; i < n; i++)      
+       for (j = 0; j < n-i-1; j++) //Last i elements are already in place  
+           if (arr[j] > arr[j+1])
+              swap(&arr[j], &arr[j+1]);
+}
+
+/* Function to print an array */
+void printArray(int arr[], int size)
+{
+    int i;
+    for (i=0; i < size; i++)
+        printf(&quoeven thread-odd thread-alt depth-1" id="dsq-comment-17615">
+        
+            
+                Rama Krishna Linga
+            
+        
+        
+            Following is the Java version and does not have the issues listed by Ramesh.
+ 
+    // Takes a pattern and returns a new array containing count of
+    // longest proper prefix of pat[i] which is also suffix of pat[i]
+    private static int [] buildLPS(char []pat)
+    {
+        int [] lps = new int[pat.length];
+
+        for (int len=0, i=1; i < pat.length; i++)
+        {
+            if (pat[i] == pat[len])
+            {
+                len++;
+                lps[i] = len;
+                i++;
+            }
+            else
+            {
+                if (len != 0)
+                {
+                    len = lps[len-1];
+                }
+                else
+                {
+                    lps[i++] = 0;
+                }
+            }
+
+        }
+
+        return lps;
+    }
+
+    public static void KMPSearch(char [] text, char []pat)
+    {
+        int [] lps = buildLPS(pat);
+
+        System.out.println("LPS for the given pattern " + pat + " is " + Arrays.toString(lps)) ;
+
+        for(int i=0, j=0; i < text.length;)
+        {
+            if (text[i] == pat[j])
+            {
+                i++;
+                j++;
+
+                if (j == pat.length)
+                {
+                    System.out.println("Found pattern at " + (i-j) );
+                    j = lps[j-1];
+                }
+
+            }
+            else // if (text[i] != pat[j]) // mismatch observed after j matches
+            {
+                if ( j != 0)
+                {
+                    j = lps[j-1];
+                }
+                else
+                    i++;
+            }
+
+        }
+    }
+ 
+
+        
+
+    
+    
+        
+            
+                Ramesh.Mxian
+            
+        
+        
+            I think the code given in the post for 2 method will not work for the following input. 
+Text : ABCAAAABBBABCBCA
+Pattern: ABC
+It will cause segmentation fault in the following line
+// mismatch after j matches
+ else if(pat[j] != txt[i])
+Bect;%d ", arr[i]);
+    printf("\n");
+}
+
+// Driver program to test above functions
+int main()
+{
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    bubbleSort(arr, n);
+    printf("Sorted array: \n");
+    printArray(arr, n);
+    return 0;
+}
+
+Output:
+Sorted array:
+11 12 22 25 34 64 90
+Optimized Implementation:
+The above function always runs O(n^2) time even if the array is sorted.  It can be optimized by stopping the algorithm if inner loop didn’t cause any swap.
+
+// Optimized implementation of Bubble sort
+#include <stdio.h>
+
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+// An optimized version of Bubble Sort
+void bubbleSort(int arr[], int n)
+{
+   int i, j;
+   bool swapped;
+   for (i = 0; i < n; i++)
+   {
+     swapped = false;
+     for (j = 0; j < n-i-1; j++)
+     {
+        if (arr[j] > arr[j+1])
+        {
+           swap(&arr[j], &arr[j+1]);
+           swapped = true;
+        }
+     }
+
+     // IF no two elements were swapped by inner loop, then break
+     if (swapped == false)
+        break;
+   }
+}
+
+/* Function to print an array */
+void printArray(int arr[], int size)
+{
+    int i;
+    for (i=0; i < size; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+// Driver program to test above functions
+int main()
+{
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    bubbleSort(arr, n);
+    printf("Sorted array: \n");
+    printArray(arr, n);
+    return 0;
+}
+
+Output:
+Sorted array:
+11 12 22 25 34 64 90
+Time Complexity: O(n*n)
+Auxiliary Space: O(1)
+Boundary Cases: Bubble sort takes minimum time (Order of n) when elements are already sorted.
+Sorting In Place: Yes
+Stable: Yes
+Due to its simplicity, bubble sort is often used to introduce the concept of a sorting algorithm.
+In computer graphics it is popular for its capability to detect a very small error (like swap of just two elements) in almost-sorted arrays and fix it with just linear complexity (2n). For example, it is used in a polygon filling algorithm, where bounding lines are sorted by their x coordinate at a specific scan line (a line parallel to x axis) and with incrementing y their order changes (two elements are swapped) only at intersections of two lines (Source: Wikipedia)
+Please write comments if you find anything incorrect, or you waause last character in the text ‘A’ will match the 1st character ‘A’ in the pattern then ‘i’ will be incremented to next.
+Now ‘i’ will became the length of the Text given, so Text[i] will give segmentation fault.

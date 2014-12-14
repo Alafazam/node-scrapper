@@ -1,0 +1,173 @@
+
+					We recommend to read following two posts as a prerequisite of this post.
+1. Greedy Algorithms | Set 5 (Prim’s Minimum Spanning Tree (MST))
+2. Graph and its representations
+We have discussed Prim’s algorithm and its implementation for adjacency matrix representation of graphs. The time complexity for the matrix representation is O(V^2). In this post, O(ELogV) algorithm for adjacency list representation is discussed.
+As discussed in the previous post, in Prim’s algorithm, two sets are maintained, one set contains list of vertices already included in MST, other set contains vertices not yet included. With adjacency list representation, all vertices of a graph can be traversed in O(V+E) time using BFS. The idea is to traverse all vertices of graph using BFS and use a Min Heap to store the vertices not yet included in MST. Min Heap is used as a priority queue to get the minimum weight edge from the cut. Min Heap is used as time complexity of operations like extracting minimum element and decreasing key value is O(LogV) in Min Heap.
+Following are the detailed steps.
+1) Create a Min Heap of size V where V is the number of vertices in the given graph. Every node of min heap contains vertex number and key value of the vertex.
+2) Initialize Min Heap with first vertex as root (the key value assigned to first vertex is 0). The key value assigned to all other vertices is INF (infinite).
+3)  While Min Heap is not empty, do following
+…..a) Extract the min value node from Min Heap. Let the extracted vertex be u.
+…..b) For every adjacent vertex v of u, check if v is in Min Heap (not yet included in MST). If v is in Min Heap and its key value is more than weight of u-v, then update the key value of v as weight of u-v.
+Let us understand the above algorithm with the following example:
+
+Initially, key value of first vertex is 0 and INF (infinite) for all other vertices. So vertex 0 is extracted from Min Heap and key values of vertices adjacent to 0 (1 and 7) are updated. Min Heap contains all vertices except vertex 0.
+The vertices in green color are the vertices included in MST.
+
+Since key value of vertex 1 is minimum among all nodes in Min Heap, it is extracted from Min Heap and key values of vertices adjacent to 1 are updated (Key is updated if the a vertex is not in Min Heap and previous key value is greater than the weight of edge from 1 to the adjacent). Min Heap contains all vertices except vertex 0 and 1.
+
+Since key value of vertex 7 is minimum among all nodes in Min Heap, it is extracted from Min Heap and key values of vertices adjacent to 7 are updated (Key is updated if the a vertex is not in Min Heap and previous key value is greater than the weight of edge from 7 to the adjacent). Min Heap contains all vertices except vertex 0, 1 and 7.
+
+Since key value of vertex 6 is minimum among all nodes in Min Heap, it is extracted from Min Heap and key values of vertices adjacent to 6 are updated (Key is updated if the a vertex is not in Min Heap and previous key value is greater than the weight of edge from 6 to the adjacent). Min Heap contains all vertices except vertex 0, 1, 7 and 6.
+
+The above steps are repeated for rest of the nodes in Min Heap till Min Heap becomes empty
+
+
+// C / C++ program for Prim's MST for adjacency list representation of graph
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+// A structure to represent a node in adjacency list
+struct AdjListNode
+{
+    int dest;
+    int weight;
+    struct AdjListNode* next;
+};
+
+// A structure to represent an adjacency liat
+struct AdjList
+{
+    struct AdjListNode *head;  // pointer to head node of list
+};
+
+// A structure to represent a graph. A graph is an array of adjacency lists.
+// Size of array will be V (number of vertices in graph)
+struct Graph
+{
+    int V;
+    struct AdjList* array;
+};
+
+// A utility function to create a new adjacency list node
+struct AdjListNode* newAdjListNode(int dest, int weight)
+{
+    struct AdjListNode* newNode =
+            (struct AdjListNode*) malloc(sizeof(struct AdjListNode));
+    newNode->dest = dest;
+    newNode->weight = weight;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// A utility function that creates a graph of V vertices
+struct Graph* createGraph(int V)
+{
+    struct Graph* graph = (struct Graph*) malloc(sizeof(struct Graph));
+    graph->V = V;
+
+    // Create an array of adjacency lists.  Size of array will be V
+    graph->array = (struct AdjList*) malloc(V * sizeof(struct AdjList));
+
+     // Initialize each adjacency list as empty by making head as NULL
+    for (int i = 0; i < V; ++i)
+        graph->array[i].head = NULL;
+
+    return graph;
+}
+
+// Adds an edge to an undirected graph
+void addEdge(struct Graph* graph, int src, int dest, int weight)
+{
+    // Add an edge from src to dest.  A new node is added to the adjacency
+    // list of src.  The node is added at the begining
+    struct AdjListNode* newNode = newAdjListNode(dest, weight);
+    newNode->next = graph->array[src].head;
+    graph->array[src].head = newNode;
+
+    // Since graph is undirected, add an edge from dest to src also
+    newNode = newAdjListNode(src, weight);
+    newNode->next = graph->array[dest].head;
+    graph->array[dest].head = newNode;
+}
+
+// Structure to represent a min heap node
+struct MinHeapNode
+{
+    int  v;
+    int key;
+};
+
+// Structure to represent a min heap
+struct MinHeap
+{
+    int size;      // Number of heap nodes present currently
+    int capacity;  // Capacity of min heap
+    int *pos;     // This is needed for decreaseKey()
+    struct MinHeapNode **array;
+};
+
+// A utility function to create a new Min Heap Node
+struct MinHeapNode* newMinHeapNode(int v, int key)
+{
+    struct MinHeapNode* minHeapNode =
+           (struct MinHeapNode*) malloc(sizeof(struct MinHeapNode));
+    minHeapNode->v = v;
+    minHeapNode->key = key;
+    return minHeapNode;
+}
+
+// A utilit function to create a Min Heap
+struct MinHeap* createMinHeap(int capacity)
+{
+    struct MinHeap* minHeap =
+         (struct MinHeap*) malloc(sizeof(struct MinHeap));
+    minHeap->pos = (int *)malloc(capacity * sizeof(int));
+    minHeap->size = 0;
+    minHeap->capacity = capacity;
+    minHeap->array =
+         (struct MinHeapNode**) malloc(capacity * sizeof(struct MinHeapNode*));
+    return minHeap;
+}
+
+// A utility function to swap two nodes of min heap. Needed for min heapify
+void swapMinHeapNode(struct MinHeapNode** a, struct MinHeapNode** b)
+{
+    struct MinHeapNode* t = *a;
+    *a = *b;
+    *b = t;
+}
+
+// A standard function to heapify at given idx
+// This function also updates position of nodes when they are swapped.
+// Position is needed for decreaseKey()
+void minHeapify(struct MinHeap* minHeap, int idx)
+{
+    int smallest, left, right;
+    smallest = idx;
+    left = 2 * idx + 1;
+    right = 2 * idx + 2;
+
+    if (left < minHeap->size &&
+        minHeap->array[left]->key < minHeap->array[smallest]->key )
+      smallest = left;
+
+    if (right < minHeap->size &&
+        minHeap->array[right]->key < minHeap->array[smallest]->key )
+      smallest = right;
+
+    if (smallest != idx)
+    {
+        // The nodes to be swapped in min heap
+        MinHeapNode *smallestNode = minHeap->array[smallest];
+        MinHeapNode *idxNode = minHeap->array[idx];
+
+        // Swap positions
+        minHeap->pos[smallestNode->v] = idx;
+        minHeap->pos[idxNode->v] = smallest;
+
+        // Swap nodes
+      bel '>Question 6

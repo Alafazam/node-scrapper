@@ -1,0 +1,20 @@
+We have introduced Linked Lists in the previous post.  We also created a simple linked list with 3 nodes and discussed linked list traversal.In this post, methods to insert a new node in linked list are discussed. A node can be added in three ways
+1) At the front of the linked list
+2) After a given node.
+3) At the end of the linked list.Add a node at the front: (A 4 steps process)
+The new node is always added before the head of the given Linked List.  And newly added node becomes the new head of the Linked List.  For example if the given Linked List is 10->15->20->25 and we add an item 5 at the front, then the Linked List becomes 5->10->15->20->25.  Let us call the function that adds at the front of the list is push(). The push() must receive a pointer to the head pointer, because push must change the head pointer to point to the new node (See this)Following are the 4 steps to add node at the front.Time complexity of push() is O(1) as it does constant amount of work.Add a node after a given node: (5 steps process)
+We are given pointer to a node, and the new node is inserted after the given node. Time complexity of insertAfter() is O(1) as it does constant amount of work.Add a node at the end: (6 steps process)
+The new node is always added after the last node of the given Linked List.  For example if the given Linked List is 5->10->15->20->25 and we add an item 30 at the end, then the Linked List becomes 5->10->15->20->25->30.
+Since a Linked List is typically represented by the head of it, we have to traverse the list till end and then change the next of last node to new node.Following are the 6 steps to add node at the end.  Time complexity of append is O(n) where n is the number of nodes in linked list.  Since there is a loop from head to end, the function does O(n) work.Following is a complete program that uses all of the above methods to create a linked list.Output:
+ Created Linked list is:  1  7  8  6  4
+You may like to try Practice MCQ Questions on Linked ListWe will soon be publishing more posts on Linked Lists.
+
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.Given two lists sorted in increasing order, create and return a new list representing the intersection of the two lists. The new list should be made with its own memory — the original lists should not be changed. For example, let the first linked list be 1->2->3->4->6 and second linked list be 2->4->6->8, then your function should create and return a third list as 2->4->6. Method 1 (Using Dummy Node) 
+The strategy here uses a temporary dummy node as the start of the result list. The pointer tail always points to the last node in the result list, so appending new nodes is easy. The dummy node gives tail something to point to initially when the result list is empty. This dummy node is efficient, since it is only temporary, and it is allocated in the stack. The loop proceeds, removing one node from either ‘a’ or ‘b’, and adding it to tail. When we are done, the result is in dummy.next.Time Complexity: O(m+n) where m and n are number of nodes in first and second linked lists respectively.
+
+Method 2 (Using Local References) 
+This solution is structurally very similar to the above, but it avoids using a dummy node Instead, it maintains a struct node** pointer, lastPtrRef, that always points to the last pointer of the result list. This solves the same case that the dummy node did — dealing with the result list when it is empty. If you are trying to build up a list at its tail, either the dummy node or the  struct node** “reference” strategy can be usedTime Complexity: O(m+n) where m and n are number of nodes in first and second linked lists respectively.
+
+Method 3 (Recursive)
+Below is the recursive implementation of sortedIntersect().  Time Complexity: O(m+n) where m and n are number of nodes in first and second linked lists respectively.Please write comments if you find the above codes/algorithms incorrect, or find better ways to solve the same problem.References:
+cslibrary.stanford.edu/105/LinkedListProblems.pdf

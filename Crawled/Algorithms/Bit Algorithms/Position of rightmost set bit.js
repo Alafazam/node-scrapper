@@ -1,0 +1,147 @@
+On some rare machines where branching is expensive, the below obvious approach to find minimum can be slow as it uses branching.Below are the methods to get minimum(or maximum) without using branching.  Typically, the obvious approach is best, though.Method 1(Use XOR and comparison operator)Minimum of x and y will be
+y ^ ((x ^ y) & -(x < y))
+It works because if x < y, then -(x < y) will be all ones, so r = y ^ (x ^ y) & ~0 = y ^ x ^ y = x. Otherwise, if x >= y, then -(x < y) will be all zeros, so r = y ^ ((x ^ y) & 0) = y. On some machines, evaluating (x < y) as 0 or 1 requires a branch instruction, so there may be no advantage.To find the maximum, use
+x ^ ((x ^ y) & -(x < y));
+
+#include<stdio.h>
+
+/*Function to find minimum of x and y*/
+int min(int x, int y)
+{
+  return y ^ ((x ^ y) & -(x < y));
+}
+
+/*Function to find maximum of x and y*/
+int max(int x, int y)
+{
+  return x ^ ((x ^ y) & -(x < y)); 
+}
+
+/* Driver program to test above functions */
+int main()
+{
+  int x = 15;
+  int y = 6;
+  printf("Minimum of %d and %d is ", x, y);
+  printf("%d", min(x, y));
+  printf("\nMaximum of %d and %d is ", x, y);
+  printf("%d", max(x, y));
+  getchar();
+}
+
+Method 2(Use subtraction and shift)
+If we know that
+INT_MIN 
+, then we can use the following, which are faster because (x - y) only needs to be evaluated once. 
+Minimum of x and y will be
+y + ((x - y) & ((x - y) >>(sizeof(int) * CHAR_BIT - 1)))
+This method shifts the subtraction of x and y by 31 (if size of integer is 32).  If (x-y) is smaller than 0, then (x -y)>>31 will be 1. If (x-y) is greater than or equal to 0, then (x -y)>>31 will be 0.
+So if  x >= y, we get minimum as y + (x-y)&0 which is y.
+If x < y, we get minimum as y + (x-y)&1 which is x.
+Similarly, to find the maximum use
+x - ((x - y) & ((x - y) >> (sizeof(int) * CHAR_BIT - 1)))
+
+#include<stdio.h>
+#define CHAR_BIT 8
+
+/*Function to find minimum of x and y*/
+int min(int x, int y)
+{
+  return  y + ((x - y) & ((x - y) >> 
+            (sizeof(int) * CHAR_BIT - 1))); 
+}
+
+/*Function to find maximum of x and y*/
+int max(int x, int y)
+{
+  return x - ((x - y) & ((x - y) >>
+            (sizeof(int) * CHAR_BIT - 1)));
+}
+
+/* Driver program to test above functions */
+int main()
+{
+  int x = 15;
+  int y = 6;
+  printf("Minimum of %d and %d is ", x, y);
+  printf("%d", min(x, y));
+  printf("\nMaximum of %d and %d is ", x, y);
+  printf("%d", max(x, y));
+  getchar();
+}
+
+Note that the 1989 ANSI C specification doesn't specify the result of signed right-shift, so above method is not portable. If exceptions are thrown on overflows, then the values of x and y should be unsigned or cast to unsigned for the subtractions to avoid unnecessarily throwing an exception, however the right-shift needs a signed operand to produce all one bits when negative, so cast to signed there. 
+Source:
+http://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMax
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Bit Magic 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				, then we can use the following, which are faster because (x - y) only needs to be evaluated once. Minimum of x and y will be
+y + ((x - y) & ((x - y) >>(sizeof(int) * CHAR_BIT - 1)))
+This method shifts the subtraction of x and y by 31 (if size of integer is 32).  If (x-y) is smaller than 0, then (x -y)>>31 will be 1. If (x-y) is greater than or equal to 0, then (x -y)>>31 will be 0.
+So if  x >= y, we get minimum as y + (x-y)&0 which is y.
+If x < y, we get minimum as y + (x-y)&1 which is x.Similarly, to find the maximum use
+x - ((x - y) & ((x - y) >> (sizeof(int) * CHAR_BIT - 1)))
+
+#include<stdio.h>
+#define CHAR_BIT 8
+
+/*Function to find minimum of x and y*/
+int min(int x, int y)
+{
+  return  y + ((x - y) & ((x - y) >> 
+            (sizeof(int) * CHAR_BIT - 1))); 
+}
+
+/*Function to find maximum of x and y*/
+int max(int x, int y)
+{
+  return x - ((x - y) & ((x - y) >>
+            (sizeof(int) * CHAR_BIT - 1)));
+}
+
+/* Driver program to test above functions */
+int main()
+{
+  int x = 15;
+  int y = 6;
+  printf("Minimum of %d and %d is ", x, y);
+  printf("%d", min(x, y));
+  printf("\nMaximum of %d and %d is ", x, y);
+  printf("%d", max(x, y));
+  getchar();
+}
+
+Note that the 1989 ANSI C specification doesn't specify the result of signed right-shift, so above method is not portable. If exceptions are thrown on overflows, then the values of x and y should be unsigned or cast to unsigned for the subtractions to avoid unnecessarily throwing an exception, however the right-shift needs a signed operand to produce all one bits when negative, so cast to signed there. Source:
+http://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMaxTags: Bit Magic

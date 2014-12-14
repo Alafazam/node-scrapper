@@ -1,0 +1,18 @@
+
+					Backtracking is an algorithmic paradigm that tries different solutions until finds a solution that “works”. Problems which are typically solved using backtracking technique have following property in common.  These problems can only be solved by trying every possible configuration and each configuration is tried only once.  A Naive solution for these problems is to try all configurations and output a configuration that follows given problem constraints.  Backtracking works in incremental way and is an optimization over the Naive solution where all possible configurations are generated and tried.
+For example, consider the following Knight’s Tour problem.
+The knight is placed on the first block of an empty board and, moving according to the rules of chess, must visit each square exactly once. 
+Let us first discuss the Naive algorithm for this problem and then the Backtracking algorithm.
+Naive Algorithm for Knight’s tour
+The Naive Algorithm is to generate all tours one by one and check if the generated tour satisfies the constraints. 
+
+while there are untried tours
+{ 
+   generate the next tour 
+   if this tour covers all squares 
+   { 
+      print this path;
+   }
+}
+
+Backtracking works in an incremental way to attack problems.  Typically, we start from an empty solution vector and one by one add items  (Meaning of item varies from problem to problem. In context of Knight’s tour problem, an item is a Knight’s move). When we add an item, we check if adding the current item violates the problem constraint, if it does then we remove the item  and try other alternatives. If none of the alternatives work out then we go to previous stage and remove50&hide_mods=0">

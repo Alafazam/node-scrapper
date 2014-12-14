@@ -1,0 +1,8 @@
+Given a directed graph and two vertices in it, source ‘s’ and destination ‘t’, find out the maximum number of edge disjoint paths from s to t. Two paths are said edge disjoint if they don’t share any edge.There can be maximum two edge disjoint paths from source 0 to destination 7 in the above graph. Two edge disjoint paths are highlighted below in red and blue colors are 0-2-6-7 and 0-3-6-5-7. Note that the paths may be different, but the maximum number is same.  For example, in the above diagram, another possible set of paths is 0-1-2-6-7 and 0-3-6-5-7 respectively.This problem can be solved by reducing it to maximum flow problem.  Following are steps.
+1) Consider the given source and destination as source and sink in flow network. Assign unit capacity to each edge.
+2) Run Ford-Fulkerson algorithm to find the maximum flow from source to sink.
+3) The maximum flow is equal to the maximum number of edge-disjoint paths.When we run Ford-Fulkerson, we reduce the capacity by a unit.  Therefore, the edge can not be used again. So the maximum flow is equal to the maximum number of edge-disjoint paths.Following is C++ implementation of the above algorithm.  Most of the code is taken from  here.  Output:
+
+There can be maximum 2 edge-disjoint paths from 0 to 7 
+Time Complexity: Same as time complexity of Edmonds-Karp implementation of Ford-Fulkerson (See time complexity discussed here)References:
+http://www.win.tue.nl/~nikhil/courses/2012/2WO08/max-flow-applications-4up.pdfPlease write comments if you find anything incorrect, or you want to share more information about the topic discussed aboveTags: Graph

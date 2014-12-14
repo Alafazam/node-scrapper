@@ -1,0 +1,139 @@
+
+					Given an integer array of length N (an arbitrarily large number). How to count number of set bits in the array?
+The simple approach would be, create an efficient method to count set bits in a word (most prominent size, usually equal to bit length of processor), and add bits from individual elements of array.
+Various methods of counting set bits of an integer exists, see this for example. These methods run at best O(logN) where N is number of bits. Note that on a processor N is fixed, count can be done in O(1) time on 32 bit machine irrespective of total set bits. Overall, the bits in array can be computed in O(n) time, where ‘n’ is array size.
+However, a table look up will be more efficient method when array size is large. Storing table look up that can handle 232 integers will be impractical.
+The following code illustrates simple program to count set bits in a randomly generated 64 K integer array. The idea is to generate a look up for first 256 numbers (one byte), and break every element of array at byte boundary. A meta program using C/C++ preprocessor generates the look up table for counting set bits in a byte.
+The mathematical derivation behind meta program is evident from the following table (Add the column and row indices to get the number, then look into the table to get set bits in that number. For example, to get set bits in 10, it can be extracted from row named as 8 and column named as 2),
+   0, 1, 2, 3
+ 0 - 0, 1, 1, 2 -------- GROUP_A(0)
+ 4 - 1, 2, 2, 3 -------- GROUP_A(1)
+ 8 - 1, 2, 2, 3 -------- GROUP_A(1)
+12 - 2, 3, 3, 4 -------- GROUP_A(2)
+16 - 1, 2, 2, 3 -------- GROUP_A(1)
+20 - 2, 3, 3, 4 -------- GROUP_A(2)
+24 - 2, 3, 3, 4 -------- GROUP_A(2)
+28 - 3, 4, 4, 5 -------- GROUP_A(3) ... so on
+From the table, there is a patten emerging in multiples of 4, both in the table as well as in the group parameter. The sequence can be generalized as shown in the code.
+Complexity:
+All the operations takes O(1) except iterating over the array. The time complexity is O(n) where ‘n’ is size of array. Space complexity depends on the meta program that generates look up.
+Code:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+/* Size of array 64 K */
+#define SIZE (1 << 16)
+
+/* Meta program that generates set bit count
+   array of first 256 integers */
+
+/* GROUP_A - When combined with META_LOOK_UP
+   generates count for 4x4 elements */
+
+#define GROUP_A(x) x, x + 1, x + 1, x + 2
+
+/* GROUP_B - When combined with META_LOOK_UP
+   generates count for 4x4x4 elements */
+
+#define GROUP_B(x) GROUP_A(x), GROUP_A(x+1), GROUP_A(x+1), GROUP_A(x+2)
+
+/* GROUP_C - When combined with META_LOOK_UP
+   generates count for 4x4x4x4 elements */
+
+#define GROUP_C(x) GROUP_B(x), GROUP_B(x+1), GROUP_B(x+1), GROUP_B(x+2)
+
+/* Provide appropriate letter to generate the table */
+
+#define META_LOOK_UP(PARAMETER) \
+   GROUP_##PARAMETER(0),  \
+   GROUP_##PARAMETER(1),  \
+   GROUP_##PARAMETER(1),  \
+   GROUP_##PARAMETER(2)   \
+
+int countSetBits(int array[], size_t array_size)
+{
+   int count = 0;
+
+   /* META_LOOK_UP(C) - generates a table of 256 integers whose
+      sequence will be number of bits in i-th position
+      where 0 <= i < 256
+   */
+
+    /* A static table will be much faster to access */
+       static unsigned char const look_up[] = { META_LOOK_UP(C) };
+
+    /* No shifting funda (for better readability) */
+    unsigned char *pData = NULL;
+
+   for(size_t index = 0; index < array_size; index++)
+   {
+      /* It is fine, bypass the type system */
+      pData = (unsigned char *)&array[index];
+
+      /* Count set bits in individual bytes */
+      count += look_up[pData[0]];
+      count += look_up[pData[1]];
+      count += look_up[pData[2]];
+      count += look_up[pData[3]];
+   }
+
+   return count;
+}
+
+/* Driver program, generates table of random 64 K numbers */
+int main()
+{
+   int index;
+   int random[SIZE];
+
+   /* Seed to the random-number generator */
+   srand((unsigned)time(0));
+
+   /* Generate random numbers. */
+   for( index = 0; index < SIZE; index++ )
+   {
+      random[index] = rand();
+   }
+
+   printf("Total number of bits = %d\n", countSetBits(random, SIZE));
+   return 0;
+}
+
+Contributed by Venki. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Divide and Conquer 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

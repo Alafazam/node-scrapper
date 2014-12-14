@@ -1,0 +1,9 @@
+Given an array of integers, sort the array according to frequency of elements. For example, if the input array is {2, 3, 2, 4, 5, 12, 2, 3, 3, 3, 12}, then modify the array to {3, 3, 3, 3, 2, 2, 2, 12, 12, 4, 5}.  
+In the previous post, we have discussed all methods for sorting according to frequency. In this post, method 2 is discussed in detail and C++ implementation for the same is provided.Following is detailed algorithm.
+1) Create a BST and while creating BST maintain the count i,e frequency of each coming element in same BST.  This step may take O(nLogn) time if a self balancing BST is used.
+2) Do Inorder traversal of BST and store every element and count of each element in an auxiliary array. Let us call the auxiliary array as ‘count[]’.  Note that every element of this array is element and frequency pair. This step takes O(n) time.
+3) Sort ‘count[]’ according to frequency of the elements. This step takes O(nLohn) time if a O(nLogn) sorting algorithm is used.
+4) Traverse through the sorted array ‘count[]’.  For each element x, print it ‘freq’ times where ‘freq’ is frequency of x.  This step takes O(n) time.Overall time complexity of the algorithm can be minimum O(nLogn) if we use a O(nLogn) sorting algorithm and use a self balancing BST with O(Logn) insert operation.Following is C++ implementation of the above algorithm.Output:
+3 3 3 3 2 2 2 12 12 5 4
+Exercise:
+The above implementation doesn’t guarantee original order of elements with same frequency (for example, 4 comes before 5 in input, but 4 comes after 5 in output).  Extend the implementation to maintain original order. For example, if two elements have same frequency then print the one which came 1st in input array.This article is compiled by Chandra Prakash. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above

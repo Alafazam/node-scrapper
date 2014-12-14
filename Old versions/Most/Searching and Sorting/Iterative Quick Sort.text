@@ -1,0 +1,40 @@
+
+					Following is a typical recursive implementation of Quick Sort that uses last element as pivot. 
+
+/* A typical recursive implementation of quick sort */
+
+/* This function takes last element as pivot, places the pivot element at its
+   correct position in sorted array, and places all smaller (smaller than pivot)
+   to left of pivot and all greater elements to right of pivot */
+int partition (int arr[], int l, int h)
+{
+    int x = arr[h];
+    int i = (l - 1);
+
+    for (int j = l; j <= h- 1; j++)
+    {
+        if (arr[j] <= x)
+        {
+            i++;
+            swap (&arr[i], &arr[j]);
+        }
+    }
+    swap (&arr[i + 1], &arr[h]);
+    return (i + 1);
+}
+
+/* A[] --> Array to be sorted, l  --> Starting index, h  --> Ending index */
+void quickSort(int A[], int l, int h)
+{
+    if (l < h)
+    {        
+        int p = partition(A, l, h); /* Partitioning index */
+        quickSort(A, l, p - 1);  
+        quickSort(A, p + 1, h);
+    }
+}
+
+The above implementation can be optimized in many ways
+1) The above implementation uses last index as pivot. This causes worst-case behavior on already sorted arrays, which is a commonly occurring case. The problem can be solved by choosing either a random index for the pivot, or choosing the middle index of the partition or choosing the median of the first, middle and last element of the partition for the pivot. (See this for details)
+2) To reduce the recursion depth, recur first for the smaller half of the array, and use a tail call to recurse into the other. 
+3) Insertion sort works better for small subarrays. Insertion sort  can be used for invocations on such small arrays (i.e. where the length is less than a threshold t determined experimentally). For example, Discuss itQuestion 26 Explanation:  This is a trick question.  Note that the questions asks about time complexity, not time taken by the program. for time complexity, it doesn't matter how we store array elements as it always constant or O(1) time to do random access in arrays, the constants may differ for different schemes, but not the time complexity.

@@ -1,0 +1,7 @@
+Given a binary tree, a complete path is defined as a path from root to a leaf. The sum of all nodes on that path is defined as the sum of that path. Given a number K, you have to remove (prune the tree) all nodes which don’t lie in any path with sum>=k. Note: A node can be part of multiple paths. So we have to delete it only in case when all paths from it have sum less than K.We strongly recommend you to minimize the browser and try this yourself first.The idea is to traverse the tree and delete nodes in bottom up manner. While traversing the tree, recursively calculate the sum of nodes from root to leaf node of each path.  For each visited node, checks the total calculated sum against given sum “k”. If sum is less than k, then free(delete) that node (leaf node) and return the sum back to the previous node.  Since the path is from root to leaf and nodes are deleted in bottom up manner, a node is deleted only when all of its descendants are deleted. Therefore, when a node is deleted, it must be a leaf in the current Binary Tree.Following is C implementation of the above approach.Output:
+Tree before truncation
+8 4 13 9 15 14 2 12 5 1 6 3 10 11 7
+
+Tree after truncation
+4 9 15 14 2 1
+Time Complexity: O(n), the solution does a single traversal of given Binary Tree.This article is contributed by Chandra Prakash. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.

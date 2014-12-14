@@ -1,0 +1,11 @@
+Write a program to add one to a given number.  You are not allowed to use operators like ‘+’,  ‘-‘,  ‘*’,  ‘/’, ‘++’, ‘–‘ …etc.Examples:
+Input:  12
+Output: 13Input:  6
+Output: 7Yes, you guessed it right, we can use bitwise operators to achieve this.  Following are different methods to achieve same using bitwise operators.Method 1
+To add 1 to a number x (say 0011000111), we need to flip all the bits after the rightmost 0 bit (we get 0011000000).  Finally, flip the rightmost 0 bit also (we get 0011001000) and we are done.Method 2
+We know that the negative number is represented in 2’s complement form on most of the architectures. We have the following lemma hold for 2’s complement representation of signed numbers.Say, x is numerical value of a number, then~x = -(x+1) [ ~ is for bitwise complement ](x + 1) is due to addition of 1 in 2’s complement conversionTo get (x + 1) apply negation once again. So, the final expression becomes (-(~x)). Example, assume the machine word length is one *nibble* for simplicity.
+And x = 2 (0010),
+~x = ~2 = 1101 (13 numerical)
+-~x = -1101
+Interpreting bits 1101 in 2’s complement form yields numerical value as -(2^4 – 13) = -3. Applying ‘-‘ on the result leaves 3.  Same analogy holds for decrement. See this comment for implementation of decrement.
+Note that this method works only if the numbers are stored in 2’s complement form.Thanks to Venki  for suggesting this method. Please write comments if you find the above code/algorithm incorrect, or find better ways to solve the same problem

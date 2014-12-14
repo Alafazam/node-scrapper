@@ -1,0 +1,12 @@
+Write a C function to return minimum and maximum in an array.  You program should make minimum number of comparisons.  First of all, how do we return multiple values from a C function?   We can do it either using structures or pointers. We have created a structure named pair (which contains min and max) to return multiple values. And the function declaration becomes: struct pair getMinMax(int arr[], int n)  where arr[] is the array of size n whose minimum and maximum are needed.  METHOD 1 (Simple Linear Search)
+Initialize values of min and max as minimum and maximum of the first two elements respectively.  Starting from 3rd, compare each element with max and min, and change max and min accordingly (i.e., if the element is smaller than min then change min, else if the element is greater than max then change max, else ignore the element)Time Complexity:  O(n)In this method, total number of comparisons is 1 + 2(n-2) in worst case and 1 + n – 2 in best case.
+In the above implementation, worst case occurs when elements are sorted in descending order and best case occurs when elements are sorted in ascending order.
+METHOD 2 (Tournament Method)
+Divide the array into two parts and compare the maximums and minimums of the the two parts to get the maximum and the minimum of the the whole array.ImplementationTime Complexity:  O(n)
+Total number of comparisons:  let number of comparisons be T(n).  T(n) can be written as follows:
+Algorithmic Paradigm: Divide and ConquerIf n is a power of 2, then we can write T(n) as:After solving above recursion, we get Thus, the approach does 3/2n -2 comparisons if n is a power of 2.  And it does more than 3/2n -2 comparisons if n is not a power of 2.
+METHOD 3 (Compare in Pairs)
+If n is odd then initialize min and max as first element.
+If n is even then initialize min and max as minimum and maximum of the first two elements respectively.
+For rest of the elements, pick them in pairs and compare their
+maximum and minimum with max and min respectively.Time Complexity:  O(n)Total number of comparisons:  Different for even and odd n, see below:Second and third approaches make equal number of comparisons when n is a power of 2.  In general, method 3 seems to be the best.Please write comments if you find any bug in the above programs/algorithms or a better way to solve the same problem.Tags: Divide and Conquer

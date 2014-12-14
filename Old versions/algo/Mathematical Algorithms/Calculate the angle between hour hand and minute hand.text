@@ -1,0 +1,95 @@
+
+					This problem is know as Clock angle problem where we need to find angle between hands of an analog clock at .
+Examples:
+
+Input:  h = 12:00, m = 30.00
+Output: 165 degree
+
+Input:  h = 3.00, m = 30.00
+Output: 75 degree
+
+The idea is to take 12:00 (h = 12, m = 0) as a reference. Following are detailed steps.
+1) Calculate the angle made by hour hand with respect to 12:00 in h hours and m minutes.
+2) Calculate the angle made by minute hand with respect to 12:00 in h hours and m minutes.
+3) The difference between two angles is the angle between two hands.
+How to calculate the two angles with respect to 12:00? 
+The minute hand moves 360 degree in 60 minute(or 6 degree in one minute) and hour hand moves 360 degree in 12 hours(or 0.5 degree in 1 minute).  In h hours and m minutes, the minute hand would move (h*60 +  m)*6 and hour hand would move (h*60 + m)*0.5.
+
+// C program to find angle between hour and minute hands
+#include <stdio.h>
+#include <stdlib.h>
+
+// Utility function to find minimum of two integers
+int min(int x, int y) { return (x < y)? x: y; }
+
+int calcAngle(double h, double m)
+{
+    // validate the input
+    if (h <0 || m < 0 || h >12 || m > 60)
+        printf("Wrong input");
+
+    if (h == 12) h = 0;
+    if (m == 60) m = 0;
+
+    // Calculate the angles moved by hour and minute hands
+    // with reference to 12:00
+    int hour_angle = 0.5 * (h*60 + m);
+    int minute_angle = 6*m;
+
+    // Find the difference between two angles
+    int angle = abs(hour_angle - minute_angle);
+
+    // Return the smaller angle of two possible angles
+    angle = min(360-angle, angle);
+
+    return angle;
+}
+
+// Driver program to test above function
+int main()
+{
+    printf("%d \n", calcAngle(9, 60));
+    printf("%d \n", calcAngle(3, 30));
+    return 0;
+}
+
+Output:
+90
+75
+Exercise: Find all times when hour and minute hands get superimposed.
+This article is contributed by Ashish Bansal. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

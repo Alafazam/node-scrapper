@@ -1,0 +1,116 @@
+
+					Difficulty Level:  Rookie
+Given a stream of numbers, print average (or mean) of the stream at every point.  For example, let us consider the stream as 10, 20, 30, 40, 50, 60, …
+
+  Average of 1 numbers is 10.00
+  Average of 2 numbers is 15.00
+  Average of 3 numbers is 20.00
+  Average of 4 numbers is 25.00
+  Average of 5 numbers is 30.00
+  Average of 6 numbers is 35.00
+  ..................
+
+To print mean of a stream, we need to find out how to find average when a new number is being added to the stream. To do this, all we need is count of numbers seen so far in the stream, previous average and new number.  Let n be the count, prev_avg be the previous average and x be the new number being added.  The average after including x number can be written as (prev_avg*n + x)/(n+1).
+
+#include <stdio.h>
+
+// Returns the new average after including x
+float getAvg(float prev_avg, int x, int n)
+{
+    return (prev_avg*n + x)/(n+1);
+}
+
+// Prints average of a stream of numbers
+void streamAvg(float arr[], int n)
+{
+   float avg = 0;
+   for(int i = 0; i < n; i++)
+   {
+       avg  = getAvg(avg, arr[i], i);
+       printf("Average of %d numbers is %f \n", i+1, avg);
+   }
+   return;
+}
+
+// Driver program to test above functions
+int main()
+{
+    float arr[] = {10, 20, 30, 40, 50, 60};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    streamAvg(arr, n);
+
+    return 0;
+}
+
+The above function getAvg() can be optimized using following changes. We can avoid the use of prev_avg and number of elements by using static variables (Assuming that only this function is called for average of stream). Following is the oprimnized version.
+
+#include <stdio.h>
+
+// Returns the new average after including x
+float getAvg (int x)
+{
+    static int sum, n;
+
+    sum += x;
+    return (((float)sum)/++n);
+}
+
+// Prints average of a stream of numbers
+void streamAvg(float arr[], int n)
+{
+   float avg = 0;
+   for(int i = 0; i < n; i++)
+   {
+       avg  = getAvg(arr[i]);
+       printf("Average of %d numbers is %f \n", i+1, avg);
+   }
+   return;
+}
+
+// Driver program to test above functions
+int main()
+{
+    float arr[] = {10, 20, 30, 40, 50, 60};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    streamAvg(arr, n);
+
+    return 0;
+}
+
+Thanks to Abhijeet Deshpande for suggesting this optimized version. 
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

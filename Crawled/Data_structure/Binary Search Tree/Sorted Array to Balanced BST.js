@@ -1,0 +1,3 @@
+This is quite simple.  Just traverse the node from root to left recursively until left is NULL. The node whose left is NULL is the node with minimum value. For the above tree, we start with 20, then we move left 8, we keep on moving to left until we see NULL.  Since left of 4 is NULL, 4 is the node with minimum value.
+Time Complexity: O(n)  Worst case happens for left skewed trees.Similarly we can get the maximum value by recursively traversing the right node of a binary search tree.References:
+http://cslibrary.stanford.edu/110/BinaryTrees.html

@@ -1,0 +1,223 @@
+
+					Given two Linked Lists, create union and intersection lists that contain union and intersection of the elements present in the given lists. Order of elments in output lists doesn’t matter.
+Example:
+
+Input:
+   List1: 10->15->4->20
+   lsit2:  8->4->2->10
+Output:
+   Intersection List: 4->10
+   Union List: 2->8->20->4->15->10
+
+Method 1 (Simple)
+Following are simple algorithms to get union and intersection lists respectively.
+Intersection (list1, list2)
+Initialize result list as NULL. Traverse list1 and look for its each element in list2, if the element is present in list2, then add the element to result.
+Union (list1, list2):
+Initialize result list as NULL. Traverse list1 and add all of its elements to the result.
+Traverse list2. If an element of list2 is already present in result then do not insert it to result, otherwise insert.
+This method assumes that there are no duplicates in the given lists.
+Thanks to Shekhu for suggesting this method. Following is C implementation of this method. 
+
+#include<stdio.h>
+#include<stdlib.h>
+
+/* Link list node */
+struct node
+{
+    int data;
+    struct node* next;
+};
+
+/* A utility function to insert a node at the begining of a linked list*/
+void push (struct node** head_ref, int new_data);
+
+/* A utilty function to chec if given data is present in a list */
+bool isPresent (struct node *head, int data);
+
+/* Function to get union of two linked lists head1 and head2 */
+struct node *getUnion (struct node *head1, struct node *head2)
+{
+    struct node *result = NULL;
+    struct node *t1 = head1, *t2 = head2;
+
+    // Insert all elements of list1 to the result list
+    while (t1 != NULL)
+    {
+        push(&result, t1->data);
+        t1 = t1->next;
+    }
+
+    // Insert those elements of list2 which are not present in result list
+    while (t2 != NULL)
+    {
+        if (!isPresent(result, t2->data))
+            push(&result, t2->data);
+        t2 = t2->next;
+    }
+
+    return result;
+}
+
+/* Function to get intersection of two linked lists head1 and head2 */
+struct node *getIntersection (struct node *head1, struct node *head2)
+{
+    struct node *result = NULL;
+    struct node *t1 = head1;
+
+    // Traverse list1 and search each element of it in list2. If the element
+    // is present in list 2, then insert the element to result
+    while (t1 != NULL)
+    {
+        if (isPresent(head2, t1->data))
+            push (&result, t1->data);
+        t1 = t1->next;
+    }
+
+    return result;
+}
+
+/* A utility function to insert a node at the begining of a linked list*/
+void push (struct node** head_ref, int new_data)
+{
+    /* allocate node */
+    struct node* new_node =
+        (struct node*) malloc(sizeof(struct node));
+
+    /* put in the data */
+    new_node->data = new_data;
+
+    /* link the old list off the new node */
+    new_node->next = (*head_ref);
+
+    /* move the head to point to the new node */
+    (*head_ref) = new_node;
+}
+
+/* A utility function to print a linked list*/
+void printList (struct node *node)
+{
+    while (node != NULL)
+    {
+        printf ("%d ", node->data);
+        node = node->next;
+    }
+}
+
+/* A utilty function that returns true if data is present in linked list
+else return false */
+bool isPresent (struct node *head, int data)
+{
+    struct node *t = head;
+    while (t != NULL)
+    {
+        if (t->data == data)
+            return 1;
+        t = t->next;
+    }
+    return 0;
+}
+
+/* Drier program to test above function*/
+int main()
+{
+    /* Start with the empty list */
+    struct node* head1 = NULL;
+    struct node* head2 = NULL;
+    struct node* intersecn = NULL;
+    struct node* unin = NULL;
+
+    /*create a linked lits 10->15->5->20 */
+    push (&head1, 20);
+    push (&head1, 4);
+    push (&head1, 15);
+    push (&head1, 10);
+
+    /*create a linked lits 8->4->2->10 */
+    push (&head2, 10);
+    push (&head2, 2);
+    push (&head2, 4);
+    push (&head2, 8);
+
+    intersecn = getIntersection (head1, head2);
+    unin = getUnion (head1, head2);
+
+    printf ("\n First list is \n");
+    printList (head1);
+
+    printf ("\n Second list is \n");
+    printList (head2);
+
+    printf ("\n Intersection list is \n");
+    printList (intersecn);
+
+    printf ("\n Union list is \n");
+    printList (unin);
+
+    return 0;
+}
+
+Output:
+
+
+ First list is
+10 15 4 20
+ Second list is
+8 4 2 10
+ Intersection list is
+4 10
+ Union list is
+2 8 20 4 15 10
+
+Time Complexity: O(mn) for both union and intersection operations. Here m is the number of elements in first list and n is the number of elements in second list.
+Method 2 (Use Merge Sort)
+In this method, algorithms for Union and Intersection are very similar. First we sort the given lists, then we traverse the sorted lists to get union and intersection.
+Following are the steps to be followed to get union and intersection lists.
+1) Sort the first Linked List using merge sort. This step takes O(mLogm) time. Refer this post for details of this step.
+2) Sort the second Linked List using merge sort. This step takes O(nLogn) time. Refer this post for details of this step.
+3) Linearly scan both sorted lists to get the union and intersection. This step takes O(m + n) time. This step can be implemented using the same algorithm as sorted arrays algorithm discussed here.
+Time complexity of this method is O(mLogm + nLogn) which is better than method 1’s time complexity.
+Method 3 (Use Hashing)
+Union (list1, list2)
+Initialize the result list as NULL and create an empty hash table.  Traverse both lists one by one, for each element being visited, look the element in hash table. If the element is not present, then insert the element to result list.  If the element is present, then ignore it.
+Intersection (list1, list2)
+Initialize the result list as NULL and create an empty hash table.  Traverse list1. For each element being visited in list1, insert the element in hash table.  Traverse list2, for each element being visited in list2, look the element in hash table. If the element is present, then insert the element to result list.  If the element is not present, then ignore it.
+Both of the above methods assume that there are no duplicates.
+Time complexity of this method depends on the hashing technique used and the distribution of elements in input lists.  In practical, this approach may turn out to be better than above 2 methods.
+Source: http://geeksforgeeks.org/forum/topic/union-intersection-of-unsorted-lists
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Given a linked list, reverse alternate nodes and append at the endPairwise swap elements of a given linked list by changing linksSelf Organizing List | Set 1 (Introduction)Merge a linked list into another linked list at alternate positionsQuickSort on Singly Linked ListDelete N nodes after M nodes of a linked listDesign a stack with operations on middle elementSwap Kth node from beginning with Kth node from end in a Linked List
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

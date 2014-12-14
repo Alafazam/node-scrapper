@@ -1,0 +1,310 @@
+
+					We have discussed Overlapping Subproblems and Optimal Substructure properties in Set 1 and Set 2 respectively. We also discussed one example problem in Set 3. Let us discuss Longest Common Subsequence (LCS) problem as one more example problem that can be solved using Dynamic Programming.
+LCS Problem Statement:  Given two sequences, find the length of longest subsequence present in both of them. A subsequence is a sequence that appears in the same relative order, but not necessarily contiguous. For example, “abc”, “abg”, “bdf”, “aeg”, ‘”acefg”, .. etc are subsequences of “abcdefg”.  So a string of length n has 2^n different possible subsequences.
+It is a classic computer science problem, the basis of diff (a file comparison program that outputs the differences between two files), and has applications in bioinformatics.
+Examples:
+LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length 3.
+LCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length 4.
+The naive solution for this problem is to generate all subsequences of both given sequences and find the longest matching subsequence.  This solution is exponential in term of time complexity.  Let us see how this problem possesses both important properties of a Dynamic Programming (DP) Problem. 
+1) Optimal Substructure: 
+Let the input sequences be X[0..m-1] and Y[0..n-1] of lengths m and n respectively. And let L(X[0..m-1],  Y[0..n-1]) be the length of LCS of the two sequences X and Y. Following is the recursive definition of L(X[0..m-1],  Y[0..n-1]).
+If last characters of both sequences match (or X[m-1] == Y[n-1]) then
+L(X[0..m-1],  Y[0..n-1]) =  1 + L(X[0..m-2],  Y[0..n-2])
+If last characters of both sequences do not match (or X[m-1] != Y[n-1]) then
+L(X[0..m-1],  Y[0..n-1]) =  MAX ( L(X[0..m-2],  Y[0..n-1]),   L(X[0..m-1],  Y[0..n-2])
+Examples:
+1) Consider the input strings “AGGTAB” and “GXTXAYB”.  Last characters match for the strings. So length of LCS can be written as:
+L(“AGGTAB”, “GXTXAYB”) = 1 + L(“AGGTA”, “GXTXAY”)
+2) Consider the input strings “ABCDGH” and “AEDFHR. Last characters do not match for the strings.  So length of LCS can be written as:
+L(“ABCDGH”, “AEDFHR”) = MAX ( L(“ABCDG”, “AEDFHR”), L(“ABCDGH”, “AEDFH”) )
+So the LCS problem has optimal substructure property as the main problem can be solved using solutions to subproblems.
+2) Overlapping Subproblems:
+Following is simple recursive implementation of the LCS problem. The implementation simply follows the recursive structure mentioned above.
+
+/* A Naive recursive implementation of LCS problem */
+#include<stdio.h>
+#include<stdlib.h>
+
+int max(int a, int b);
+
+/* Returns length of LCS for X[0..m-1], Y[0..n-1] */
+int lcs( char *X, char *Y, int m, int n )
+{
+   if (m == 0 || n == 0)
+     return 0;
+   if (X[m-1] == Y[n-1])
+     return 1 + lcs(X, Y, m-1, n-1);
+   else
+     return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n));
+}
+
+/* Utility function to get max of 2 integers */
+int max(int a, int b)
+{
+    return (a > b)? a : b;
+}
+
+/* Driver program to test above function */
+int main()
+{
+  char X[] = "AGGTAB";
+  char Y[] = "GXTXAYB";
+
+  int m = strlen(X);
+  int n = strlen(Y);
+
+  printf("Length of LCS is %d\n", lcs( X, Y, m, n ) );
+
+  getchar();
+  return 0;
+}
+
+Time complexity of the above naive recursive approach is O(2^n) in worst case and worst case happens when all characters of X and Y mismatch i.e., length of LCS is 0.
+Considering the above implementation, following is a partial recursion tree for input strings “AXYT” and “AYZX”
+                         lcs("AXYT", "AYZX")
+                       /                 \
+         lcs("AXY", "AYZX")            lcs("AXYT", "AYZ")
+         /            \                  /               \
+lcs("AX", "AYZX") lcs("AXY", "AYZ")   lcs("AXY", "AYZ") lcs("AXYT", "AY")
+In the above partial recursion tree, lcs(“AXYR= false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://d18khu5s3lkxd9.cloudfront.net//wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured fo21;, &#8220;AYZ&#8221;) is being solved twice. If we draw the complete recursion tree, then we can see that there are many subproblems which are solved again and again. So this problem has Overlapping Substructure property and recomputation of same subproblems can be avoided by either using Memoization or Tabulation. Following is a tabulated implementation for the LCS problem. </p>
+<pre class="brush: cpp; highlight: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]; title: ; notranslate" title="">
+/* Dynamic Programming implementation of LCS problem */
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+ 
+int max(int a, int b);
+ 
+/* Returns length of LCS for X[0..m-1], Y[0..n-1] */
+int lcs( char *X, char *Y, int m, int n )
+{
+   int L[m+1][n+1];
+   int i, j;
+ 
+   /* Following steps build L[m+1][n+1] in bottom up fashion. Note 
+      that L[i][j] contains length of LCS of X[0..i-1] and Y[0..j-1] */
+   for (i=0; i&lt;=m; i++)
+   {
+     for (j=0; j&lt;=n; j++)
+     {
+       if (i == 0 || j == 0)
+         L[i][j] = 0;
+ 
+       else if (X[i-1] == Y[j-1])
+         L[i][j] = L[i-1][j-1] + 1;
+ 
+       else
+         L[i][j] = max(L[i-1][j], L[i][j-1]);
+     }
+   }
+   
+   /* L[m][n] contains length of LCS for X[0..n-1] and Y[0..m-1] */
+   return L[m][n];
+}
+ 
+/* Utility function to get max of 2 integers */
+int max(int a, int b)
+{
+    return (a &gt; b)? a : b;
+}
+ 
+/* Driver program to test above function */
+int main()
+{
+  char X[] = &quot;AGGTAB&quot;;
+  char Y[] = &quot;GXTXAYB&quot;;
+ 
+  int m = strlen(X);
+  int n = strlen(Y);
+ 
+  printf(&quot;Length of LCS is %d\n&quot;, lcs( X, Y, m, n ) );
+ 
+  getchar();
+  return 0;
+}
+</pre>
+<p>Time Complexity of the above implementation is O(mn) which is much better than the worst case time complexity of Naive Recursive implementation. </p>
+<p>The above algorithm/code returns only length of LCS.  Please see the following post for printing the LCS.<br />
+<a href="http://www.geeksforgeeks.org/printing-longest-common-subsequence/" target="_blank">Printing Longest Common Subsequence  </a></p>
+<p>Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.</p>
+<p><strong>References: </strong><br />
+<a href="http://www.youtube.com/watch?v=V5hZoJ6uK-s">http://www.youtube.com/watch?v=V5hZoJ6uK-s</a><br />
+<a href="http://www.algorithmist.com/index.php/Longest_Common_Subsequence">http://www.algorithmist.com/index.php/Longest_Common_Subsequence</a><br />
+<a href="http://www.ics.uci.edu/~eppstein/161/960229.html">http://www.ics.uci.edu/~eppstein/161/960229.html</a><br />
+<a href="http://en.wikipedia.org/wiki/Longest_common_subsequence_problem">http://en.wikipedia.org/wiki/Longest_common_subsequence_problem</a></p>
+		
+&nbsp;
+&nbsp;
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: Dynamic Programming 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

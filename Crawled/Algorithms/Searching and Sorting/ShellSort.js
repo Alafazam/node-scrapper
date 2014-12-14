@@ -1,0 +1,3 @@
+Space Complexity:
+The term Space Complexity is misused for Auxiliary Space at many places. Following are the correct definitions of Auxiliary Space and Space Complexity.Auxiliary Space is the extra space or temporary space used by an algorithm.Space Complexity of an algorithm is total space taken by the algorithm with respect to the input size.  Space complexity includes both  Auxiliary space and space used by input.For example, if we want to compare standard sorting algorithms on the basis of space, then Auxiliary Space wout type='hidden' id='mtq_is_correct-20-4-1' value='0'/>
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.

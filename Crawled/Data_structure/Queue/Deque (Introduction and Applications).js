@@ -1,0 +1,13 @@
+Question: Design a Data Structure SpecialStack that supports all the stack operations like push(), pop(), isEmpty(), isFull() and an additional operation getMin() which should return minimum element from the SpecialStack.  All these operations of SpecialStack must be O(1). To implement SpecialStack, you should only use standard Stack data structure and no other data structure like arrays, list, .. etc.  Example:
+Solution: Use two stacks: one to store actual stack elements and other as an auxiliary stack to store minimum values. The idea is to do push() and pop() operations in such a way that the top of auxiliary stack is always the minimum. Let us see how push() and pop() operations work.Push(int x) // inserts an element x to Special Stack 
+1) push x to the first stack (the stack with actual elements)
+2) compare x with the top element of the second stack (the auxiliary stack).  Let the top element be y.
+…..a) If x is smaller than y then push x to the auxiliary stack.
+…..b) If x is greater than y then push y to the auxiliary stack.int Pop() // removes an element from Special Stack and return the removed element 
+1) pop the top element from the auxiliary stack.
+2) pop the top element from the actual stack and return it.The step 1 is necessary to make sure that the auxiliary stack is also updated for future operations.int getMin() // returns the minimum element from Special Stack 
+1) Return the top element of auxiliary stack.We can see that all above operations are O(1).
+Let us see an example.  Let us assume that both stacks are initially empty and 18, 19, 29, 15 and 16 are inserted to the SpecialStack.Following is C++ implementation for SpecialStack class. In the below implementation, SpecialStack inherits from Stack and has one Stack object min which work as auxiliary stack.Output:
+10
+5Space Optimized Version
+The above approach can be optimized. We can limit the number of elements in auxiliary stack. We can push only when the incoming element of main stack is smaller than or equal to top of auxiliary stack.  Similarly during pop, if the pop off element equal to top of auxiliary stack, remove the top element of auxiliary stack. Following is modified implementation of push() and pop().Thanks to @Venki, @swarup and @Jing Huang for their inputs.Please write comments if you find the above code incorrect, or find other ways to solve the same problem.Tags: stack, Stack-Queue, StackAndQueue

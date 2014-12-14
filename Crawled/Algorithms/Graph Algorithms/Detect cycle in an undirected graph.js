@@ -1,0 +1,4 @@
+Write a program to print Binary representation of a given number. Source: Microsoft Interview Set-3 Method 1: Iterative
+For any number, we can check whether its ‘i’th bit is 0(OFF) or 1(ON) by bitwise ANDing it with “2^i” (2 raise to i).Let us take unsigned integer (32 bit), which consist of 0-31 bits. To print binary representation of unsigned integer, start from 31th bit, check whether 31th bit is ON or OFF, if it is ON print “1” else print “0”. Now check whether 30th bit is ON or OFF, if it is ON print “1” else print “0”, do this for all bits from 31 to 0, finally we will get binary representation of number.
+Method 2: Recursive
+Following is recursive method to print binary representation of ‘NUM’.This article is compiled by Narendra Kangralkar. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.

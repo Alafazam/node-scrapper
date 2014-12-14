@@ -1,0 +1,5 @@
+Given an array of n distinct integers sorted in ascending order, write a function that returns a Fixed Point in the array, if there is any Fixed Point present in array, else returns -1.  Fixed Point in an array is an index i such that arr[i] is equal to i. Note that integers in array can be negative. Examples:Asked by rajk Method 1 (Linear Search) 
+Linearly search for an index i such that arr[i] == i. Return the first such index found. Thanks to pm for suggesting this solution.Time Complexity: O(n)
+Method 2 (Binary Search)
+First check whether middle element is Fixed Point or not. If it is, then return it; otherwise check whether index of middle element is greater than value at the index. If index is greater, then Fixed Point(s) lies on the right side of the middle point (obviously only if there is a Fixed Point).  Else the Fixed Point(s) lies on left side.Algorithmic Paradigm: Divide & Conquer
+Time Complexity: O(Logn)Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.Tags: Divide and Conquer

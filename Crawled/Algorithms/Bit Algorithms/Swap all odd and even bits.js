@@ -1,0 +1,5 @@
+Asked by SG
+Given an array in which all numbers except two are repeated once. (i.e. we have 2n+2 numbers and n numbers are occurring twice and remaining two have occurred once). Find those two numbers in the most efficient way.Method 1(Use Sorting)
+First sort all the elements.  In the sorted array, by comparing adjacent elements we can easily get the non-repeating elements. Time complexity of this method is O(nLogn)Method 2(Use XOR)
+Let x and y be the non-repeating elements we are looking for and arr[] be the input array. First calculate the XOR of all the array elements.All the bits that are set in xor will be set in one non-repeating element (x or y) and not in other. So if we take any set bit of xor and divide the elements of the array in two sets – one set of elements with same bit set and other set with same bit not set.  By doing so, we will get x in one set and y in another set.  Now if we do XOR of all the elements in first set, we will get first non-repeating element, and by doing same in other set we will get the second non-repeating element.Implementation:Time Complexity: O(n)
+Auxiliary Space: O(1)Tags: Bit Magic

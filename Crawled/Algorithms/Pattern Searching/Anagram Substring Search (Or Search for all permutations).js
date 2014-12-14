@@ -1,0 +1,8 @@
+Given a set of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum.Let isSubSetSum(int set[], int n, int sum) be the function to find whether there is a subset of set[] with sum equal to sum.  n is the number of elements in set[].The isSubsetSum problem can be divided into two subproblems
+…a) Include the last element, recur for n = n-1, sum = sum – set[n-1]
+…b) Exclude the last element, recur for n = n-1.
+If any of the above the above subproblems return true, then return true. Following is the recursive formula for isSubsetSum() problem.Following is naive recursive implementation that simply follows the recursive structure mentioned above.Output:
+ Found a subset with given sum 
+The above solution may try all subsets of given set in worst case. Therefore time complexity of the above solution is exponential. The problem is in-fact NP-Complete (There is no known polynomial time solution for this problem).We can solve the problem in Pseudo-polynomial time using Dynamic programming.  We create a boolean 2D table subset[][] and fill it in bottom up manner. The value of subset[i][j] will be true if there is a subset of set[0..j-1] with sum equal to i., otherwise false. Finally, we return subset[sum][n]Output:
+Found a subset with given sum
+Time complexity of the above solution is O(sum*n).Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.Tags: Dynamic Programming

@@ -1,0 +1,129 @@
+
+					Given a number x, find next number with same number of 1 bits in it’s binary representation.
+For example, consider x = 12, whose binary representation is 1100 (excluding leading zeros on 32 bit machine). It contains two logic 1 bits. The next higher number with two logic 1 bits is 17 (100012).
+Algorithm:
+When we observe the binary sequence from 0 to 2n – 1 (n is # of bits), right most bits (least significant) vary rapidly than left most bits. The idea is to find right most string of 1’s in x, and shift the pattern to right extreme, except the left most bit in the pattern. Shift the left most bit in the pattern (omitted bit) to left part of x by one position. An example makes it more clear,
+x = 156
+10
+x = 10011100
+(2)
+10011100
+00011100 - right most string of 1's in x
+00000011 - right shifted pattern except left most bit ------> [A]
+00010000 - isolated left most bit of right most 1's pattern
+00100000 - shiftleft-ed the isolated bit by one position ------> [B]
+10000000 - left part of x, excluding right most 1's pattern ------> [C]
+10100000 - add B and C (OR operation) ------> [D]
+10100011 - add A and D which is required number 163
+(10)
+After practicing with few examples, it easy to understand. Use the below given program for generating more sets.
+Program Design:
+We need to note few facts of binary numbers. The expression x & -x will isolate right most set bit in x (ensuring x will use 2’s complement form for negative numbers). If we add the result to x, right most string of 1’s in x will be reset, and the immediate ‘0’ left to this pattern of 1’s will be set, which is part [B] of above explanation. For example if x = 156, x & -x will result in 00000100, adding this result to x yields 10100000 (see part D). We left with the right shifting part of pattern of 1’s (part A of above explanation).
+There are different ways to achieve part A. Right shifting is essentially a division operation. What should be our divisor? Clearly, it should be multiple of 2 (avoids 0.5 error in right shifting), and it should shift the right most 1’s pattern to right extreme. The expression (x & -x) will serve the purpose of divisor. An EX-OR operation between the number X and expression which is used to reset right most bits, will isolate the rightmost 1’s pattern.
+A Correction Factor:
+Note that we are adding right most set bit to the bit pattern. The addition operation causes a shift in the bit positions. The weight of binary system is 2, one shift causes an increase by a factor of 2. Since the increased number (rightOnesPattern in the code) being used twice, the error propagates twice. The error needs to be corrected. A right shift by 2 positions will correct the result.
+The popular name for this program is same number of one bits.
+
+#include<iostream>
+
+using namespace std;
+
+typedef unsigned int uint_t;
+
+// this function returns next higher number with same number of set bits as x.
+uint_t snoob(uint_t x)
+{
+
+  uint_t rightOne;
+  uint_t nextHigherOneBit;
+  uint_t rightOnesPattern;
+
+  uint_t next = 0;
+
+  if(x)
+  {
+
+    // right most set bit
+    rightOne = x & -(signed)x;
+
+    // reset the pattern and set next higher bit
+    // left part of x will be here
+    nextHigherOneBit = x + rightOne;
+
+    // nextHigherOneBit is now part [D] of the above explanation.
+
+    // isolate the pattern
+    rightOnesPattern = x ^ nextHigherOneBit;
+
+    // right adjust pattern
+    rightOnesPattern = (rightOnesPattern)/rightOne;
+
+    // correction factor
+    rightOnesPattern >>= 2;
+
+    // rightOnesPattern is now part [A] of the above explanation.
+
+    // integrate new pattern (Add [D] and [A])
+    next = nextHigherOneBit | rightOnesPattern;
+  }
+
+  return next;
+}
+
+int main()
+{
+  int x = 156;
+  cout<<"Next higher number with same number of set bits is "<<snoob(x);
+
+  getchar();
+  return 0;
+}
+
+Usage: Finding/Generating subsets.
+Variations:
+
+Write a program to find a number immediately smaller than given, with same number of logic 1 bits? (Pretty simple)
+How to count or generate the subsets available in the given set?
+
+References:
+
+A nice presentation here.
+Hackers Delight by Warren (An excellent and short book on various bit magic algorithms, a must for enthusiasts)
+C A Reference Manual by Harbison and Steele (A good book on standard C, you can access code part of this post here).
+
+– Venki. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

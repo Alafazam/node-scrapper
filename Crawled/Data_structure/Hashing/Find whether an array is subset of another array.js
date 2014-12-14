@@ -1,0 +1,4 @@
+I recently encountered with a question in an interview at e-commerce company.  The interviewer asked the following question:There is BST given with root node with key part as integer only. The structure of each node is as follows:You need to find the inorder successor and predecessor of a given key. In case the given key is not found in BST, then return the two values within which this key will lie.Following is the algorithm to reach the desired result. Its a recursive method:Following is C++ implementation of the above algorithm:Output:
+Predecessor is 60
+Successor is 70
+This article is contributed by algoLover.  Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.

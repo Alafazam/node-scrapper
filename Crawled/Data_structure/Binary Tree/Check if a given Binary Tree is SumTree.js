@@ -1,0 +1,3 @@
+Using Stack is the obvious way to traverse tree without recursion.  Below is an algorithm for traversing binary tree using stack.  See this  for step wise step execution of the algorithm. Let us consider the below tree for exampleImplementation:Time Complexity: O(n)References:
+http://web.cs.wpi.edu/~cs2005/common/iterative.inorder
+http://neural.cs.nthu.edu.tw/jang/courses/cs2351/slide/animation/Iterative%20Inorder%20Traversal.ppsSee this post for another approach of Inorder Tree Traversal without recursion and without stack!Please write comments if you find any bug in above code/algorithm, or want to share more information about stack based Inorder Tree Traversal. Tags: Tree Traveral

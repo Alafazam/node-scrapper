@@ -1,0 +1,9 @@
+Given an unsorted array arr[] and two numbers x and y, find the minimum distance between x and y in arr[]. The array might also contain duplicates. You may assume that both x and y are different and present in arr[].Examples:
+Input: arr[] = {1, 2}, x = 1, y = 2
+Output: Minimum distance between 1 and 2 is 1.Input: arr[] = {3, 4, 5}, x = 3, y = 5
+Output: Minimum distance between 3 and 5 is 2.Input: arr[] = {3, 5, 4, 2, 6, 5, 6, 6, 5, 4, 8, 3},  x = 3, y = 6
+Output: Minimum distance between 3 and 6 is 4.Input: arr[] = {2, 5, 3, 5, 4, 4, 2, 3},  x = 3, y = 2
+Output: Minimum distance between 3 and 2 is 1.Method 1 (Simple)
+Use two loops: The outer loop picks all the elements of arr[] one by one. The inner loop picks all the elements after the element picked by outer loop. If the elements picked by outer and inner loops have same values as x or y then if needed update the minimum distance calculated so far.Output:  Minimum distance between 3 and 6 is 4Time Complexity: O(n^2)Method 2 (Tricky)
+1) Traverse array from left side and stop if either x or y are found. Store index of this first occurrrence in a variable say prev
+2) Now traverse arr[] after the index prev.  If the element at current index i matches with either x or y then check if it is different from  arr[prev].  If it is different then update the minimum distance if needed.  If it is same then update prev i.e., make prev = i.Thanks to wgpshashank for suggesting this approach.Output:  Minimum distance between 3 and 6 is 1Time Complexity: O(n)Please write comments if you find the above codes/algorithms incorrect, or find other ways to solve the same problem.

@@ -1,0 +1,123 @@
+
+					Write an efficient program to count number of 1s in binary representation of an integer.
+
+1. Simple Method Loop through all bits in an integer, check if a bit is set and if it is then increment the set bit count.  See below program.
+
+/* Function to get no of set bits in binary
+   representation of passed binary no. */
+int countSetBits(unsigned int n)
+{
+  unsigned int count = 0;
+  while(n)
+  {
+    count += n & 1;
+    n >>= 1;
+  }
+  return count;
+}
+
+/* Program to test function countSetBits */
+int main()
+{
+    int i = 9;
+    printf("%d", countSetBits(i));
+    getchar();
+    return 0;
+}
+
+Time Complexity:  (-)(logn) (Theta of logn)
+2. Brian Kernighan’s Algorithm:
+Subtraction of 1 from a number toggles all the bits (from right to left) till the rightmost set bit(including the righmost set bit).  So if we subtract a number by 1 and do bitwise & with itself (n & (n-1)), we unset the righmost set bit.  If we do n & (n-1) in a loop and count the no of times loop executes we get the set bit count.
+Beauty of the this solution is number of times it loops is equal to the number of set bits in a given integer.
+ 
+   1  Initialize count: = 0
+   2  If integer n is not zero
+      (a) Do bitwise & with (n-1) and assign the value back to n
+          n: = n&(n-1)
+      (b) Increment count by 1
+      (c) go to step 2
+   3  Else return count
+ 
+Implementation of Brian Kernighan’s Algorithm:
+
+#include<stdio.h>
+
+/* Function to get no of set bits in binary
+   representation of passed binary no. */
+int countSetBits(int n)
+{
+    unsigned int count = 0;
+    while (n)
+    {
+      n &= (n-1) ;
+      count++;
+    }
+    return count;
+}
+
+/* Program to test function countSetBits */
+int main()
+{
+    int i = 9;
+    printf("%d", countSetBits(i));
+    getchar();
+    return 0;
+}
+
+Example for Brian Kernighan’s Algorithm: 
+
+   n =  9 (1001)
+   count = 0
+
+   Since 9 > 0, subtract by 1 and do bitwise & with (9-1)
+   n = 9&8  (1001 & 1000)
+   n = 8
+   count  = 1
+
+   Since 8 > 0, subtract by 1 and do bitwise & with (8-1)
+   n = 8&7  (1000 & 0111)
+   n = 0
+   count = 2
+
+   Since n = 0, return count which is 2 now.
+
+Time Complexity:  O(logn)
+3. Using Lookup table:   We can count bits in O(1) time using lookup table. Please see http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetTable for details.
+You can find one use of counting set bits at http://geeksforgeeks.org/?p=1465
+References:
+http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetNaive
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Bit Magic, setBitCount 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

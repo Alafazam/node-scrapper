@@ -1,0 +1,160 @@
+
+					Given an array of numbers of size n. It is also given that the array elements are in range from 0 to n2 – 1. Sort the given array in linear time.
+
+Examples:
+Since there are 5 elements, the elements can be from 0 to 24.
+Input: arr[] = {0, 23, 14, 12, 9}
+Output: arr[] = {0, 9, 12, 14, 23}
+
+Since there are 3 elements, the elements can be from 0 to 8.
+Input: arr[] = {7, 0, 2}
+Output: arr[] = {0, 2, 7}
+
+We strongly recommend to minimize the browser and try this yourself first.
+Solution: If we use Counting Sort, it would take O(n^2) time as the given range is of size n^2. Using any comparison based sorting like Merge Sort, Heap Sort, .. etc would take O(nLogn) time.
+Now question arises how to do this in 0(n)? Firstly, is it possible? Can we use data given in question? n numbers in range from 0 to n2 – 1?
+The idea is to use  Radix Sort.  Following is standard Radix Sort algorithm.
+
+1) Do following for each digit i where i varies from least 
+   significant digit to the most significant digit.
+…………..a) Sort input array using counting sort (or any stable 
+         sort) according to the i’th digit
+
+Let there be d digits in input integers.  Radix Sort takes O(d*(n+b)) time where b is the base for representing numbers, for example, for decimal system, b is 10.  Since n2-1 is the maximum possible value, the value of d would be . So overall time complexity is . Which looks more than the time complexity of comparison  based sorting algorithms for a large k. The idea is to change base b. If we set b as n, the value of  becomes O(1) and overall time complexity becomes O(n).  
+
+arr[] = {0, 10, 13, 12, 7}
+
+Let us consider the elements in base 5. For example 13 in
+base 5 is 23, and 7 in base 5 is 12.
+arr[] = {00(0), 20(10), 23(13), 22(12), 12(7)}
+
+After first iteration (Sorting according to the last digit in 
+base 5),  we get.
+arr[] = {00(0), 20(10), 12(7), 22(12), 23(13)}
+
+After second iteration, we get
+arr[] = {00(0), 12(7), 20(10), 22(12), 23(13)}
+
+Following is C++ implementation to sort an array of size n where elements are in range from 0 to n2 – 1.
+
+#include<iostream>
+using namespace std;
+
+// A function to do counting sort of arr[] according to
+// the digit represented by exp.
+int countSort(int arr[], int n, int exp)
+{
+
+    int output[n]; // output array
+    int i, count[n] ;
+    for (int i=0; i < n; i++)
+       count[i] = 0;
+
+    // Store count of occurrences in count[]
+    for (i = 0; i < n; i++)
+        count[ (arr[i]/exp)%n ]++;
+
+    // Change count[i] so that count[i] now contains actual
+    // position of this digit in output[]
+    for (i = 1; i < n; i++)
+        count[i] += count[i - 1];
+
+    // Build the output array
+    for (i = n - 1; i >= 0; i--)
+    {
+        output[count[ (arr[i]/exp)%n] - 1] = arr[i];
+        count[(arr[i]/exp)%n]--;
+    }
+
+    // Copy the output array to arr[], so that arr[] now
+    // contains sorted numbers according to curent digit
+    for (i = 0; i < n; i++)
+        arr[i] = output[i];
+}
+
+
+// The main function to that sorts arr[] of size n using Radix Sort
+void sort(int arr[], int n)
+{
+    // Do counting sort for first digit in base n. Note that
+    // instead of passing digit number, exp (n^0 = 0) is passed.
+    countSort(arr, n, 1);
+
+    // Do counting sort for second digit in base n. Note that
+    // instead of passing digit number, exp (n^1 = n) is passed.
+    countSort(arr, n, n);
+}
+
+// A utility function to print an array
+void printArr(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
+
+// Driver program to test above functions
+int main()
+{
+    // Since array size is 7, elements should be from 0 to 48
+    int arr[] = {40, 12, 45, 32, 33, 1, 22};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    cout << "Given array is \n";
+    printArr(arr, n);
+
+    sort(arr, n);
+
+    cout << "\nSorted array is \n";
+    printArr(arr, n);
+    return 0;
+}
+Output:
+Given array is
+40 12 45 32 33 1 22
+Sorted array is
+1 12 22 32 33 40 45
+How to sort if range is from 1 to n2?
+If range is from 1 to n n2, the above process can not be directly applied, it must be changed. Consider n = 100 and range from 1 to 10000.  Since the base is 100, a digit must be from 0 to 99 and there should be 2 digits in the numbers.  But the number 10000 has more than 2 digits. So to sort numbers in a range from 1 to n2, we can use following process.
+1) Subtract all numbers by 1.
+2) Since the range is now 0 to n2, do counting sort twice as done in the above implementation.
+3) After the elements are sorted, add 1 to all numbers to obtain the original numbers.
+How to sort if range is from 0 to n^3 -1?
+Since there can be 3 digits in base n, we need to call counting sort 3 times. 
+This article is contributed by Bateesh. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:K’th Smallest/Largest Element in Unsorted Array | Set 2 (Expected Linear Time)K’th Smallest/Largest Element in Unsorted Array | Set 1Time complexity of insertion sort when there are O(n) inversions?How to check if two given sets are disjoint?Minimum Number of Platforms Required for a Railway/Bus StationFind the closest pair from two sorted arraysPrint all elements in sorted order from row and column wise sorted matrixLength of the largest subarray with contiguous elements | Set 1
+ 
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    All doneNeed more practice!Keep trying!Not bad!Good work!Perfect!    
+    
+    
+    
+
+  
+  
+   
+   

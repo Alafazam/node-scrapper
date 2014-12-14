@@ -1,0 +1,4 @@
+Two Linked Lists are identical when they have same data and arrangement of data is also same.  For example Linked lists a (1->2->3) and b(1->2->3) are identical. .  Write a function to check if the given two linked lists are identical.Method 1 (Iterative)
+To identify if two lists are identical, we need to traverse both lists simultaneously, and while traversing we need to compare data. 
+Method 2 (Recursive)
+Recursive solution code is much cleaner than the iterative code. You probably wouldn’t want to use the recursive version for production code however, because it will use stack space which is proportional to the length of the listsTime Complexity: O(n) for both iterative and recursive versions. n is the length of the smaller list among a and b.Please write comments if you find the above codes/algorithms incorrect, or find better ways to solve the same problem.

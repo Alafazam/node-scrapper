@@ -1,0 +1,10 @@
+Given Linked List Representation of Complete Binary Tree, construct the Binary tree. A complete binary tree can be represented in an array in the following approach.If root node is stored at index i, its left, and right children are stored at indices 2*i+1, 2*i+2 respectively.
+Suppose tree is represented by a linked list in same way, how do we convert this into normal linked representation of binary tree where every node has data, left and right pointers?  In the linked list representation, we cannot directly access the children of the current node unless we traverse the list.We are mainly given level order traversal in sequential access form. We know head of linked list is always is root of the tree. We take the first node as root and we also know that the next two nodes are left and right children of root. So we know partial Binary Tree.  The idea is to do Level order traversal of the partially built Binary Tree using queue and traverse the linked list at the same time.  At every step, we take the parent node from queue, make next two nodes of linked list as children of the parent node, and enqueue the next two nodes to queue.1. Create an empty queue.
+2. Make the first node of the list as root, and enqueue it to the queue.
+3. Until we reach the end of the list, do the following.
+………a. Dequeue one node from the queue. This is the current parent.
+………b. Traverse two nodes in the list, add them as children of the current parent.
+………c. Enqueue the two nodes into the queue.Below is the code which implements the same in C++.Output:
+Inorder Traversal of the constructed Binary Tree is:
+25 12 30 10 36 15
+Time Complexity:  Time complexity of the above solution is O(n) where n is the number of nodes. This article is compiled by Ravi Chandra Enaganti. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.Tags: Queue

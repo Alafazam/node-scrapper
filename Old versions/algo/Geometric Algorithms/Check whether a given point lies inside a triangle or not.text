@@ -1,0 +1,11 @@
+
+					Given three corner points of a triangle, and one more point P. Write a function to check whether P lies within the triangle or not.
+For example, consider the following program, the function should return true for P(10, 15) and false for P'(30, 15)
+
+              B(10,30)
+                / \
+               /   \
+              /     \
+             /   P   \      P'
+            /         \
+     A(0,0) ----------- C(2='Wrong'>

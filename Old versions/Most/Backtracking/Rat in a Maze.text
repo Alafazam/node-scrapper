@@ -1,0 +1,85 @@
+
+                     MergeSort is a Divide and Conquer algorithm.  It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves.  The merg() function is used for merging two halves.  The merge(arr, l, m, r) is key process that assumes that arr[l..m] and arr[m+1..r] are sorted and merges the two sorted sub-arrays into one. See following C implementation for details.
+
+MergeSort(arr[], l,  r)
+If r > l
+     1. Find the middle point to divide the array into two halves:  
+             middle m = (l+r)/2
+     2. Call mergeSort for first half:   
+             Call mergeSort(arr, l, m)
+     3. Call mergeSort for second half:
+             Call mergeSort(arr, m+1, r)
+     4. Merge the two halves sorted in step 2 and 3:
+             Call merge(arr, l, m, r)
+The following diagram from wikipedia shows the complete merge sort process for an example array {38, 27, 43, 3, 9, 82, 10}. If we take a closer look at the diagram, we can see that the array is recursively divided in two halves till the size becomes 1. Once the size becomes 1, the merge processes comes into action and starts merging arrays back till the complete array is merged.
+
+
+/* C program for merge sort */
+#include<stdlib.h>
+#include<stdio.h>
+
+/* Function to merge the two haves arr[l..m] and arr[m+1..r] of array arr[] */
+void merge(int arr[], int l, int m, int r)
+{
+    hPath(int maze[][N])
+{
+	int path[N][N];
+	int i,j;
+
+	for(i=0;i<N;i++)
+		for(j=0;j<N;j++)
+			path[i][j]=0;
+
+	if(searchUtil(maze,path,0,0)==0)
+	{
+		printf("\n\nPath does not exist\n\n");
+	}
+	else
+	{
+		printf("\n\nSolution\n\n");
+		printSolution(path);
+	}	
+
+}
+
+int main()
+{
+
+int maze[N][N]  =  {
+        {1, 1, 1, 1,1,1,0,0,0},
+        {0, 0, 1, 0,0,1,0,0,0},
+        {0, 0, 0, 1,1,1,0,0,1},
+        {1, 1, 0, 0,1,0,0,0,0},
+        {0, 0, 1, 1,1,0,0,0,1},
+        {1, 1, 1, 0,0,0,0,0,0},
+	{0, 1, 0, 0,1,1,1,0,0},
+	{0, 1, 1, 1,1,0,1,1,0},
+	{0, 0, 0, 0,0,0,0,1,1},
+    };
+
+/*
+modify #define N accordingly for below test case..or it wont give correct output. 
+
+int maze[N][N]  =  {
+        {1, 1, 1, 1,1,1},
+        {0, 0, 1, 0,0,1},
+        {0, 0, 0, 1,1,1},
+        {1, 1, 0, 0,1,0},
+	{0, 0, 1, 1,1,1},
+	{0, 0, 0, 0,0,1}
+    };
+*/
+/*
+int maze[N][N]  =  { {1, 1, 1, 1},
+        {1, 1, 1, 1},
+        {1, 1, 1, 1},
+        {1, 1, 1, 1}
+    };
+*/
+searchPath(maze);
+printf("\n");
+return 1;
+}
+
+
+ 

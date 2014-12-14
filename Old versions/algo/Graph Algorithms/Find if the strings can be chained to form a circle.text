@@ -1,0 +1,249 @@
+
+					Given an array of strings, find if the given strings can be chained to form a circle.  A string X can be put before another string Y in circle if the last character of X is same as first character of Y.
+Examples:
+
+Input: arr[] = {"geek", "king"}
+Output: Yes, the given strings can be chained.
+Note that the last character of first string is same
+as first character of second string and vice versa is
+also true.
+
+Input: arr[] = {"for", "geek", "rig", "kaf"}
+Output: Yes, the given strings can be chained.
+The strings can be chained as "for", "rig", "geek" 
+and "kaf"
+
+Input: arr[] = {"aab", "bac", "aaa", "cda"}
+Output: Yes, the given strings can be chained.
+The strings can be chained as "aaa", "aab", "bac" 
+and "cda"
+
+Input: arr[] = {"aaa", "bbb", "baa", "aab"};
+Output: Yes, the given strings can be chained.
+The strings can be chained as "aaa", "aab", "bbb" 
+and "baa"
+
+Input: arr[] = {"aaa"};
+Output: Yes
+
+Input: arr[] = {"aaa", "bbb"};
+Output: No
+
+We strongly recommend to minimize the browser and try this yourself first.
+The idea is to create a directed graph of all characters and then find if their is an eulerian circuit in the graph or not. If there is an eulerian circuit, then chain can be formed, otherwise not.
+Note that a directed graph has eulerian circuit only if in degree and out degree of every vertex is same, and all non-zero degree vertices form a single strongly connected component.
+Following are detailed steps of the algorithm.
+1) Create a directed graph g with number of vertices equal to the size of alphabet. We have created a graph with 26 vertices in the below program.
+2) Do following for every string in the given array of strings.
+…..a) Add an edge from first character to last character of the given graph.
+3) If the created graph has eulerian circuit, then return true, else return false.
+Following is C++ implementation of the above algorithm.
+
+// A C++ program to check if a given directed graph is Eulerian or not
+#include<iostream>
+#include <list>
+#define CHARS 26
+using namespace std;
+
+// A class that represents an undirected graph
+class Graph
+{
+    int V;    // No. of vertices
+    list<int> *adj;    // A dynamic array of adjacency lists
+    int *in;
+public:
+    // Constructor and destructor
+    Graph(int V);
+    ~Graph()   { delete [] adj; delete [] in; }
+
+    // function to add an edge to graph
+    void addEdge(int v, int w) { adj[v].push_back(w);  (in[w])++; }
+
+    // Method to check if this graph is Eulerian or not
+    bool isEulerianCycle();
+
+    // Method to check if all non-zero degree vertices are connected
+    bool isSC();
+
+    // Function to do DFS starting from v. Used in isConnected();
+    void DFSUtil(int v, bool visited[]);
+
+    Graph getTranspose();
+};
+
+Graph::Graph(int V)
+{
+    this->V = V;
+    adj = new list<int>[V];
+    in = new int[V];
+    for (int i = 0; i < V; i++)
+       in[i] = 0;
+}
+
+/* This function returns true if the directed graph has an eulerian
+   cycle, otherwise returns false  */
+bool Graph::isEulerianCycle()
+{
+    // Check if all non-zero degree vertices are connected
+    if (isSC() == false)
+        return false;
+
+    // Check if in degree and out degree of every vertex is same
+    for (int i = 0; i < V; i++)
+        if (adj[i].size() != in[i])
+            return false;
+
+    return true;
+}
+
+// A recursive function to do DFS starting from v
+void Graph::DFSUtil(int v, bool visited[])
+{
+    // Mark the current node as visited and print it
+    visited[v] = true;
+
+    // Recur for all the vertices adjacent to this vertex
+    list<int>::iterator i;
+    for (i = adj[v].begin(); i != adj[v].end(); ++i)
+        if (!visited[*i])
+            DFSUtil(*i, visited);
+}
+
+// Function that returns reverse (or transpose) of this graph
+// This function is needed in isSC()
+Graph Graph::getTranspose()
+{
+    Graph g(V);
+    for (int v = 0; v < V; v++)
+    {
+        // Recur for all the vertices adjacent to this vertex
+        list<int>::iterator i;
+        for(i = adj[v].begin(); i != adj[v].end(); ++i)
+        {
+            g.adj[*i].push_back(v);
+            (g.in[v])++;
+        }
+    }
+    return g;
+}
+
+// This function returns true if all non-zero degree vertices of
+// graph are strongly connected. Please refer
+// http://www.geeksforgeeks.org/connectivity-in-a-directed-graph/
+bool Graph::isSC()
+{
+    // Mark all the vertices as not visited (For first DFS)
+    bool visited[V];
+    for (int i = 0; i < V; i++)
+        visited[i] = false;
+
+    // Find the first vertex with non-zero degree
+    int n;
+    for (n = 0; n < V; n++)
+        if (adj[n].size() > 0)
+          break;
+
+    // Do DFS traversal starting from first non zero degree vertex.
+    DFSUtil(n, visited);
+
+     // If DFS traversal doesn’t visit all vertices, then return false.
+    for (int i = 0; i < V; i++)
+        if (adj[i].size() > 0 && visited[i] == false)
+              return false;
+
+    // Create a reversed graph
+    Graph gr = getTranspose();
+
+    // Mark all the vertices as not visited (For second DFS)
+    for (int i = 0; i < V; i++)
+        visited[i] = false;
+
+    // Do DFS for reversed graph starting from first vertex.
+    // Staring Vertex must be same starting point of first DFS
+    gr.DFSUtil(n, visited);
+
+    // If all vertices are not visited in second DFS, then
+    // return false
+    for (int i = 0; i < V; i++)
+        if (adj[i].size() > 0 && visited[i] == false)
+             return false;
+
+    return true;
+}
+
+// This function takes an of strings and returns true
+// if the given array of strings can be chained to
+// form cycle
+bool canBeChained(string arr[], int n)
+{
+    // Create a graph with 'aplha' edges
+    Graph g(CHARS);
+
+    // Create an edge from first character to last character
+    // of every string
+    for (int i = 0; i < n; i++)
+    {
+        string s = arr[i];
+        g.addEdge(s[0]-'a', s[s.length()-1]-'a');
+    }
+
+    // The given array of strings can be chained if there
+    // is an eulerian cycle in the created graph
+    return g.isEulerianCycle();
+}
+
+// Driver program to test above functions
+int main()
+{
+    string arr1[] =  {"for", "geek", "rig", "kaf"};
+    int n1 = sizeof(arr1)/sizeof(arr1[0]);
+    canBeChained(arr1, n1)?  cout << "Can be chained \n" :
+                           cout << "Can't be chained \n";
+
+    string arr2[] =  {"aab", "abb"};
+    int n2 = sizeof(arr2)/sizeof(arr2[0]);
+    canBeChained(arr2, n2)?  cout << "Can be chained \n" :
+                           cout << "Can't be chained \n";
+
+    return 0;
+}
+
+Output:
+Can be chained
+Can't be chained 
+This article is contributed by Piyush Gupta. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Vertex Cover Problem | Set 1 (Introduction and Approximate Algorithm)Snake and Ladder ProblemTarjan’s Algorithm to find Strongly Connected ComponentsShortest path with exactly k edges in a directed and weighted graphCount all possible walks from a source to a destination with exactly k edgesEuler Circuit in a Directed GraphGiven a sorted dictionary of an alien language, find order of charactersChannel Assignment Problem
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

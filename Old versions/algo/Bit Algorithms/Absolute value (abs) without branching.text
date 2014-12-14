@@ -1,0 +1,89 @@
+
+					We need not to do anything if a number is positive. We want to change only negative numbers. Since  negative numbers are stored in 2’s complement form, to get the absolute value of a negative number we have to toggle bits of the number and add 1 to the result.
+For example -2 in a 8 bit system is stored as follows  1 1 1 1 1 1 1 0 where leftmost bit is the sign bit.  To get the absolute value of a negative number, we have to toggle all bits and add 1 to the toggled number  i.e, 0 0 0 0 0 0 0 1 + 1 will give the absolute value of  1 1 1 1 1 1 1 0.  Also remember, we need to do these operations only if the number is negative (sign bit is set).
+Method 1
+1) Set the mask as right shift of integer by 31 (assuming integers are stored using 32 bits). 
+ mask = n>>31 
+2) For negative numbers, above step sets mask as 1 1 1 1 1 1 1 1 and 0 0 0 0 0 0 0 0 for positive numbers. Add the mask to the given number.
+ mask + n 
+3) XOR of mask +n and mask gives the absolute value.       
+ (mask + n)^mask 
+Implementation:
+
+#include <stdio.h>
+#define CHAR_BIT 8
+
+/* This function will return absoulte value of n*/
+unsigned int getAbs(int n)
+{
+  int const mask = n >> (sizeof(int) * CHAR_BIT - 1);
+  return ((n + mask) ^ mask);
+}
+
+/* Driver program to test above function */
+int main()
+{
+  int n = -6;
+  printf("Absoute value of %d is %u", n, getAbs(n));
+
+  getchar();
+  return 0;
+}
+
+
+Method 2:
+1) Set the mask as right shift of integer by 31 (assuming integers are stored using 32 bits). 
+ mask = n>>31 
+2) XOR the mask with number
+ mask ^ n 
+3) Subtract mask from result of step 2 and return the result.
+ (mask^n) - mask 
+Implementation:
+
+/* This function will return absoulte value of n*/
+unsigned int getAbs(int n)
+{
+  int const mask = n >> (sizeof(int) * CHAR_BIT - 1);
+  return ((n ^ mask) - mask);
+}
+
+On machines where branching is expensive, the above expression can be faster than the obvious approach, r = (v < 0) ? -(unsigned)v : v, even though the number of operations is the same.
+Please see this for more details about the above two methods.
+Please write comments if you find any of the above explanations/algorithms incorrect, or a better ways to solve the same problem.
+References:
+http://graphics.stanford.edu/~seander/bithacks.html#IntegerAbs
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Bit Magic 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

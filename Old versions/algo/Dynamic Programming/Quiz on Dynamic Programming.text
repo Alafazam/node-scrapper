@@ -1,0 +1,69 @@
+
+					Breadth First Traversal (or Search) for a graph is similar to Breadth First Traversal of a tree (See mthod 2 of this post). The only catch here is, unlike trees, graphs may contain cycles, so we may come to the same node again. To avoid processing a node more than once, we use a boolean visited array.  For simplicity, it is assumed that all vertices are reachable from the starting vertex.
+For example, in the following graph, we start traversal from vertex 2. When we come to vertex 0, we look for all adjacent vertices of it. 2 is also an adjacent vertex of 0. If we don’t mark visited vertices, then 2 will be processed again and it will become a non-terminating process. Breadth First Traversal of the following graph is 2, 0, 3, 1.
+
+Following is C++ implementation of simple Breadth First Traversal from a given source. The implementation uses adjacency list representation of graphs. STL‘s list container is used to store lists of adjacent nodes and queue of nodes needed for BFS traversal.
+
+// Program to print BFS traversal from a given source vertex. BFS(int s) 
+// traverses vertices reachable from s.
+#include<iostream>
+#include <list>
+
+using namespace std;
+
+// This class represents a directed graph using adjacency list representation
+class Graph
+{
+    int V;    // No. of vertices
+    list<int> *adj;    // Pointer to an array containing adjacency lists
+public:
+    Graph(int V);  // Constructor
+    void addEdge(int v, int w); // function to add an edge to graph
+    void BFS(int s);  // prints BFS traversal from a given source s
+};
+
+Graph::Graph(int V)
+{
+    this->V = V;
+    adj = new list<int>[V];
+}
+
+void Graph::addEdge(int v, int w)
+{
+    adj[v].push_back(w); // Add w to v’s list.
+}
+
+void Graph::BFS(int s)
+{
+    // Mark all the vertices as not visited
+    bool *visited = new bool[V];
+    for(int i = 0; i < V; i++)
+        visited[i] = false;
+
+    // Create a queue for BFS
+    list<int> queue;
+
+    // Mark the current node as visited and enqueue it
+    visited[s] = true;
+    queue.push_back(s);
+
+    // 'i' will be used to get all adjacent vertices of a vertex
+    list<int>::iterator i;
+
+    while(!queue.empty())
+    {
+        // Dequeue a vertex from queue and print it
+        s = queue.front();
+        cout << s << " ";
+        queue.pop_front();
+
+        // Get all adjacent vertices of the dequeued vertex s
+        // If a adjacent has not been visited, then mark it visited
+        // and enqueue it
+        for(i = adj[s].begin(); i != adj[s].end( = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+				  
+		

@@ -1,0 +1,114 @@
+
+					Write a “C” function,  int addOvf(int* result, int a, int b) If there is no overflow, the function places the resultant = sum a+b in “result” and returns 0. Otherwise it returns -1.   The solution of casting to long and adding to find detecting the overflow is not allowed.
+
+Method 1
+There can be overflow only if signs of two numbers are same, and sign of sum is opposite to the signs of numbers.
+
+1)  Calculate sum
+2)  If both numbers are positive and sum is negative then return -1
+     Else 
+        If both numbers are negative and sum is positive then return -1
+        Else return 0
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+/* Takes pointer to result and two numbers as
+    arguments. If there is no overflow, the function
+    places the resultant = sum a+b in “result” and
+    returns 0, otherwise it returns -1 */
+ int addOvf(int* result, int a, int b)
+ {
+     *result = a + b;
+     if(a > 0 && b > 0 && *result < 0)
+         return -1;
+     if(a < 0 && b < 0 && *result > 0)
+         return -1;
+     return 0;
+ }
+
+ int main()
+ {
+     int *res = (int *)malloc(sizeof(int));
+     int x = 2147483640;
+     int y = 10;
+
+     printf("%d", addOvf(res, x, y));
+
+     printf("\n %d", *res);
+     getchar();
+     return 0;
+}
+
+Time Complexity  : O(1)
+Space Complexity: O(1)
+
+Method 2
+Thanks to Himanshu Aggarwal for adding this method. This method doesn’t modify *result if there us an overflow.
+
+#include<stdio.h>
+#include<limits.h>
+#include<stdlib.h>
+
+int addOvf(int* result, int a, int b)
+{
+   if( a > INT_MAX - b)
+     return -1;
+   else
+   {
+     *result = a + b;
+      return 0;
+   }
+}
+
+int main()
+{
+  int *res = (int *)malloc(sizeof(int));
+  int x = 2147483640;
+  int y = 10;
+
+  printf("%d", addOvf(res, x, y));
+  printf("\n %d", *res);
+  getchar();
+  return 0;
+}
+
+Time Complexity  : O(1)
+Space Complexity: O(1)
+Please write comments if you find any bug in above codes/algorithms, or find other ways to solve the same problem
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Bit Magic 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

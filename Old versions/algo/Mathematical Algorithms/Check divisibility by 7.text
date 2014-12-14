@@ -1,0 +1,89 @@
+
+					Given a number, check if it is divisible by 7. You are not allowed to use modulo operator, floating point arithmetic is also not allowed. 
+A simple method is repeated subtraction. Following is another interesting method.
+Divisibility by 7 can be checked by a recursive method. A number of the form 10a + b is divisible by 7 if and only if a – 2b is divisible by 7. In other words, subtract twice the last digit from the number formed by the remaining digits. Continue to do this until a small number.  
+Example: the number 371: 37 – (2×1) = 37 – 2 = 35; 3 – (2 × 5) = 3 – 10 = -7; thus, since -7 is divisible by 7, 371 is divisible by 7. 
+Following is C implementation of the above method
+
+// A Program to check whether a number is divisible by 7
+#include <stdio.h>
+
+int isDivisibleBy7( int num )
+{
+    // If number is negative, make it positive
+    if( num < 0 )
+        return isDivisibleBy7( -num );
+
+    // Base cases
+    if( num == 0 || num == 7 )
+        return 1;
+    if( num < 10 )
+        return 0;
+
+    // Recur for ( num / 10 - 2 * num % 10 ) 
+    return isDivisibleBy7( num / 10 - 2 * ( num - num / 10 * 10 ) );
+}
+
+// Driver program to test above function
+int main()
+{
+    int num = 616;
+    if( isDivisibleBy7(num ) )
+        printf( "Divisible" );
+    else
+        printf( "Not Divisible" );
+    return 0;
+}
+
+Output:
+Divisible
+How does this work? Let ‘b’ be the last digit of a number ‘n’ and let ‘a’ be the number we get when we split off ‘b’.
+The representation of the number may also be multiplied by any number relatively prime to the divisor without changing its divisibility. After observing that 7 divides 21, we can perform the following:
+ 10.a + b 
+after multiplying by 2, this becomes
+ 20.a + 2.b 
+and then
+ 21.a - a + 2.b 
+Eliminating the multiple of 21 gives
+ -a + 2b
+and multiplying by -1 gives
+ a - 2b
+There are other interesting methods to check divisibility by 7 and other numbers. See following Wiki page for details.
+References:
+http://en.wikipedia.org/wiki/Divisibility_rule
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

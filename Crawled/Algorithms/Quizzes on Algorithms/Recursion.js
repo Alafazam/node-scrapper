@@ -1,0 +1,6 @@
+Given an array of strings, find if the given strings can be chained to form a circle.  A string X can be put before another string Y in circle if the last character of X is same as first character of Y.Examples:We strongly recommend to minimize the browser and try this yourself first.The idea is to create a directed graph of all characters and then find if their is an eulerian circuit in the graph or not. If there is an eulerian circuit, then chain can be formed, otherwise not.
+Note that a directed graph has eulerian circuit only if in degree and out degree of every vertex is same, and all non-zero degree vertices form a single strongly connected component.Following are detailed steps of the algorithm.1) Create a directed graph g with number of vertices equal to the size of alphabet. We have created a graph with 26 vertices in the below program.2) Do following for every string in the given array of strings.
+…..a) Add an edge from first character to last character of the given graph.3) If the created graph has eulerian circuit, then return true, else return false.Following is C++ implementation of the above algorithm.Output:
+Can be chained
+Can't be chained 
+This article is contributed by Piyush Gupta. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above

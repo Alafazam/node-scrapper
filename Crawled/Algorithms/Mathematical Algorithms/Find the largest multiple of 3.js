@@ -1,0 +1,2 @@
+Asked by KapilBy making use of recursion, we can multiply two integers with the given constraints. To multiply x and y,  recursively add x y times.Thanks to geek4u for suggesting this method.Time Complexity: O(y) where y is the second argument to function multiply().
+Please write comments if you find any of the above code/algorithm incorrect, or find better ways to solve the same problem.Tags: MathematicalAlgo

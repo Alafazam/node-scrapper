@@ -1,0 +1,263 @@
+
+					The Fibonacci numbers are the numbers in the following integer sequence.
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 141, ……..
+In mathematical terms, the sequence Fn of Fibonacci numbers is defined by the recurrence relation
+  
+with seed values
+ 
+Write a function int fib(int n) that returns . For example, if n = 0, then fib() should return 0. If n = 1, then it should return 1.  For n > 1, it should return  
+Following are different methods to get the nth Fibonacci number.
+Method 1 ( Use recursion ) 
+A simple method that is a direct recusrive implementation mathematical recurance relation given above.
+
+#include<stdio.h>
+int fib(int n)
+{
+   if (n <= 1)
+      return n;
+   return fib(n-1) + fib(n-2);
+}
+
+int main ()
+{
+  int n = 9;
+  printf("%d", fib(n));
+  getchar();
+  return 0;
+}
+
+Time Complexity: T(n) = T(n-1) + T(n-2) which is exponential.
+We can observe that this implementation does a lot of repeated work (see the following recursion tree).  So this is a bad implementation for nth Fibonacci number.
+
+                         fib(5)   
+                     /             \     
+               fib(4)                fib(3)   
+             /      \                /     \
+         fib(3)      fib(2)         fib(2)    fib(1)
+        /     \        /    \       /    \  
+  fib(2)   fib(1)  fib(1) fib(0) fib(1) fib(0)
+  /    \
+fib(1) fib(0)
+
+Extra Space: O(n) if we consider the fuinction call stack size, otherwise O(1).
+Method 2 ( Use Dynamic Programming )
+We can avoid the repeated work done is the method 1 by storing the Fibonacci numbers calculated so far.  
+
+#include<stdio.h>
+
+int fib(int n)
+{
+  /* Declare an array to store fibonacci numbers. */
+  int f[n+1];
+  int i;
+
+  /* 0th and 1st number of the series are 0 and 1*/
+  f[0] = 0;
+  f[1] = 1;
+
+  for (i = 2; i <= n; i++)
+  {
+      /* Add the previous 2 numbers in the series
+         and store it */
+      f[i] = f[i-1] + f[i-2];
+  }
+
+  return f[n];
+}
+
+int main ()
+{
+  int n = 9;
+  printf("%d", fib(n));
+  getchar();
+  return 0;
+}
+
+Time Complexity: O(n)
+Extra Space: O(n)
+Method 3 ( Space Otimized Method 2 )
+We can optimize the space used in method 2 by storing the previous two numbers only because that is all we need to get the next Fibannaci number in series.
+
+#include<stdio.h>
+int fib(int n)
+{
+  int a = 0, b = 1, c, i;
+  if( n == 0)
+    return a;
+  for (i = 2; i <= n; i++)
+  {
+     c = a + b;
+     a = b;
+     b = c;
+  }
+  return b;
+}
+
+int main ()
+{
+  int n = 9;
+  printf("%d", fib(n));
+  getchar();
+  return 0;
+}
+
+Time Complexity: O(n)
+Extra Space: O(1)
+Method 4 ( Using power of the matrix {{1,1},{1,0}} )
+This another O(n) which relies on the fact that if we n times multiply the matrix M = {{1,1},{1,0}} to itself (in other words calculate power(M, n )), then we get the (n+1)th Fibonacci number as the element at row and column (0, 0) in the resultant matrix.
+The matrix representation gives the following closed expression for the Fibonacci numbers:
+
+
+#include <stdio.h>
+
+/* Helper function that multiplies 2 matricies F and M of size 2*2, and
+  puts the multiplication result back to F[][] */
+void multiply(int F[2][2], int M[2][2]);
+
+/* Helper function that calculates F[][] raise to the power n and puts the
+  result in F[][]
+  Note that this function is desinged only for fib() and won't work as general
+  power function */
+void power(int F[2][2], int n);
+
+int fib(int n)
+{
+  int F[2][2] = {{1,1},{1,0}};
+  if (n == 0)
+      return 0;
+  power(F, n-1);
+
+  return F[0][0];
+}
+
+void multiply(int F[2][2], int M[2][2])
+{
+  int x =  F[0][0]*M[0][0] + F[0][1]*M[1][0];
+  int y =  F[0][0]*M[0][1] + F[0][1]*M[1][1];
+  int z =  F[1][0]*M[0][0] + F[1][1]*M[1][0];
+  int w =  F[1][0]*M[0][1] + F[1][1]*M[1][1];
+
+  F[0][0] = x;
+  F[0][1] = y;
+  F[1][0] = z;
+  F[1][1] = w;
+}
+
+void power(int F[2][2], int n)
+{
+  int i;
+  int M[2][2] = {{1,1},{1,0}};
+
+  // n - 1 times multiply the matrix to {{1,0},{0,1}}
+  for (i = 2; i <= n; i++)
+      multiply(F, M);
+}
+
+/* Driver program to test above function */
+int main()
+{
+  int n = 9;
+  printf("%d", fib(n));
+  getchar();
+  return 0;
+}
+
+
+Time Complexity: O(n)
+Extra Space: O(1)
+Method 5 ( Optimized Method 4 )
+The method  4 can be optimized to work in O(Logn) time complexity.  We can do recursive multiplication to get power(M, n) in the prevous method (Similar to the optimization done in this post)
+
+#include <stdio.h>
+
+void multiply(int F[2][2], int M[2][2]);
+
+void power(int F[2][2], int n);
+
+/* function that returns nth Fibonacci number */
+int fib(int n)
+{
+  int F[2][2] = {{1,1},{1,0}};
+  if (n == 0)
+    return 0;
+  power(F, n-1);
+  return F[0][0];
+}
+
+/* Optimized version of power() in method 4 */
+void power(int F[2][2], int n)
+{
+  if( n == 0 || n == 1)
+      return;
+  int M[2][2] = {{1,1},{1,0}};
+
+  power(F, n/2);
+  multiply(F, F);
+
+  if (n%2 != 0)
+     multiply(F, M);
+}
+
+void multiply(int F[2][2], int M[2][2])
+{
+  int x =  F[0][0]*M[0][0] + F[0][1]*M[1][0];
+  int y =  F[0][0]*M[0][1] + F[0][1]*M[1][1];
+  int z =  F[1][0]*M[0][0] + F[1][1]*M[1][0];
+  int w =  F[1][0]*M[0][1] + F[1][1]*M[1][1];
+
+  F[0][0] = x;
+  F[0][1] = y;
+  F[1][0] = z;
+  F[1][1] = w;
+}
+
+/* Driver program to test above function */
+int main()
+{
+  int n = 9;
+  printf("%d", fib(9));
+  getchar();
+  return 0;
+}
+
+Time Complexity:  O(Logn)
+Extra Space: O(Logn) if we consider the function call stack size, otherwise O(1).
+Please write comments if you find the above codes/algorithms incorrect, or find other ways to solve the same problem.
+References:
+http://en.wikipedia.org/wiki/Fibonacci_number
+http://www.ics.uci.edu/~eppstein/161/960109.html
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: Dynamic Programming, MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

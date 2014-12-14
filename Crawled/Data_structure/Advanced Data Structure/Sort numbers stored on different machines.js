@@ -1,0 +1,19 @@
+In the previous post, we introduced B-Tree.  We also discussed search() and traverse() functions. 
+In this post, insert() operation is discussed. A new key is always inserted at leaf node. Let the key to be inserted be k. Like BST, we start from root and traverse down till we reach a leaf node.  Once we reach a leaf node, we insert the key in that leaf node.  Unlike BSTs, we have a predefined range on number of keys that a node can contain.  So before inserting a key to node, we make sure that the node has extra space.
+How to make sure that a node has space available for key before the key is inserted? We use an operation called splitChild() that is used to split a child of a node.  See the following diagram to understand split.  In the following diagram, child y of x is being split into two nodes y and z. Note that the splitChild operation moves a key up and this is the reason B-Trees grow up unlike BSTs which grow down. As discussed above, to insert a new key, we go down from root to leaf. Before traversing down to a node, we first check if the node is full.  If the node is full, we split it to create space.  Following is complete algorithm.Insertion
+1) Initialize x as root.
+2) While x is not leaf, do following
+..a) Find the child of x that is going to to be traversed next. Let the child be y.
+..b) If y is not full, change x to point to y.
+..c) If y is full, split it and change x to point to one of the two parts of y.  If k is smaller than mid key in y, then set x as first part of y. Else second part of y.  When we split y, we move a key from y to its parent x.
+3) The loop in step 2 stops when x is leaf.  x must have space for 1 extra key as we have been splitting all nodes in advance.  So simply insert k to x. Note that the algorithm follows the Cormen book.  It is actually a proactive insertion algorithm where before going down to a node, we split it if it is full. The advantage of splitting before is, we never traverse a node twice. If we don’t split a node before going down to it and split it only if new key is inserted (reactive), we may end up traversing all nodes again from leaf to root.  This happens in cases when all nodes on the path from root to leaf are full.  So when we come to the leaf node, we split it and move a key up.  Moving a key up will cause a split in parent node (because parent was already full).  This cascading effect never happens in this proactive insertion algorithm.  There is a  disadvantage of this proactive insertion though, we may do unnecessary splits. Let us understand the algorithm with an example tree of minimum degree ‘t’ as 3 and a sequence of integers 10, 20, 30, 40, 50, 60, 70, 80 and 90 in an initially empty B-Tree.Initially root is NULL. Let us first insert 10.
+Let us now insert 20, 30, 40 and 50.  They all will be inserted in root because maximum number of keys a node can accommodate is 2*t – 1 which is 5.Let us now insert 60. Since root node is full, it will first split into two, then 60 will be inserted into the appropriate child.
+Let us now insert 70 and 80. These new keys will be inserted into the appropriate leaf without any split.
+Let us now insert 90.  This insertion will cause a split. The middle key will go up to the parent.
+See this for more examples.Following is C++ implementation of the above proactive algorithm.Output:
+Traversal of the constucted tree is  5 6 7 10 12 17 20 30
+Present
+Not Present
+References:
+Introduction to Algorithms 3rd Edition by Clifford Stein, Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest
+http://www.cs.utexas.edu/users/djimenez/utsa/cs3343/lecture17.htmlPlease write comments if you find anything incorrect, or you want to share more information about the topic discussed above.Tags: Advance Data Structures, Advanced Data Structures

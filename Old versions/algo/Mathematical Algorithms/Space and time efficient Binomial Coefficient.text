@@ -1,0 +1,82 @@
+
+					Write a function that takes two parameters n and k and returns the value of Binomial Coefficient C(n, k). For example, your function should return 6 for n = 4 and k = 2, and it should return 10 for n = 5 and k = 2.
+We have discussed a O(n*k) time and O(k) extra space algorithm in this post.  The value of C(n, k) can be calculated in O(k) time and O(1) extra space.  
+
+C(n, k) = n! / (n-k)! * k!
+        = [n * (n-1) *....* 1]  / [ ( (n-k) * (n-k-1) * .... * 1) * 
+                                    ( k * (k-1) * .... * 1 ) ]
+After simplifying, we get
+C(n, k) = [n * (n-1) * .... * (n-k+1)] / [k * (k-1) * .... * 1]
+
+Also, C(n, k) = C(n, n-k)  // we can change r to n-r if r > n-r 
+Following implementation uses above formula to calculate C(n, k)
+
+// Program to calculate C(n ,k)
+#include <stdio.h>
+
+// Returns value of Binomial Coefficient C(n, k)
+int binomialCoeff(int n, int k)
+{
+    int res = 1;
+
+    // Since C(n, k) = C(n, n-k)
+    if ( k > n - k )
+        k = n - k;
+
+    // Calculate value of [n * (n-1) *---* (n-k+1)] / [k * (k-1) *----* 1]
+    for (int i = 0; i < k; ++i)
+    {
+        res *= (n - i);
+        res /= (i + 1);
+    }
+
+    return res;
+}
+
+/* Drier program to test above function*/
+int main()
+{
+    int n = 8, k = 2;
+    printf ("Value of C(%d, %d) is %d ", n, k, binomialCoeff(n, k) );
+    return 0;
+}
+
+Value of C(8, 2) is 28
+Time Complexity: O(k)
+Auxiliary Space: O(1)
+This article is compiled by Aashish Barnwal and reviewed by GeeksforGeeks team. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

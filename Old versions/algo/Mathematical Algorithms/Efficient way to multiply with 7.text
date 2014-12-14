@@ -1,0 +1,60 @@
+
+					We can multiply a number by 7 using bitwise operator.  First left shift the number by 3 bits (you will get 8n) then subtract the original numberfrom the shifted number and return the difference (8n – n).
+
+
+Program:
+
+# include<stdio.h>
+
+int multiplyBySeven(unsigned int n)
+{  
+    /* Note the inner bracket here. This is needed 
+       because precedence of '-' operator is higher 
+       than '<<' */
+    return ((n<<3) - n);
+}
+
+/* Driver program to test above function */
+int main()
+{
+    unsigned int n = 4;
+    printf("%u", multiplyBySeven(n));
+
+    getchar();
+    return 0;
+}
+
+Time Complexity: O(1)
+Space Complexity: O(1)
+Note: Works only for positive integers.
+Same concept can be used for fast multiplication by 9 or other numbers.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bitecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+				  
+		

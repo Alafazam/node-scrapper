@@ -1,0 +1,8 @@
+Following is a typical recursive implementation of QuickSort for arrays. The implementation uses last element as pivot. Can we use same algorithm for Linked List?
+Following is C++ implementation for doubly linked list.   The idea is simple, we first find out pointer to last node.  Once we have pointer to last node, we can recursively sort the linked list using pointers to first and last nodes of linked list, similar to the above recursive function where we pass indexes of first and last array elements.  The partition function for linked list is also similar to partition for arrays.  Instead of returning index of the pivot element, it returns pointer to the pivot element.  In the following implementation, quickSort() is just a wrapper function, the main recursive function is _quickSort() which is similar to quickSort() for array implementation.Output :
+Linked List before sorting
+30  3  4  20  5
+Linked List after sorting
+3  4  5  20  30
+Time Complexity:  Time complexity of the above implementation is same as time complexity of QuickSort() for arrays.  It takes O(n^2) time in worst case and O(nLogn) in average and best cases.  The worst case occurs when the linked list is already sorted.Exercise:
+The above implementation is for doubly linked list. Modify it for singly linked list.  Note that we don’t have prev pointer in singly linked list.Quicksort can be implemented for Linked List only when we can pick a fixed point as pivot (like last element in above implementation). Random QuickSort cannot be efficiently implemented for Linked Lists.Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above

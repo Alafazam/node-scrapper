@@ -1,0 +1,2 @@
+Write a GetNth() function that takes a linked list and an integer index and returns the data value stored in the node at that index position.
+Algorithm:Implementation:Time Complexity: O(n)Tags: GetNth, Linked Lists

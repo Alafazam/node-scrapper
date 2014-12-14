@@ -1,0 +1,4 @@
+Using Morris Traversal, we can traverse the tree without using stack and recursion. The idea of Morris Traversal is based on Threaded Binary Tree. In this traversal, we first create links to Inorder successor and print the data using these links, and finally revert the changes to restore original tree.  Although the tree is modified through the traversal, it is reverted back to its original shape after the completion. Unlike  Stack based traversal, no extra space is required for this traversal.References:
+www.liacs.nl/~deutz/DS/september28.pdf
+http://comsci.liu.edu/~murali/algo/Morris.htm
+www.scss.tcd.ie/disciplines/software_systems/…/HughGibbonsSlides.pdfPlease write comments if you find any bug in above code/algorithm, or want to share more information about stack Morris Inorder Tree Traversal.Tags: Tree Traveral

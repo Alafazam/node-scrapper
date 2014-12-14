@@ -1,0 +1,3 @@
+Question: Given a binary tree, find out if the tree can be folded or not.A tree can be folded if left and right subtrees of the tree are structure wise mirror image of each other.  An empty tree is considered as foldable. Method 1 (Change Left subtree to its Mirror and compare it with Right subtree)
+Algorithm: isFoldable(root)Thanks to ajaym for suggesting this approach.Time complexity: O(n)Method 2 (Check if Left and Right subtrees are Mirror)
+There are mainly two functions:// Checks if tree can be folded or not// Checks if n1 and n2 are mirror of each other.Thanks to Dzmitry Huba  for suggesting this approach.Please write comments if you find the above code/algorithm incorrect, or find other ways to solve the same problem.

@@ -1,0 +1,76 @@
+
+					Given an unsigned integer, swap all odd bits with even bits. For example, if the given number is 23 (00010111), it should be converted to 43 (00101011). Every even position bit is swapped with adjacent bit on right side (even position bits are highlighted in binary representation of 23), and every odd position bit is swapped with adjacent on left side.
+If we take a closer look at the example, we can observe that we basically need to right shift (>>) all even bits (In the above example, even bits of 23 are highlighted) by 1 so that they become odd bits (highlighted in 43), and left shift (<
+Let the input number be x
+1) Get all even bits of x by doing bitwise and of x with  0xAAAAAAAA.  The number  0xAAAAAAAA is a 32 bit number with all even bits set as 1 and all odd bits as 0.
+2) Get all odd bits of x by doing bitwise and of x with  0x55555555.  The number  0x55555555 is a 32 bit number with all odd bits set as 1 and all even bits as 0.
+3) Right shift all even bits.
+4) Left shift all odd bits.
+5) Combine new even and odd bits and return.
+
+// C program to swap even and odd bits of a given number
+#include <stdio.h>
+
+unsigned int swapBits(unsigned int x)
+{
+    // Get all even bits of x
+    unsigned int even_bits = x & 0xAAAAAAAA; 
+
+    // Get all odd bits of x
+    unsigned int odd_bits  = x & 0x55555555; 
+
+    even_bits >>= 1;  // Right shift even bits
+    odd_bits <<= 1;   // Left shift odd bits
+
+    return (even_bits | odd_bits); // Combine even and odd bits
+}
+
+// Driver program to test above function
+int main()
+{
+    unsigned int x = 23; // 00010111
+
+    // Output is 43 (00101011)
+    printf("%u ", swapBits(x));
+
+    return 0;
+}
+
+Output:
+ 43 
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitAdd two bit strings
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

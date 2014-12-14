@@ -1,0 +1,81 @@
+
+					Given a number n, write a function that returns true if n is divisible by 9, else false. The most simple way to check for n’s divisibility by 9 is to do n%9.  
+Another method is to sum the digits of n.  If sum of digits is multiple of 9, then n is multiple of 9.
+The above methods are not bitwise operators based methods and require use of % and /.
+The bitwise operators are generally faster than modulo and division operators. Following is a bitwise operator based method to check divisibility by 9.
+
+#include<iostream>
+using namespace std;
+
+// Bitwise operator based function to check divisibility by 9
+bool isDivBy9(int n)
+{
+    // Base cases
+    if (n == 0 || n == 9)
+        return true;
+    if (n < 9)
+        return false;
+
+    // If n is greater than 9, then recur for [floor(n/9) - n%8]
+    return isDivBy9((int)(n>>3) - (int)(n&7));
+}
+
+// Driver program to test above function
+int main()
+{
+    // Let us print all multiples of 9 from 0 to 100
+    // using above method
+    for (int i = 0; i < 100; i++)
+       if (isDivBy9(i))
+         cout << i << " ";
+    return 0;
+} 
+Output:
+0 9 18 27 36 45 54 63 72 81 90 99
+How does this work?
+n/9 can be written in terms of n/8 using the following simple formula.
+
+n/9 = n/8 - n/72
+Since we need to use bitwise operators, we get the value of floor(n/8) using n>>3 and get value of n%8 using n&7. We need to write above expression in terms of floor(n/8) and n%8.
+n/8 is equal to “floor(n/8) + (n%8)/8″.  Let us write the above expression in terms of floor(n/8) and n%8
+
+n/9 = floor(n/8) + (n%8)/8 - [floor(n/8) + (n%8)/8]/9
+n/9 = floor(n/8) - [floor(n/8) - 9(n%8)/8 + (n%8)/8]/9
+n/9 = floor(n/8) - [floor(n/8) - n%8]/9
+From above equation, n is a multiple of 9 only if the expression floor(n/8) – [floor(n/8) – n%8]/9 is an integer.  This expression can only be an integer if the sub-expression [floor(n/8) – n%8]/9 is an integer.  The subexpression can only be an integer if [floor(n/8) – n%8] is a multiple of 9.  So the problem reduces to a smaller value which can be written in terms of bitwise operators.
+Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?How to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bitsAdd two bit strings
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

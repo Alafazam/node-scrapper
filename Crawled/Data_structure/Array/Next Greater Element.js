@@ -1,0 +1,6 @@
+Given a sorted array and a value x, the ceiling of x is the smallest element in array greater than or equal to x, and the floor is the greatest element smaller than or equal to x. Assume than the array is sorted in non-decreasing order. Write efficient functions to find floor and ceiling of x.In below methods, we have implemented only ceiling search functions. Floor search can be implemented in the same way.Method 1 (Linear Search)
+Algorithm to search ceiling of x:
+1) If x is smaller than or equal to the first element in array then return 0(index of first element)
+2) Else Linearly search for an index i such that x lies between arr[i] and arr[i+1].
+3) If we do not find an index i in step 2, then return -1Time Complexity: O(n)Method 2 (Binary Search)
+Instead of using linear search, binary search is used here to find out the index.  Binary search reduces time complexity to O(Logn).Time Complexity: O(Logn)Please write comments if you find any of the above codes/algorithms incorrect, or find better ways to solve the same problem, or want to share code for floor implementation.

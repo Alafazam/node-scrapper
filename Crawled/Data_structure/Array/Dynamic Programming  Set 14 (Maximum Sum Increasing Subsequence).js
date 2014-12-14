@@ -1,0 +1,126 @@
+Given two arrays: arr1[0..m-1] and arr2[0..n-1]. Find whether arr2[] is a subset of arr1[] or not. Both the arrays are not in sorted order. Examples:
+Input: arr1[] = {11, 1, 13, 21, 3, 7},  arr2[] = {11, 3, 7, 1}
+Output: arr2[] is a subset of arr1[]Input: arr1[] = {1, 2, 3, 4, 5, 6},  arr2[] = {1, 2, 4}
+Output: arr2[] is a subset of arr1[]Input: arr1[] = {10, 5, 2, 23, 19},  arr2[] = {19, 5, 3}
+Output: arr2[] is not a subset of arr1[]Method 1 (Simple)
+Use two loops: The outer loop picks all the elements of arr2[] one by one. The inner loop linearly searches for the element picked by outer loop. If all elements are found then return 1, else return 0.Time Complexity: O(m*n)Method 2 (Use Sorting and Binary Search)
+
+1) Sort arr1[] O(mLogm)
+2) For each element of arr2[], do binary search for it in sorted arr1[].
+         a) If the element is not found then return 0.
+3) If all elements are present then return 1.
+
+
+#include<stdio.h>
+
+/* Fucntion prototypes */
+void quickSort(int *arr, int si, int ei);
+int binarySearch(int arr[], int low, int high, int x);
+
+/* Return 1 if arr2[] is a subset of arr1[] */
+bool isSubset(int arr1[], int arr2[], int m, int n)
+{
+    int i = 0;
+  
+    quickSort(arr1, 0, m-1);
+    for (i=0; i<n; i++)
+    {
+        if (binarySearch(arr1, 0, m-1, arr2[i]) == -1)
+           return 0;
+    }
+    
+    /* If we reach here then all elements of arr2[] 
+      are present in arr1[] */
+    return 1;
+}
+ 
+/* FOLLOWING FUNCTIONS ARE ONLY FOR SEARCHING AND SORTING PURPOSE */
+/* Standard Binary Search function*/
+int binarySearch(int arr[], int low, int high, int x)
+{
+  if(high >= low)
+  {
+    int mid = (low + high)/2;  /*low + (high - low)/2;*/
+ 
+    /* Check if arr[mid] is the first occurrence of x.
+        arr[mid] is first occurrence if x is one of the following
+        is true:
+        (i)  mid == 0 and arr[mid] == x
+        (ii) arr[mid-1] < x and arr[mid] == x
+     */
+    if(( mid == 0 || x > arr[mid-1]) && (arr[mid] == x))
+      return mid;
+    else if(x > arr[mid])
+      return binarySearch(arr, (mid + 1), high, x);
+    else
+      return binarySearch(arr, low, (mid -1), x);
+  }
+ return -1;
+}  
+
+void exchange(int *a, int *b)
+{
+    int temp;
+    temp = *a;
+    *a   = *b;
+    *b   = temp;
+}
+ 
+int partition(int A[], int si, int ei)
+{
+    int x = A[ei];
+    int i = (si - 1);
+    int j;
+ 
+    for (j = si; j <= ei - 1; j++)
+    {
+        if(A[j] <= x)
+        {
+            i++;
+            exchange(&A[i], &A[j]);
+        }
+    }
+    exchange (&A[i + 1], &A[ei]);
+    return (i + 1);
+}
+ 
+/* Implementation of Quick Sort
+A[] --> Array to be sorted
+si  --> Starting index
+ei  --> Ending index
+*/
+void quickSort(int A[], int si, int ei)
+{
+    int pi;    /* Partitioning index */
+    if(si < ei)
+    {
+        pi = partition(A, si, ei);
+        quickSort(A, si, pi - 1);
+        quickSort(A, pi + 1, ei);
+    }
+}
+ 
+/*Driver program to test above functions */
+int main()
+{
+    int arr1[] = {11, 1, 13, 21, 3, 7};
+    int arr2[] = {11, 3, 7, 1};
+  
+    int m = sizeof(arr1)/sizeof(arr1[0]);
+    int n = sizeof(arr2)/sizeof(arr2[0]);
+
+    if(isSubset(arr1, arr2, m, n))
+      printf("arr2[] is subset of arr1[] ");
+    else
+      printf("arr2[] is not a subset of arr1[] ");      
+
+    getchar();
+    return 0;
+}
+Time Complexity: O(mLogm + nLogm).  Please note that this will be the complexity if an mLogm algorithm is used for sorting which is not the case in above code. In above code Quick Sort is sued and worst case time complexity of Quick Sort is O(m^2)Method 3 (Use Sorting and Merging )
+1) Sort both arrays: arr1[] and arr2[]  O(mLogm + nLogn)
+2) Use Merge type of process to see if all elements of sorted arr2[] are present in sorted arr1[].Thanks to Parthsarthi for suggesting this method.Time Complexity: O(mLogm + nLogn) which is better than method 2. Please note that this will be the complexity if an nLogn algorithm is used for sorting both arrays which is not the case in above code. In above code Quick Sort is sued and worst case time complexity of Quick Sort is O(n^2)
+Method 4 (Use Hashing)
+1) Create a Hash Table for all the elements of arr1[].
+2) Traverse arr2[] and search for each element of arr2[] in the Hash Table.  If element is not found then return 0.
+3) If all elements are found then return 1.Note that method 1, method 2 and method 4 don’t handle the cases when we have duplicates in arr2[].  For example, {1, 4, 4, 2} is not a subset of {1, 4, 2}, but these methods will print it as a subset. Source: http://geeksforgeeks.org/forum/topic/if-an-array-is-subset-of-anotherPlease write comments if you find the above codes/algorithms incorrect, or find other ways to solve the same problem.

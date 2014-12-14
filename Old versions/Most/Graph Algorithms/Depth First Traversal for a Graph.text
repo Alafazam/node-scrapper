@@ -1,0 +1,4 @@
+
+					Depth First Traversal (or Search) for a graph is similar to Depth First Traversal of a tree.  The only catch here is, unlike trees, graphs may contain cycles, so we may come to the same node again. To avoid processing a node more than once, we use a boolean visited array. 
+For example, in the following graph, we start traversal from vertex 2. When we>DO(n^2)Discuss itQuestion 13 Explanation:  The best possible time complexity is O(Logn).  See Program for nth Fibonacci number
+

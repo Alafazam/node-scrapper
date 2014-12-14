@@ -1,0 +1,115 @@
+
+					Write a C program to find the smallest of three integers, without using any of the comparison operators. 
+Let 3 input numbers be x, y and z.
+Method 1 (Repeated Subtraction)
+Take a counter variable c and initialize it with 0.  In a loop, repeatedly subtract x, y and z by 1 and increment c.  The number which becomes 0 first is the smallest.  After the loop terminates, c will hold the minimum of 3.
+
+#include<stdio.h>
+
+int smallest(int x, int y, int z)
+{
+  int c = 0;
+  while ( x && y && z )
+  {
+      x--;  y--; z--; c++;
+  }
+  return c;
+}
+
+int main()
+{
+   int x = 12, y = 15, z = 5;
+   printf("Minimum of 3 numbers is %d", smallest(x, y, z));
+   return 0;
+}
+
+This methid doesn’t work for negative numbers.  Method 2 works for negative nnumbers also.
+
+Method 2 (Use Bit Operations)
+Use method 2 of  this post to find minimum of two numbers (We can’t use Method 1 as Method 1 uses comparison operator).  Once we have functionality to find minimum of 2 numbers, we can use this to find minimum of 3 numbers.
+
+// See mthod 2 of http://www.geeksforgeeks.org/archives/2643
+#include<stdio.h>
+#define CHAR_BIT 8
+
+/*Function to find minimum of x and y*/
+int min(int x, int y)
+{
+  return  y + ((x - y) & ((x - y) >>
+            (sizeof(int) * CHAR_BIT - 1)));
+}
+
+/* Function to find minimum of 3 numbers x, y and z*/
+int smallest(int x, int y, int z)
+{
+    return min(x, min(y, z));
+}
+
+int main()
+{
+   int x = 12, y = 15, z = 5;
+   printf("Minimum of 3 numbers is %d", smallest(x, y, z));
+   return 0;
+}
+
+Method 3 (Use Division operator)
+We can also use division operator to find minimum of two numbers.  If value of (a/b) is zero, then b is greater than a, else a is greater. Thanks to gopinath and Vignesh for suggesting this method.
+
+#include <stdio.h>
+
+// Using division operator to find minimum of three numbers
+int smallest(int x, int y, int z)
+{
+    if (!(y/x))  // Same as "if (y < x)"
+        return (!(y/z))? y : z;
+    return (!(x/z))? x : z;
+}
+
+int main()
+{
+    int x = 78, y = 88, z = 68;
+    printf("Minimum of 3 numbers is %d", smallest(x, y, z));
+    return 0;
+}
+
+
+Please write comments if you find the above codes/algorithms incorrect, or find other ways to solve the same problem.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related mtq_clickable'>C12D2Discuss itQuestion 1 Explanation:  Note that 9 is the only element with odd occurrences, all other elements have even occurrences.
+
+If the input array has all elements with even occurrences except one, then the function returns the only element with odd occurrences.  Note that XORing an element with itself results 0 and XOR of 0 with a number x is equal to x.
+
+Try following complete program.
+
+# include <iostream>
+using namespace std;
+
+int fun(int arr[], int n)
+{
+    int x = arr[0];
+    for (int i = 1; i < n; i++)
+        x = x ^ arr[i];
+    return x;
+}
+
+int main()
+{
+  int arr[] = {9, 12, 2, 11, 10, 9, 12, 10, 9, 11, 2};
+  int n = sizeof(arr)/sizeof(arr[0]);
+  cout << fun(arr, n) << endl;
+  return 0;
+}

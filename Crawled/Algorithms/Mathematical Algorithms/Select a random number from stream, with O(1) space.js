@@ -1,0 +1,6 @@
+Given a number n, print all primes smaller than or equal to n. It is also given that n is a small number.
+For example, if n is 10, the output should be “2, 3, 5, 7″.  If n is 20, the output should be “2, 3, 5, 7, 11, 13, 17, 19″.The sieve of Eratosthenes is one of the most efficient ways to find all primes smaller than n when n is smaller than 10 million or so (Ref Wiki).Following is the algorithm to find all the prime numbers less than or equal to a given integer n by Eratosthenes’ method:When the algorithm terminates, all the numbers in the list that are not marked are prime.Following is C++ implementation of the above algorithm. In the following implementation,  a boolean array arr[] of size n is used to mark multiples of prime numbers.Output:
+Following are the prime numbers below 30
+2 3 5 7 11 13 17 19 23 29
+References:
+http://en.wikipedia.org/wiki/Sieve_of_EratosthenesThis article is compiled by Abhinav Priyadarshi and reviewed by GeeksforGeeks team. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed aboveTags: MathematicalAlgo

@@ -1,0 +1,71 @@
+
+					Given a integer x, write a function that multiplies x with 3.5 and returns the integer result.  You are not allowed to use %, /, *. 
+Examples:
+Input: 2
+Output: 7
+Input: 5
+Output: 17 (Ignore the digits after decimal point)
+Solution:
+1. We can get x*3.5 by adding 2*x, x and x/2.  To calculate 2*x, left shift x by 1 and to calculate x/2, right shift x by 2. 
+
+#include <stdio.h>
+
+int multiplyWith3Point5(int x)
+{
+  return (x<<1) + x + (x>>1);
+}    
+
+/* Driver program to test above functions*/
+int main()
+{
+  int x = 4; 
+  printf("%d", multiplyWith3Point5(x));
+  getchar();
+  return 0;
+}
+
+
+2. Another way of doing this could be (8*x – x)/2 (See below code). Thanks to ajaym  for suggesting this.
+
+#include <stdio.h>
+int multiplyWith3Point5(int x)
+{
+  return ((x<<3) - x)>>1;
+}    
+
+Please write comments if you find the above code/algorithm incorrect, or find better ways to solve the same problem
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+ 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

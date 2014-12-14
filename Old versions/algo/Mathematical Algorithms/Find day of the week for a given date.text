@@ -1,0 +1,63 @@
+
+					Write a function that calculates the day of the week for any particular date in the past or future. A typical application is to calculate the day of the week on which someone was born or some other special event occurred. 
+Following is a simple C function suggested by Sakamoto, Lachman, Keith and Craver to calculate day. The following function returns 0 for Sunday, 1 for Monday, etc.
+
+/* A program to find day of a given date */
+#include<stdio.h>
+
+int dayofweek(int d, int m, int y)
+{
+    static int t[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
+    y -= m < 3;
+    return ( y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;
+}
+
+/* Driver function to test above function */
+int main()
+{
+    int day = dayofweek(30, 8, 2010);
+    printf ("%d", day);
+
+    return 0;
+}
+
+Output: 1 (Monday)
+See this for explanation of the above function.
+References:
+http://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week
+This article is compiled by Dheeraj Jain and reviewed by GeeksforGeeks team. Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Job Sequencing Problem | Set 1 (Greedy Algorithm)Multiply two polynomialsAlgorithm Practice Question for Beginners | Set 1Count Distinct Non-Negative Integer Pairs (x, y) that Satisfy the Inequality x*x + y*y < nBinomial HeapPrint all increasing sequences of length k from first n natural numbersFind n’th number in a number system with only 3 and 4Minimum Cost Polygon Triangulation
+Tags: MathematicalAlgo 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				

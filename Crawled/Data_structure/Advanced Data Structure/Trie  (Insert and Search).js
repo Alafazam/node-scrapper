@@ -1,0 +1,10 @@
+In a flow network, an s-t cut is a cut that requires the source ‘s’ and the sink ‘t’ to be in different subsets, and it consists of edges going from the source’s side to the sink’s side. The capacity of an s-t cut is defined by the sum of capacity of each edge in the cut-set. (Source: Wiki)
+The problem discussed here is to find minimum capacity s-t cut of the given network. Expected output is all edges of the minimum cut.For example, in the following flow network, example s-t cuts are {{0 ,1}, {0, 2}}, {{0, 2}, {1, 2}, {1, 3}}, etc.  The minimum s-t cut is {{1, 3}, {4, 3}, {4 5}} which has capacity as 12+7+4  = 23.We strongly recommend to read the below post first.
+Ford-Fulkerson Algorithm for Maximum Flow ProblemMinimum Cut and Maximum Flow
+Like Maximum Bipartite Matching, this is another problem which can solved using Ford-Fulkerson Algorithm. This is based on max-flow min-cut theorem.The max-flow min-cut theorem states that in a flow network, the amount of maximum flow is equal to capacity of the minimum cut.  See CLRS book for proof of this theorem.From Ford-Fulkerson, we get capacity of minimum cut.  How to print all edges that form the minimum cut?  The idea is to use residual graph. Following are steps to print all edges of minimum cut.1) Run Ford-Fulkerson algorithm and consider the final residual graph.2) Find the set of vertices that are reachable from source in the residual graph. 3) All edges which are from a reachable vertex to non-reachable vertex are minimum cut edges. Print all such edges.Following is C++ implementation of the above approach.Output:
+1 - 3
+4 - 3
+4 - 5
+References:
+http://www.stanford.edu/class/cs97si/08-network-flow-problems.pdf
+http://www.cs.princeton.edu/courses/archive/spring06/cos226/lectures/maxflow.pdfPlease write comments if you find anything incorrect, or you want to share more information about the topic discussed aboveTags: Graph

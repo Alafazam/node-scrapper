@@ -1,0 +1,110 @@
+
+					We can multiply a number by 7 using bitwise operator.  First left shift the number by 3 bits (you will get 8n) then subtract the original numberfrom the shifted number and return the difference (8n – n).
+
+
+Program:
+
+# include<stdio.h>
+
+int multiplyBySeven(unsigned int n)
+{  
+    /* Note the inner bracket here. This is needed 
+       because precedence of '-' operator is higher 
+       than '<<' */
+    return ((n<<3) - n);
+}
+
+/* Driver program to test above function */
+int main()
+{
+    unsigned int n = 4;
+    printf("%u", multiplyBySeven(n));
+
+    getchar();
+    return 0;
+}
+
+Time Complexity: O(1)
+Space Complexity: O(1)
+Note: Works only for positive integers.
+Same concept can be used for fast multiplication by 9 or other numbers.
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Bit Magic, MathematicalAlgo 
+
+ 
+    You have completed     
+    questions     
+    question     
+    Your score is     
+    Correct     
+    Wrong     
+    Partial-Credit     
+    You have not finished your quiz. If you leave this page, your progress will be lost.     
+    Correct Answer     
+    You Selected     
+    Not Attempted     
+    Final Score on Quiz     
+    Attempted Questions Correct     
+    Attempted Questions Wrong     
+    Questions Not Attempted     
+    Total Questions on Quiz     
+    Question Details     
+    Results     
+    Date     
+    Score     
+    Hint    
+    Time allowed
+minutes
+seconds
+Time used
+Answer Choice(s) Selected
+Question Text
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    All doneNeed more practice!Keep trying!Not bad!Good work!Perfect!    
+    
+    
+    
+
+  
+  
+   
+   

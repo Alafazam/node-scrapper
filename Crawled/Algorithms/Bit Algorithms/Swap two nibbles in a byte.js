@@ -1,0 +1,7 @@
+Write an efficient program to count number of 1s in binary representation of an integer.
+
+1. Simple Method Loop through all bits in an integer, check if a bit is set and if it is then increment the set bit count.  See below program.Time Complexity:  (-)(logn) (Theta of logn)2. Brian Kernighan’s Algorithm:
+Subtraction of 1 from a number toggles all the bits (from right to left) till the rightmost set bit(including the righmost set bit).  So if we subtract a number by 1 and do bitwise & with itself (n & (n-1)), we unset the righmost set bit.  If we do n & (n-1) in a loop and count the no of times loop executes we get the set bit count.
+Beauty of the this solution is number of times it loops is equal to the number of set bits in a given integer.Implementation of Brian Kernighan’s Algorithm:Example for Brian Kernighan’s Algorithm: Time Complexity:  O(logn)3. Using Lookup table:   We can count bits in O(1) time using lookup table. Please see http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetTable for details.You can find one use of counting set bits at http://geeksforgeeks.org/?p=1465
+References:
+http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetNaiveTags: Bit Magic, setBitCount

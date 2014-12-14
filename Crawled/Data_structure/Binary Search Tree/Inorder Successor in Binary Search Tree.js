@@ -1,0 +1,16 @@
+Serialization is to store tree in a file so that it can be later restored.  The structure of tree must be maintained.  Deserialization is reading tree back from file.Following are some simpler versions of the problem:If given Tree is Binary Search Tree?
+If the given Binary Tree is Binary Search Tree, we can store it by either storing preorder or postorder traversal. In case of Binary Search Trees, only preorder or postorder traversal is sufficient to store structure information.  If given Binary Tree is Complete Tree?
+A Binary Tree is complete if all levels are completely filled except possibly the last level and all nodes of last level are as left as possible (Binary Heaps are complete Binary Tree).  For a complete Binary Tree, level order traversal is sufficient to store the tree. We know that the first node is root, next two nodes are nodes of next level, next four nodes are nodes of 2nd level and so on. If given Binary Tree is Full Tree?
+A full Binary is a Binary Tree where every node has either 0 or 2 children. It is easy to serialize such trees as every internal node has 2 children.  We can simply store preorder traversal and store a bit with every node to indicate whether the node is an internal node or a leaf node.How to store a general Binary Tree?
+A simple solution is to store both Inorder and Preorder traversals.  This solution requires requires space twice the size of Binary Tree.
+We can save space by storing Preorder traversal and a marker for NULL pointers. Deserialization can be done by simply reading data from file one by one.  Following is C++ implementation of the above idea.Output:
+Inorder Traversal of the tree constructed from file:
+4 8 10 12 14 20 22
+How much extra space is required in above solution?
+If there are n keys, then the above solution requires n+1 markers which may be better than simple solution (storing keys twice) in situations where keys are big or keys have big data items associated with them.Can we optimize it further?
+The above solution can be optimized in many ways. If we take a closer look at above serialized trees, we can observer that all leaf nodes require two markers. One simple optimization is to store a separate bit with every node to indicate that the node is internal or external.  This way we don’t have to store two markers with every leaf node as leaves can be identified by extra bit. We still need marker for internal nodes with one child.  For example in the following diagram ‘ is used to indicate an internal node set bit, and ‘/’ is used as NULL marker.  The diagram is taken from here.
+
+Please note that there are always more leaf nodes than internal nodes in a Binary Tree (Number of leaf nodes is number of internal nodes plus 1, so this optimization makes sense.How to serialize n-ary tree?
+In an n-ary tree, there is no designated left or right child.  We can store an ‘end of children’ marker with every node.  The following diagram shows serialization where ‘)’ is used as end of children marker.  We will soon be covering implementation for n-ary tree. The diagram is taken from here.
+References:
+http://www.cs.usfca.edu/~brooks/S04classes/cs245/lectures/lecture11.pdfThis article is contributed by Shivam Gupta, Please write comments if you find anything incorrect, or you want to share more information about the topic discussed above

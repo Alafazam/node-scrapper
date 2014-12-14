@@ -1,0 +1,43 @@
+
+					Given a text txt[0..n-1] and a pattern pat[0..m-1], write a function search(char pat[], char txt[]) that prints all occurrences of pat[] in txt[]. You may assume that n > m.
+Examples:
+1) Input:
+
+  txt[] =  "THIS IS A TEST TEXT"
+  pat[] = "TEST"
+Output:
+Pattern found at index 10
+2) Input:
+  txt[] =  "AABAACAADAABAAABAA"
+  pat[] = "AABA"
+
+Output:
+
+   Pattern found at index 0
+   Pattern found at index 9
+   Pattern found at index 13
+
+Pattern searching is an important problem in computer science. When we do search for a string in notepad/word file or browser or database, pattern searching algorithms are used to show the search results. 
+We have discussed the following algorithms in the previous posts:
+Naive Algorithm 
+KMP Algorithm
+Rabin Karp Algorithm
+In this post, we will discuss Finite Automata (FA) based pattern searching algorithm. In FA based algorithm, we preprocess the pattern and build a 2D array that represents a Finite Automata. Construction of the FA is the main tricky part of this algorithm. Once the FA is built, the searching is simple. In search, we simply need to start from the first state of the automata and first character of the text.  At every step, we consider next character of text, look for the next state in the built FA and move to new state.  If we reach final state, then pattern is found in text. Time complexity of the search prcess is O(n).
+Before we discuss FA construction, let us take a look at the following FA for pattern ACACAGA.
+
+
+The abvoe diagrams represent graphical and tabular representations of pattern ACACAGA.
+Number of states in FA will be M+1 where M is length of the pattern. The main thing to construct FA is to get the next state from the current state for every possible character. Given a character x and a state k, we can get the next state by considering the string “pat[0..k-1]x” which is basically concatenation of pattern characters pat[0], pat[1] … pat[k-1] and the character x. The idea is to get length of the longest prefix of the given pattern such that the prefix is also suffix of “pat[0..k-1]x”. The value of length gives us the next state. For example, let us see how to get the next state from current state 5 and character ‘C’ in the above diagram. We need to consiid='mtq_question_text-16-1' class='mtq_question_text'>Consider the following C function:
+
+int f(int n)
+{
+   static int i = 1;
+   if (n >= 5)
+      return n;
+   n = n+i;
+   i++;
+   return f(n);
+}
+
+
+The value returned by f(1) is 

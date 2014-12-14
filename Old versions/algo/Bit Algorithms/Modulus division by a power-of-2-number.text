@@ -1,0 +1,65 @@
+
+					Compute n modulo d without division(/) and modulo(%) operators, where d is a power of 2 number. 
+Let ith bit from right is set in d. For getting n modulus d, we just need to return 0 to i-1 (from right) bits of n as they are and other bits as 0.
+For example if n = 6 (00..110) and d = 4(00..100).  Last set bit in d is at position 3 (from right side). So we need to return last two bits of n as they are and other bits as 0, i.e., 00..010. 
+Now doing it is so easy, guess it….
+Yes, you have guessing it right. See the below program.
+
+#include<stdio.h>
+
+/* This function will return n % d.
+   d must be one of: 1, 2, 4, 8, 16, 32, … */
+unsigned int getModulo(unsigned int n, unsigned int d)
+{
+  return ( n & (d-1) );
+}         
+
+/* Driver program to test above function */
+int main()
+{
+  unsigned int n = 6;
+  unsigned int d = 4; /*d must be a power of 2*/
+  printf("%u moduo %u is %u", n, d, getModulo(n, d));
+
+  getchar();
+  return 0;
+}     
+
+References:
+http://graphics.stanford.edu/~seander/bithacks.html#ModulusDivisionEasy
+Please write comments if you find any bug in the above program/algorithm or other ways to solve the same problem. 
+		
+ 
+ 
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+
+
+ 
+ 
+ 
+Related Topics:Check if binary representation of a number is palindromeSwap two nibbles in a byteHow to turn off a particular bit in a number?Check if a number is multiple of 9 using bitwise operatorsHow to swap two numbers without using a temporary variable?Divide and Conquer | Set 4 (Karatsuba algorithm for fast multiplication)Find position of the only set bitSwap all odd and even bits
+Tags: Bit Magic 
+
+
+Tweet
+
+
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+
+
+
+
+
+				
