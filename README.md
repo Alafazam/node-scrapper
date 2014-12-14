@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 node-scrapper
 =============
+>>>>>>> 5b6cc7526a37f3e0a915002ffc6700637d132d2f
 Current Goal
 ------
 It has served its purpose, I am no longer working on it !
@@ -28,8 +31,9 @@ How to use it
  * Its easy to use and modify
 
 How i used it
-I used to grab Algorithms and data-structure sections from geeksforgeeks
-its and amazing website
+
+*I used to grab Algorithms and data-structure sections from geeksforgeeks
+(its an amazing website).
 I would like to thank the owners of node-crawler they inspired me to make this 
 
 
@@ -38,6 +42,6 @@ I would like to thank the owners of node-crawler they inspired me to make this
 
 What it can do
 
-* save entire text from a web page
-* save only selected text from a web paged
-* dig deeper and save more text
+* Save entire text from a web page
+* Save only selected text from a web page
+* Dig deeper and save more text
